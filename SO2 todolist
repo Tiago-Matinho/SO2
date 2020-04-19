@@ -1,0 +1,44 @@
+SO2 todolist
+
+Todos os pedidos serão respondidos com um ack.
+De cada vez que é registada uma necessidade, a aplicação do
+utilizador deve receber um código de registo único.
+
+---------------------------------------------------------------------
+
+
+Cliente:
+- Username.
+
+
+---------------------------------------------------------------------
+
+
+Servidor:
+- Tabela com os stocks,
+- Tabela com os pedidos feitos por cada utilizador,
+- Binder com os utilizadores. (?)
+
+
+---------------------------------------------------------------------
+
+CLIENTE -> SERVIDOR
+
+Listar stock loja X:
+	- String list_stock(Loja X);
+
+Listar produtos criticos e quantas pessoas precisam:
+	- String list_all_needs();
+
+Listar quantas pessoas precisam de um determinado produto:
+	- String list_need(Produto X);
+
+Notificar a existência de um produto na loja Y:
+	- Bool notify_product(Produto X, Loja Y);
+
+Requisitar produto X:
+(Volta a ser notificado quando o produto é encontrado)
+	- ? request_product(Produto X);
+
+---------------------------------------------------------------------
+
