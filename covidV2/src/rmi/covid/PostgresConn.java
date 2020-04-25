@@ -13,6 +13,7 @@ public interface PostgresConn extends java.rmi.Remote {
     public boolean login(String userName) throws java.rmi.RemoteException;
     public Vector<Stock> listarStock() throws java.rmi.RemoteException;
     public Vector<Stock> listarStock(String nomeLoja) throws java.rmi.RemoteException;
+    public Vector<Stock> listarLojas(String nomeProd) throws java.rmi.RemoteException;
     public Vector<Produto> listarProd() throws java.rmi.RemoteException;
     public Vector<Produto> listarProdNec() throws java.rmi.RemoteException;
     public String reqProd(String userName, String nomeProd) throws java.rmi.RemoteException;

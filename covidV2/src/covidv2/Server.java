@@ -16,7 +16,7 @@ public class Server {
         String host, db, user, pw;
 
 	if (args.length != 6) { // obrigar 'a presenca de um argumento
-	    System.out.println("Args: Registry port, Subscribe port, Database host,"
+	    System.out.println("Args: Registry port, Subscribe port, Database host, "
                     + "Database name, Database user, Database password");
 	    System.exit(1);
 	}

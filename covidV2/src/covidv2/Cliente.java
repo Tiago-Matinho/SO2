@@ -42,6 +42,7 @@ public class Cliente {
                     String message = id + "\n";
                     socketOut.write( message.getBytes() );
                     socketOut.flush();
+                    System.err.println("Enviado novo id");
                 }
                 catch (Exception e) {
                     System.err.println("ERRO: ao enviar o pedido");
@@ -102,7 +103,6 @@ public class Cliente {
         this.porta = porta;
         this.regHost = regHost;
         this.regPort = regPort;
-        this.requisitos = new Vector<>();
         
         try {
             this.dbConn =
@@ -138,10 +138,10 @@ public class Cliente {
                         userName = sc.nextLine();
                         System.out.println();
                         if(dbConn.registar(userName)) {
-                            System.out.println("Nome de utilizador: " + userName
+                            System.out.println("Nome de utilizador " + userName
                                     + " registado com sucesso");
                             dbConn.login(userName);
-                            System.out.println("\nBem vindo");
+                            System.out.println("\nBem vindo\n");
                             return;
                         }
                         System.out.println("Utilizador já existente");
@@ -153,10 +153,10 @@ public class Cliente {
                         userName = sc.nextLine();
                         System.out.println();
                         if(dbConn.login(userName)) {
-                            System.out.println("\nBem vindo");
+                            System.out.println("\nBem vindo\n");
                             return;
                         }
-                        System.out.println("Utilizador não existente");
+                        System.out.println("Utilizador não existente\n");
                         break;
 
                     default:
@@ -181,6 +181,9 @@ public class Cliente {
             
             if(obj instanceof Registo) {
                 Registo ultimo = (Registo) obj;
+                
+                if(ultimo.getTipoPedido() == 6)
+                    return;
                 
                 // O ultimo pedido foi respondido
                 if(ultimo.getResposta()) {
@@ -292,19 +295,71 @@ public class Cliente {
             }
         }
         catch(Exception e) {
-            System.err.println("Erro a ler registo");
+            System.err.println("\n--- Sem pedidos ou respostas da última sessão ---\n");
             //e.printStackTrace();
         }
     }
     
+    public void ultimoRequisitos() {
+        try {
+            ObjFile of = new ObjFile("Requisitos_" + userName);
+            Object obj = of.le();
+            
+            
+            if(obj instanceof Requisito) {
+                Requisito req = (Requisito) obj;
+                
+                Requisito update;
+                ClienteSub novo;
+                String id;
+                
+                Vector<Stock> pesquisa;
+                
+                requisitos = req.getVID();
+                
+                for(int i = 0; i < requisitos.size(); i++ ) {
+                    //verificar se já foi respondido
+                    id = requisitos.get(i);
+                    pesquisa = dbConn.listarLojas(id.substring(userName.length()));
+                    
+                    // ainda nao foi respondido
+                    if(pesquisa.isEmpty()) {
+                        novo = new ClienteSub(host, porta, requisitos.get(i));
+                        novo.start();
+                    }
+                    else {
+                        System.out.println("\n+ Pedido com ID: " + id + " foi respondido enquanto estava ofline +\n");
+                        System.out.println("Nome da Loja\tNome do Produto\n"
+                            + "-----------------------------------");
+        
+                        for(int j = 0; j < pesquisa.size(); j++)
+                            System.out.println(pesquisa.get(j).toString());
+                        
+                        System.out.println("\n");
+                        
+                        // remove pq foi respondido
+                        requisitos.remove(i);
+                        update = new Requisito(requisitos, userName);
+                        update.guardar();
+                        
+                    }
+                }
+            }   
+        }
+        catch(Exception e) {
+            System.err.println("\n--- Sem requisitos da ultima da sessão ---\n");
+            this.requisitos = new Vector<String>();
+        }
+    }
+    
     public void simula() throws InterruptedException {
-        System.out.print(".");
+        System.out.print("\nfetching");
         Thread.sleep(500);
         System.out.print(".");
         Thread.sleep(500);
         System.out.print(".");
         Thread.sleep(500);
-        System.out.println(".");
+        System.out.println(".\n");
         Thread.sleep(500);
     }
     
@@ -320,8 +375,10 @@ public class Cliente {
                     + "2 - Listar stock de uma loja\n"
                     + "3 - Listar produtos necessários\n"
                     + "4 - Requisitar produto\n"
-                    + "5 - Reportar produto\n");
+                    + "5 - Reportar produto\n"
+                    + "6 - Sair\n");
             
+            System.out.print("-> ");
             escolha = sc.nextInt();
             sc.nextLine();
             System.out.println();
@@ -378,8 +435,12 @@ public class Cliente {
                     
                     reportarProd(nomeProduto, nomeLoja);
                     break;
+                case 6:
+                    registo = new Registo(escolha, userName);
+                    registo.guardar();
+                    return;
                 default:
-                    System.out.println("Escolha não válida");
+                    System.out.println("Escolha não válida\n");
                     break;
             }
         }
@@ -471,7 +532,9 @@ public class Cliente {
                 
                 requisitos.add(id);
                 
-                // TODO requisitos guardar
+                Requisito update = new Requisito(requisitos, userName);
+                
+                update.guardar();
                 
                 System.out.println("Produto requisitado com id:" + id);
                 
@@ -528,6 +591,8 @@ public class Cliente {
         
         cliente.login();
         
+        cliente.ultimoRequisitos();
+        
         cliente.ultimaSessao();
         
         try {
@@ -536,6 +601,8 @@ public class Cliente {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        System.out.println("\nAdeus");
+        System.exit(0);
         
     }
 }

@@ -29,6 +29,6 @@ public class Produto implements java.io.Serializable {
     
     @Override
     public String toString() {
-        return this.nomeProd +" " + this.procura;
+        return this.nomeProd +"\t" + this.procura;
     }
 }

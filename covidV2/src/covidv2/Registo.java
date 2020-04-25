@@ -3,6 +3,10 @@ package covidv2;
 import java.util.Vector;
 import so2.ObjFile;
 
+/**
+ *
+ * @author Tiago Martinho, João Marques
+ */
 public class Registo implements java.io.Serializable {
     private String userName;
     private boolean resposta;
@@ -16,7 +20,13 @@ public class Registo implements java.io.Serializable {
     
     private String nomeLoja, nomeProduto;
     
+    // gracefull exit
+    public Registo(int tipoPedido, String userName) {
+        this.tipoPedido = tipoPedido;
+        this.userName = userName;
+    }
     
+    // registo de pedido
     public Registo(String userName, int tipoPedido,
             Vector<Stock> vStock, Vector<Produto> vProduto, String id, boolean resultado) {
         this.userName = userName;
@@ -28,6 +38,7 @@ public class Registo implements java.io.Serializable {
         this.resultado = resultado;
     }
     
+    // registo de resposta
     public Registo(String userName, int tipoPedido, String nomeLoja, String nomeProduto) {
         this.userName = userName;
         this.resposta = false;
@@ -35,6 +46,8 @@ public class Registo implements java.io.Serializable {
         this.nomeLoja = nomeLoja;
         this.nomeProduto = nomeProduto;
     }
+    
+    /***************************************************************************/
     
     public String getUserName() {
         return this.userName;
@@ -73,16 +86,14 @@ public class Registo implements java.io.Serializable {
     }
     
     
-    public boolean guardar() {
+    public void guardar() {
         
         try {
-            ObjFile of = new ObjFile("Registo_" + this.userName);
+            ObjFile of = new ObjFile("Registo_" + userName);
             of.escreve(this);
-            return true;
         }
         catch(Exception e) {
-            System.err.println("Erro a gravar registo...");
+            System.err.println("\n- Erro a escrever último registo feito pelo utilizador: " + userName + "...\n");
         }
-        return false;
     }
 }

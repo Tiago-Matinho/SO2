@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package covidv2;
 
 /**
  *
- * @author rute
+ * @author Tiago Martinho, João Marques
  */
 public class Stock implements java.io.Serializable {
     private String nomeLoja;
@@ -30,6 +25,6 @@ public class Stock implements java.io.Serializable {
     
     @Override
     public String toString() {
-        return this.nomeLoja + " " + this.produto.getNomeProduto();
+        return this.nomeLoja + "\t" + this.produto.getNomeProduto();
     }
 }

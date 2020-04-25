@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/rmi/covid/PostgresConn.java</file>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Produto.java</file>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Requisito.java</file>
             <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Cliente.java</file>
             <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Server.java</file>
-            <file>file:/home/rute/NetBeansProjects/covidV2/src/rmi/covid/PostgresConnImpl.java</file>
             <file>file:/home/rute/NetBeansProjects/covidV2/src/server/conc/ServidorConc.java</file>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/rmi/covid/PostgresConnImpl.java</file>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Stock.java</file>
+            <file>file:/home/rute/NetBeansProjects/covidV2/src/covidv2/Registo.java</file>
         </group>
     </open-files>
 </project-private>

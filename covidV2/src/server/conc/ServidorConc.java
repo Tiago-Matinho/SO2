@@ -67,6 +67,8 @@ public class ServidorConc extends Thread {
             
             String id = breader.readLine();
             
+            System.err.println("+ recebeu ID");
+            
             // o cliente tinha ido a baixo e ligou-se com outra porta
             if(map.containsKey(id))
                 map.replace(id, data);
@@ -99,6 +101,8 @@ public class ServidorConc extends Thread {
         try {
             DataOutputStream sout = new DataOutputStream(data.getOutputStream());
             sout.writeUTF(mensagem);
+            System.err.println("Enviada mensagem: " + mensagem);
+            map.remove(id);
         }
         catch (Exception e) {
            e.printStackTrace();

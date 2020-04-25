@@ -1,10 +1,10 @@
 package rmi.covid;
 
 import covidv2.*;
-import java.rmi.server.UnicastRemoteObject;
-import java.sql.*;
-import java.util.Vector;
 import server.conc.*;
+import java.sql.*;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Vector;
 
 /**
  *
@@ -26,9 +26,10 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
         PG_DB= db;
         USER=user;
         PWD= pw;
-        // inicia servidor concorrente para enviar subs
+        
+        // inicia servidor concorrente para enviar satisfazer subscricoes
         subs = new ServidorConc(porta);
-        subs.start();
+        subs.start();   //comeca noutro thread
     }
 
     /*************************************************************************/
@@ -43,16 +44,18 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
             return true;
 
         } catch (Exception e) {
-            // e.printStackTrace();
-            System.err.println("Problems setting the connection");
+            e.printStackTrace();
+            System.err.println("\nErro a establecer ligação...\n");
             return false;
         }
     }
 
     public boolean registar(String userName) throws java.rmi.RemoteException {
+        // query1 -> verifica se ja existe um utilizador com esse username
         String query1 = "SELECT exists(SELECT 1 FROM Utilizador"
                 + " WHERE username = '" + userName + "')";
         
+        //query2 -> adiciona o username na BD
         String query2 = "INSERT INTO Utilizador VALUES('" + userName + "')";
        
         try {
@@ -73,12 +76,13 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
         
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erro a registar username: " + userName + "...");
+            System.out.println("\nErro a registar username: " + userName + "...\n");
             return false;
         }
     }
     
     public boolean login(String userName) throws java.rmi.RemoteException {
+        //query1 -> procura na BD um utilizador com este username
         String query1 = "SELECT exists(SELECT 1 FROM Utilizador"
                 + " WHERE username = '" + userName + "')";
         
@@ -95,8 +99,8 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
         }
         
         catch (Exception e) {
-            // e.printStackTrace();
-            System.out.println("Erro a registar username: " + userName + "...");
+            e.printStackTrace();
+            System.out.println("\nErro a fazer login com username: " + userName + "...\n");
         }
         
         return false;
@@ -104,6 +108,8 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
     
     public Vector<Stock> listarStock() throws java.rmi.RemoteException {
        Vector<Stock> ret = new Vector<Stock>();
+       
+       // query1 -> retorna todas as lojas e produtos que ja foram reportados
        String query1 = "SELECT nome_loja"
                         + ", nome_produto"
                         + " FROM Stock"
@@ -121,14 +127,15 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
            rs.close();
        }
        catch(Exception e){
-           System.out.println("Erro a listar stocks...");
            e.printStackTrace();
+           System.out.println("\nErro a listar stocks...\n");
        }
        return ret;
     }
     
     public Vector<Stock> listarStock(String nomeLoja) throws java.rmi.RemoteException {
-        Vector<Stock> ret = new Vector<Stock>();
+       Vector<Stock> ret = new Vector<Stock>();
+       //query1 -> procura a loja e retorna a loja e os produtos que foram reportados
        String query1 = "SELECT nome_loja"
                         + ", nome_produto"
                         + " FROM Stock"
@@ -146,8 +153,34 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
            rs.close();
        }
        catch(Exception e){
-           System.out.println("Erro a listar stocks...");
            e.printStackTrace();
+           System.out.println("\nErro a listar stocks da loja: " + nomeLoja + "...\n");
+       }
+       return ret;
+    }
+    
+    public Vector<Stock> listarLojas(String nomeProd) throws java.rmi.RemoteException {
+        Vector<Stock> ret = new Vector<Stock>();
+       //query1 -> procura em que lojas o produto ja foi reportados
+       String query1 = "SELECT nome_loja"
+                        + ", nome_produto"
+                        + " FROM Stock"
+                        + " WHERE nome_produto = '" + nomeProd + "'";
+       Stock curr;
+       
+       try {
+           ResultSet rs = stmt.executeQuery(query1);
+           
+           while(rs.next()){
+               curr = new Stock(rs.getString("nome_loja"), rs.getString("nome_produto"));
+               ret.add(curr);
+           }
+           
+           rs.close();
+       }
+       catch(Exception e){
+           e.printStackTrace();
+           System.out.println("\nErro a listar lojas com o produto " + nomeProd + "...\n");
        }
        return ret;
     }
@@ -329,7 +362,7 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
             // Este produto é requisitado por um ou mais utilizadores
             while(rs.next()) {
                 id = rs.getString("id");
-                if(subs.enviar(id, "\n---" + nomeProd + " foi encontrado na loja: " + nomeLoja)) {
+                if(subs.enviar(id, "\n--> " + nomeProd + " foi encontrado na loja: " + nomeLoja + "\n")) {
                     System.out.println("Pedido: " + id + " satisfeito");
                     removerReq = "DELETE FROM Requisitos WHERE id = '" + id + "'";
                     satisfeitos.add(removerReq);
