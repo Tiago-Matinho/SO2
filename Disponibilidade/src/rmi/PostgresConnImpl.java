@@ -220,18 +220,21 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
                     + " FROM Stock"
                     + " WHERE nome_produto = '" + nomeProd + "')";
  
-        //query2 -> procura se o produto requisitado já se encontra em stock
+        //query2 -> procura se o utilizador ja fez o requisito desse produto
         String query2 = "SELECT exists(SELECT 1"
                     + " FROM Requisitos"
                     + " WHERE username = '" + userName + "'"
                     + " AND nome_produto = '" + nomeProd + "')";
-    
+        
+        // query3 -> procura se o produto ja se encontra no sistema
         String query3 = "SELECT exists(SELECT 1"
                     + " FROM Produto"
                     + " WHERE nome_produto = '" + nomeProd + "')";
 
+        //query4 -> insere o produto no sistema
         String query4 = "INSERT INTO Produto VALUES('" + nomeProd + "')";
 
+        //query5 -> cria o novo requisito
         String query5 = "INSERT INTO Requisitos VALUES('" + userName+nomeProd + "', '"
                     + userName + "', '" + nomeProd + "')";
        
@@ -276,9 +279,9 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
         }
 
         catch(Exception e){
-            // e.printStackTrace();
-            System.out.println("Erro a inserir pedido de: " + nomeProd
-                    + "feito por: " + userName + "...");
+            e.printStackTrace();
+            System.out.println("\nErro a inserir pedido de: " + nomeProd
+                    + "feito por: " + userName + "...\n");
         }
         
         // adiciona o pedido ao servidor concorrente de subscricoes
@@ -288,21 +291,26 @@ public class PostgresConnImpl extends UnicastRemoteObject implements PostgresCon
     }
     
     public boolean repProd(String nomeProd, String nomeLoja) throws java.rmi.RemoteException {
+        //query1 -> procura se o que se pretende adicionar ja foi adicionado antes
         String query1 = "SELECT exists(SELECT 1"
                     + " FROM Stock"
                     + " WHERE nome_produto ='" + nomeProd + "'"
                     + " AND nome_loja ='" + nomeLoja + "')";   
         
+        //query 2 -> procura os ids dos pedidos feitos pelo produto encontrado
         String query2 = "SELECT id"
                     + " FROM Requisitos"
                     + " WHERE nome_produto ='" + nomeProd + "'"; 
        
+        //query3 -> procura se o produto ja se encontra no sistema
         String query3 = "SELECT exists(SELECT 1"
                     + " FROM Produto"
                     + " WHERE nome_produto ='" + nomeProd + "')";
        
+        //query4 -> insere o produto no sistema
         String query4 = "INSERT INTO Produto VALUES('" + nomeProd + "')";
 
+        //query5 -> insere os dados no sistema
         String query5 = "INSERT INTO Stock VALUES('" + nomeLoja
                     + "', '" + nomeProd + "')";
         

@@ -2,7 +2,7 @@ package disponibilidade;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class Stock implements java.io.Serializable {
     private String nomeLoja;

@@ -5,7 +5,7 @@ import so2.ObjFile;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class Requisito implements java.io.Serializable {
     private Vector<String> vID;

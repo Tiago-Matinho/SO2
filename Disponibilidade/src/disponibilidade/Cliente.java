@@ -8,7 +8,7 @@ import so2.ObjFile;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class Cliente {
     
@@ -522,8 +522,7 @@ public class Cliente {
                     System.out.println("Escolha não válida\n");
                     break;
             }
-        }
-        
+        } 
     }
     
     /*
@@ -743,7 +742,6 @@ public class Cliente {
         }
         
         System.out.println("\nAdeus");
-        System.exit(0);
-        
+        System.exit(0); 
     }
 }

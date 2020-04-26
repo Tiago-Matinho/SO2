@@ -7,7 +7,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class ServidorConc extends Thread {
     
@@ -38,7 +38,8 @@ public class ServidorConc extends Thread {
         try {
             server = new ServerSocket(porta);
             System.out.println("+ Servidor de subscrições ativo");
-                     
+                 
+            //ciclo de atendimento do servidor concorrente    
             while(ativo) {
                 Socket data = null;
 
