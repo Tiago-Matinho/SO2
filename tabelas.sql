@@ -24,3 +24,31 @@ CREATE TABLE Requisitos (
     FOREIGN KEY (nome_produto) REFERENCES Produto(nome_produto)
 );
 
+DELETE FROM Stock *;
+DELETE FROM Requisitos *;
+DELETE FROM Produto *;
+DELETE FROM Utilizador *;
+
+INSERT INTO Utilizador VALUES('João');
+INSERT INTO Utilizador VALUES('Tiago');
+INSERT INTO Utilizador VALUES('José');
+
+
+INSERT INTO Produto VALUES('Máscara Cirúrgica');
+INSERT INTO Produto VALUES('Luvas');
+INSERT INTO Produto VALUES('Batatas');
+INSERT INTO Produto VALUES('Bananas');
+INSERT INTO Produto VALUES('Água Engarrafada');
+INSERT INTO Produto VALUES('Cebolas');
+INSERT INTO Produto VALUES('Esparguete');
+INSERT INTO Produto VALUES('Papel Higiénico');
+
+
+INSERT INTO Stock VALUES('Pingo Doce', 'Batatas');
+INSERT INTO Stock VALUES('Continente', 'Batatas');
+INSERT INTO Stock VALUES('Lidl', 'Batatas');
+INSERT INTO Stock VALUES('Pingo Doce', 'Bananas');
+INSERT INTO Stock VALUES('Continente', 'Bananas');
+INSERT INTO Stock VALUES('Lidl', 'Água Engarrafada');
+INSERT INTO Stock VALUES('Continente', 'Cebolas');
+INSERT INTO Stock VALUES('Lidl', 'Cebolas');

@@ -1,11 +1,11 @@
-package covidv2;
+package disponibilidade;
 
 import java.util.Vector;
 import so2.ObjFile;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class Registo implements java.io.Serializable {
     private String userName;

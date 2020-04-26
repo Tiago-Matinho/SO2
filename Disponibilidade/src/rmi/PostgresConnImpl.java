@@ -1,7 +1,7 @@
-package rmi.covid;
+package rmi;
 
-import covidv2.*;
-import server.conc.*;
+import disponibilidade.*;
+import serverConc.*;
 import java.sql.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;

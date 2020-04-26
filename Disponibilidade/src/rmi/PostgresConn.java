@@ -1,6 +1,6 @@
-package rmi.covid;
+package rmi;
 
-import covidv2.*;
+import disponibilidade.*;
 import java.util.Vector;
 
 /**

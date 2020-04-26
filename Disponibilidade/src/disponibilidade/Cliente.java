@@ -1,17 +1,15 @@
-package covidv2;
+package disponibilidade;
 
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import rmi.covid.*;
+import rmi.*;
 import so2.ObjFile;
 
 /**
  *
- * @author Tiago Martinho, João Marques
+ * @author João Marques, Tiago Martinho
  */
 public class Cliente {
     
@@ -741,8 +739,9 @@ public class Cliente {
         
         try {
             cliente.menu();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
         }
         
         System.out.println("\nAdeus");
