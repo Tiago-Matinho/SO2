@@ -5,7 +5,7 @@ import so2.ObjFile;
 
 /**
  *
- * @author João Marques, Tiago Martinho
+ * @author Tiago Martinho, João Marques
  */
 public class Registo implements java.io.Serializable {
     private String userName;

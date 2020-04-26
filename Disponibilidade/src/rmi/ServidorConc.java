@@ -1,4 +1,4 @@
-package serverConc;
+package rmi;
 
 import java.io.*;
 import java.net.*;
@@ -7,7 +7,7 @@ import java.util.Vector;
 
 /**
  *
- * @author João Marques, Tiago Martinho
+ * @author Tiago Martinho, João Marques
  */
 public class ServidorConc extends Thread {
     

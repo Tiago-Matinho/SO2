@@ -1,7 +1,6 @@
 package rmi;
 
 import disponibilidade.*;
-import serverConc.*;
 import java.sql.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;

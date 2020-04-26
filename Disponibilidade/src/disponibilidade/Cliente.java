@@ -2,14 +2,13 @@ package disponibilidade;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 import rmi.*;
 import so2.ObjFile;
 
 /**
  *
- * @author João Marques, Tiago Martinho
+ * @author Tiago Martinho, João Marques
  */
 public class Cliente {
     
@@ -739,8 +738,7 @@ public class Cliente {
         
         try {
             cliente.menu();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         
