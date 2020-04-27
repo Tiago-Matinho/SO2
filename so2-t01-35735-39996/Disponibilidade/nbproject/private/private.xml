@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Registo.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Produto.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Cliente.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Stock.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/rmi/PostgresConn.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Requisito.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/rmi/PostgresConnImpl.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/disponibilidade/Servidor.java</file>
-            <file>file:/home/rute/Desktop/testeSo2/SO2/Disponibilidade/src/rmi/ServidorConc.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
