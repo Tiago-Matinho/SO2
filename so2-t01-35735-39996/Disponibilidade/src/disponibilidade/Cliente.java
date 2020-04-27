@@ -106,7 +106,7 @@ public class Cliente {
                 (PostgresConn) java.rmi.Naming.lookup("rmi://" + regHost + ":" + 
                                                   regPort + "/PostgresConnector");
             
-            dbConn.connect();
+            
             
         }
         catch(Exception e) {

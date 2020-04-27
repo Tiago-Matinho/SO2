@@ -35,7 +35,9 @@ public class Servidor {
 
 	    // criar um Objeto Remoto
             PostgresConn objRemoto = new PostgresConnImpl(host, db, user, pw, subPort);
-
+            
+            objRemoto.connect();
+            
             java.rmi.registry.LocateRegistry.createRegistry(regPort);            
 
             java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.getRegistry(regPort);
