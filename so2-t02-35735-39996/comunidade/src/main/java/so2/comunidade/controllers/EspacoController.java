@@ -1,42 +1,53 @@
 package so2.comunidade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import so2.comunidade.repository.EspacoRepository;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import so2.comunidade.dados.Espaco;
+import so2.comunidade.services.EspacoService;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/espaco")
 public class EspacoController {
+
     @Autowired
-    EspacoRepository repository;
+    private EspacoService espacoService;
 
-    @GetMapping("/espaco/bulkcreate")
-    public String bulkcreate() {
-
-        repository.save(new Espaco("Pingo Doce", "Évora"));
-        repository.save(new Espaco("Continente", "Évora"));
-        repository.save(new Espaco("Pingo Doce", "Lisboa"));
-        repository.save(new Espaco("Lidl", "Lisboa"));
-        return "Espacos criados";
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Espaco> getAllEspaco(){
+        return espacoService.getAllEspaco();
     }
 
-    @GetMapping("/espaco/findall")
-    public List<Espaco> findAll(){
-        return repository.findAll();
+    @RequestMapping(value = "/id={id}", method = RequestMethod.GET)
+    public Espaco getEspacoById(@PathVariable("id") long id) {
+        return espacoService.getById(id);
     }
 
-    @GetMapping("/espaco/id={espacoId}")
-    public Espaco findEspaco(@PathVariable("espacoId") int espacoId) {
-        return repository.findById(espacoId);
+    @RequestMapping(value = "/id={id}", method = RequestMethod.DELETE)
+    public String deleteEspacoById(@PathVariable("id") long id) {
+        return espacoService.removeEspaco(id);
     }
 
-    @GetMapping("/espaco/nome={espacoNome}")
-    public List<Espaco> findEspaco(@PathVariable("espacoNome") String espacoNome) {
-        return repository.findByNome(espacoNome);
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String updateEspaco(@RequestBody Espaco espaco) {
+        return espacoService.updateEspaco(espaco);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String createEspaco(@RequestBody Espaco espaco) {
+        return espacoService.createEspaco(espaco);
+    }
+
+    @RequestMapping(value = "/nome={nome}", method = RequestMethod.GET)
+    public List<Espaco> findEspacoByNome(@PathVariable("nome") String nome) {
+        return espacoService.getByNome(nome);
+    }
+
+    @RequestMapping(value = "/coordenadas={coord}", method = RequestMethod.GET)
+    public List<Espaco> findEspacoByCoord(@PathVariable("coord") String coord) {
+        return espacoService.getByCoord(coord);
     }
 
 }
