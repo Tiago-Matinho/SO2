@@ -1,0 +1,29 @@
+.loginbt {
+	font-size: 56px;
+	font-family: 'PT Serif', serif;
+	color: white;
+	padding-left: 10%;
+	padding-top: 5%;
+	background-color: Transparent;
+	background-repeat:no-repeat;
+	border: none;
+	cursor:pointer;
+	overflow: hidden;
+	outline:none;
+}
+
+body{
+	background: url("../img/bg.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+}
+
+.box{
+	font-size: 20px;
+	font-family: 'PT Serif', serif;
+	padding-top: 10%;
+	margin: auto;
+	text-align: center;
+}
