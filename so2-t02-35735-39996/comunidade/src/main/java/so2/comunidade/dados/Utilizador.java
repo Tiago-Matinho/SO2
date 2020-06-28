@@ -21,5 +21,28 @@ public class Utilizador {
         this.pwdEncript = pwdEncript;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getPwdEncript() {
+        return pwdEncript;
+    }
+
+    public void setPwdEncript(String pwdEncript) {
+        this.pwdEncript = pwdEncript;
+    }
 
 }
