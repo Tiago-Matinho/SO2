@@ -6,8 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class User implements UserDetails {
-
+public class Utilizador implements UserDetails {
     private final List<? extends GrantedAuthority> grantedAuthorities;
     private final String password;
     private final String username;
@@ -16,7 +15,7 @@ public class User implements UserDetails {
     private final boolean isCredentialsNonExpired;
     private final boolean isEnabled;
 
-    public User(List<? extends GrantedAuthority> grantedAuthorities, String password,
+    public Utilizador(List<? extends GrantedAuthority> grantedAuthorities, String password,
                 String username, boolean isAccountNonExpired, boolean isAccountNonLocked,
                 boolean isCredentialsNonExpired, boolean isEnabled) {
         this.grantedAuthorities = grantedAuthorities;
@@ -31,7 +30,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return grantedAuthorities;
     }
 
     @Override
