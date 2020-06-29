@@ -22,6 +22,6 @@ create table registo(
     id serial primary key,
     date date not null,
     espaco integer not null,
-    utilizador_nome varchar(50) not null,
+    utilizador varchar(50) not null,
     nivel integer not null
 );

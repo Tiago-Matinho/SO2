@@ -29,9 +29,8 @@ public class EspacoService {
         return this.repository.findByCoord(coord);
     }
 
-    public String removeEspaco(long id) {
+    public void removeEspaco(long id) {
         this.repository.deleteById(id);
-        return "Removido com sucesso";
     }
 
     public String updateEspaco(Espaco espaco) {
@@ -44,8 +43,8 @@ public class EspacoService {
         return "Alterado com sucesso: " + update.getId();
     }
 
-    public String createEspaco(Espaco espaco) {
-        Espaco novo = new Espaco(espaco.getNome(), espaco.getCoord());
+    public String createEspaco(String nome, String coord) {
+        Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
         return "Adicionado com sucesso: " + novo.getId();
     }

@@ -1,6 +1,8 @@
 package so2.comunidade.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import so2.comunidade.dados.Registo;
 import so2.comunidade.repository.RegistoRepository;
@@ -19,15 +21,36 @@ public class RegistoService {
         return this.repository.findAll();
     }
 
-    public List<Registo> findByEspacoAndDateAfter(long espaco) {
+    public List<Registo> getByEspacoAndDateAfter(long espaco) {
         TimeZone tz = TimeZone.getTimeZone("Portugal");
         Calendar hora_acores = Calendar.getInstance(tz);
         hora_acores.add(Calendar.HOUR, -1);
 
-        return repository.findByEspacoAndDateAfter(espaco, hora_acores.getTime());
+        return repository.getByEspacoAndDateAfter(espaco, hora_acores.getTime());
     }
 
     public Registo findById(long id) {
         return this.repository.findById(id);
+    }
+
+    public List<Registo> getByUtilizador() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return repository.getByUtilizador(authentication.getName());
+    }
+
+    public void removeRegisto(long id) {
+        this.repository.deleteById(id);
+    }
+
+    public String createRegisto(long espaco, int nivel) {
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar data_atual = Calendar.getInstance(tz);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Registo novo = new Registo(data_atual.getTime(), espaco, authentication.getName(), nivel);
+        this.repository.save(novo);
+        return "Adicionado com sucesso: " + novo.getId();
+
     }
 }

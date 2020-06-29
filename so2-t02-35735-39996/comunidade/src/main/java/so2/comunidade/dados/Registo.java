@@ -13,18 +13,18 @@ public class Registo {
     private Date date;
     @Column(name = "espaco")
     private long espaco;
-    @Column(name = "utilizador_nome")
-    private String utilizador_nome;
+    @Column(name = "utilizador")
+    private String utilizador;
     @Column(name = "nivel")
     private int nivel;
 
     public Registo() {
     }
 
-    public Registo(Date date, long espaco, String utilizador_nome, int nivel) {
+    public Registo(Date date, long espaco, String utilizador, int nivel) {
         this.date = date;
         this.espaco = espaco;
-        this.utilizador_nome = utilizador_nome;
+        this.utilizador = utilizador;
         this.nivel = nivel;
     }
 
@@ -52,12 +52,12 @@ public class Registo {
         this.espaco = espaco;
     }
 
-    public String getUtilizador_nome() {
-        return utilizador_nome;
+    public String getUtilizador() {
+        return utilizador;
     }
 
-    public void setUtilizador_nome(String utilizador_nome) {
-        this.utilizador_nome = utilizador_nome;
+    public void setUtilizador(String utilizador) {
+        this.utilizador = utilizador;
     }
 
     public int getNivel() {
@@ -74,7 +74,7 @@ public class Registo {
                 "id=" + id +
                 ", date=" + date +
                 ", espaco=" + espaco +
-                ", utilizador_nome='" + utilizador_nome + '\'' +
+                ", utilizador='" + utilizador + '\'' +
                 ", nivel=" + nivel +
                 '}';
     }

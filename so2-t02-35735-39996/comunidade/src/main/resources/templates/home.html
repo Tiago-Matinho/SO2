@@ -2,11 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
 	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<title>Hello World!</title>
+	<title>Nigga</title>
 </head>
 <body>
-<a href="/espaco/findall">espaco!</a>
-<a href="/registo/findall">Visit W3Schools.com!</a>
+<a href="/espaco/bulkcreate">Criar espacos</a>
+<a href="/espaco/findall">Ver espacos</a>
+<a href="/registo/bulkcreate">Criar registos</a>
+<a href="/registo/findall">Ver registos</a>
+
+<p>
+</p>
+
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
 	<input type="submit" value="Sign Out"/>
