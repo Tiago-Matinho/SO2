@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<meta charset="UTF-8">
-	<link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Hello World!</title>
 </head>
 <body>
-
-<div>
-	<form action="/login">
-		<button type="button" class="loginbt">Login</button>
-	</form>
-</div>
-<div>
-
-</div>
-
-
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>

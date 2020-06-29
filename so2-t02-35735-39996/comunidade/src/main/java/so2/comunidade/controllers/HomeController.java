@@ -12,4 +12,13 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping(value = "/login")
+    public static String login(){
+        return "login";
+    }
+
+    @GetMapping(value = "/account")
+    public static String account(){
+        return "account";
+    }
 }

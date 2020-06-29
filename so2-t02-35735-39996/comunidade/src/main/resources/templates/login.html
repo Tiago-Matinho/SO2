@@ -1,29 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Welcome Security with Spring Boot!</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="container" style="margin:50px">
+<div class="row col-sm-6"
+	 style="border: 1px ridge #003312; padding:20px; float: none; margin: 0 auto;">
+	<h5 class="text-center" style="font-size: 25px">Sign In</h5>
+	<div th:if="${param.error}">
+		<p style="color: red">UserName or PassWord is wrong. Please
+			check again!</p>
 
-<div class="box">
-	<div class="log">
-		<label for="fname">Usario:</label><br>
-		<input type="text" id="fname" name="fname" class="inputreg"><br>
-		<label for="logpassname">Password:</label><br>
-		<input type="text" id="logpassname" name="lname" class="inputreg"><br><br>
-		<input type="submit" value="Login">
 	</div>
-	<div class="reg">
-		<label for="fname">Usario:</label><br>
-		<input type="text" id="fregname" name="fname" class="inputreg"><br>
-		<label for="passname">Password:</label><br>
-		<input type="text" id="passname" name="lname" class="inputreg"><br><br>
-		<label for="reppassname">Confirmar Password:</label><br>
-		<input type="text" id="reppassname" name="lname" class="inputreg"><br><br>
-		<input type="submit" value="Registar">
+	<div th:if="${param.logout}">
+		<h1 style="color: blue">Logged out.</h1>
 	</div>
+	<form th:action="@{/login}" method="post">
+		<div class="form-group">
+			<label for="username">User Name: </label>
+			<input type="text" class="form-control" id="username" placeholder="Enter UserName" name="username"/>
+		</div>
+		<div class="form-group">
+			<label for="password">Password: </label>
+			<input type="password" class="form-control" id="password" placeholder="Enter Password" name="password"/>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Submit</button>
+	</form>
 </div>
-
 </body>
 </html>
