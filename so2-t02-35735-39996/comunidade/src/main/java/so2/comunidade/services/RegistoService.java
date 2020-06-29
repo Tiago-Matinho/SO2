@@ -6,7 +6,6 @@ import so2.comunidade.dados.Registo;
 import so2.comunidade.repository.RegistoRepository;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 

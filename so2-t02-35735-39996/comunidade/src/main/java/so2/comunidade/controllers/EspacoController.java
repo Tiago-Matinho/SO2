@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/espaco")
 public class EspacoController {
-
     @Autowired
     private EspacoService espacoService;
 
