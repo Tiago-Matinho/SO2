@@ -2,9 +2,9 @@ package so2.comunidade.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import so2.comunidade.security.Utilizador;
+import so2.comunidade.dados.Users;
 
 @Repository
-public interface UtilizadorRepository extends CrudRepository<Utilizador, Long> {
-
+public interface UserRepository extends CrudRepository<Users, Long> {
+    Users findByUsername(String username);
 }
