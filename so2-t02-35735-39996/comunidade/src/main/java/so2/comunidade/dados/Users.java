@@ -16,9 +16,10 @@ public class Users {
     public Users() {
     }
 
-    public Users(String username, String password) {
+    public Users(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
+        this.enabled = enabled;
     }
 
     public String getUsername() {
@@ -37,10 +38,6 @@ public class Users {
         this.password = password;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
@@ -48,13 +45,13 @@ public class Users {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-  
+
     @Override
     public String toString() {
         return "Users{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", enabled=" + enabled
+                ", enabled=" + enabled +
                 '}';
     }
 }

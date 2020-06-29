@@ -6,6 +6,5 @@ import so2.comunidade.dados.Users;
 
 @Repository
 public interface UserRepository extends CrudRepository<Users, String> {
-
     Users findByUsername(String username);
 }
