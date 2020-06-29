@@ -26,7 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
