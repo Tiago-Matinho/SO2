@@ -37,11 +37,24 @@ public class Users {
         this.password = password;
     }
 
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+  
     @Override
     public String toString() {
         return "Users{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", enabled=" + enabled
                 '}';
     }
 }
