@@ -6,8 +6,8 @@ create table espaco(
 
 create table users(
     username varchar(50) not null primary key,
-    enabled bool not null,
-    password varchar(500) not null
+    password varchar(500) not null,
+    enabled bool not null
 );
 
 create table authorities (
@@ -15,6 +15,7 @@ create table authorities (
     authority varchar(50) not null,
     constraint fk_authorities_users foreign key(username) references users(username)
 );
+
 create unique index ix_auth_username on authorities (username,authority);
 
 create table registo(
