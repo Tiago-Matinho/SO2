@@ -10,18 +10,15 @@ public class Users {
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "roles")
-    private String roles;
     @Column(name = "enabled")
     private boolean enabled;
 
     public Users() {
     }
 
-    public Users(String username, String password, String roles, boolean enabled) {
+    public Users(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
         this.enabled = enabled;
     }
 
@@ -41,14 +38,6 @@ public class Users {
         this.password = password;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
@@ -62,7 +51,6 @@ public class Users {
         return "Users{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", roles='" + roles + '\'' +
                 ", enabled=" + enabled +
                 '}';
     }
