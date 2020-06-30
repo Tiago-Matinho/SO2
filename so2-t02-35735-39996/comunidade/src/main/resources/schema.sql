@@ -4,19 +4,19 @@ create table espaco(
     coord varchar (50) not null
 );
 
-create table users(
+create table utilizador(
     username varchar(50) not null primary key,
     password varchar(500) not null,
     enabled bool not null
 );
 
-create table authorities (
+create table permissao(
     username varchar(50) not null,
-    authority varchar(50) not null,
-    constraint fk_authorities_users foreign key(username) references users(username)
+    cargo varchar(50) not null,
+    constraint fk_permissao_utilizador foreign key(username) references utilizador(username)
 );
 
-create unique index ix_auth_username on authorities (username,authority);
+create unique index ix_permissao_utilizador on permissao(username,cargo);
 
 create table registo(
     id serial primary key,

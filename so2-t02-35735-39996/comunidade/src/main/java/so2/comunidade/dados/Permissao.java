@@ -6,20 +6,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "authorities")
-public class Authorities {
+@Table(name = "permissao")
+public class Permissao {
     @Id
     @Column(name = "username")
     private String username;
-    @Column(name = "authority")
-    private String authority;
+    @Column(name = "cargo")
+    private String cargo;
 
-    public Authorities() {
+    public Permissao() {
     }
 
-    public Authorities(String username, String authority) {
+    public Permissao(String username, String cargo) {
         this.username = username;
-        this.authority = authority;
+        this.cargo = cargo;
     }
 
     public String getUsername() {
@@ -30,19 +30,19 @@ public class Authorities {
         this.username = username;
     }
 
-    public String getAuthority() {
-        return authority;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     @Override
     public String toString() {
         return "Authorities{" +
                 "username='" + username + '\'' +
-                ", authority='" + authority + '\'' +
+                ", cargo='" + cargo + '\'' +
                 '}';
     }
 }

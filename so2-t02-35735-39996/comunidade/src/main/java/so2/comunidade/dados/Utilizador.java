@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "utilizador")
+public class Utilizador {
     @Id
     @Column(name = "username")
     private String username;
@@ -16,10 +16,10 @@ public class Users {
     @Column(name = "enabled")
     private boolean enabled;
 
-    public Users() {
+    public Utilizador() {
     }
 
-    public Users(String username, String password, boolean enabled) {
+    public Utilizador(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -51,7 +51,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "Utilizador{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +

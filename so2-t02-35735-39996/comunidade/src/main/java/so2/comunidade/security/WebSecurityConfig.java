@@ -29,8 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
             auth.jdbcAuthentication().dataSource(dataSource)
-                    .usersByUsernameQuery("select username, password, enabled from users where username = ?;")
-                    .authoritiesByUsernameQuery("select username, authority from authorities where username = ?;");
+                    .usersByUsernameQuery("select username, password, enabled from utilizador where username = ?;")
+                    .authoritiesByUsernameQuery("select username, cargo from permissao where username = ?;");
     }
 
     @Override
