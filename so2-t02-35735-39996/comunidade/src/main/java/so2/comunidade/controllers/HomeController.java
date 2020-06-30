@@ -2,6 +2,7 @@ package so2.comunidade.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +31,17 @@ public class HomeController {
         return "account";
     }
 
+    @GetMapping("/join")
+    public String joinUtilizador(Model model) {
+        Utilizador novo = new Utilizador();
+        model.addAttribute("novoUtilizador", novo);
+
+        return "join";
+    }
+
     @PostMapping("/join")
     public String join(@ModelAttribute("Utilizador") Utilizador utilizador) {
-        if(utilizadorService.createUtilizador(utilizador.getUsername(), utilizador.getPassword()))
-
+        utilizadorService.createUtilizador(utilizador.getUsername(), utilizador.getPassword());
         return "join";
     }
 }
