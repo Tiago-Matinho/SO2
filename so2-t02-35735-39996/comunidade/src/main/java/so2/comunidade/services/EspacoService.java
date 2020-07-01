@@ -33,16 +33,6 @@ public class EspacoService {
         this.repository.deleteById(id);
     }
 
-    public String updateEspaco(Espaco espaco) {
-        Espaco update = new Espaco();
-        update.setId(espaco.getId());
-        update.setNome(espaco.getNome());
-        update.setCoord(espaco.getCoord());
-        this.repository.deleteById(espaco.getId());
-        this.repository.save(update);
-        return "Alterado com sucesso: " + update.getId();
-    }
-
     public String createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);

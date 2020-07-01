@@ -21,24 +21,24 @@ public class RegistoController {
         service.createRegisto(1, 1);
         service.createRegisto(2, 1);
         service.createRegisto(1, 4);
-        return "user/account";
+        return "/account";
     }
 
     @GetMapping("findall")
     public String findAll(Model model){
-        model.addAttribute(service.getAllRegisto());
+        model.addAttribute("registos", service.getAllRegisto());
         return "registo/findall";
     }
 
     @GetMapping("/espaco={id}")
     public String findByEspaco_id(@PathVariable("id") long id, Model model){
-        model.addAttribute(service.getByEspacoAndDateAfter(id));
+        model.addAttribute("registos", service.getByEspacoAndDateAfter(id));
         return "registo/findall";
     }
 
     @GetMapping("/id={id}")
     public String findById(@PathVariable("id") long id, Model model){
-        model.addAttribute(service.findById(id));
+        model.addAttribute("registos", service.findById(id));
         return "registo/findall";
     }
 

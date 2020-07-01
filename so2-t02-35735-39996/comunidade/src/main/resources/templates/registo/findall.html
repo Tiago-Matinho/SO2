@@ -19,9 +19,9 @@
         <tbody>
         <tr th:each="registo : ${registos}">
             <td th:text="${registo.id}"></td>
-            <td th:text="${registo.data}"></td>
+            <td th:text="${registo.date}"></td>
             <td th:text="${registo.espaco}"></td>
-            <td th:text="${espaco.nivel}"></td>
+            <td th:text="${registo.nivel}"></td>
         </tr>
         </tbody>
     </table>
