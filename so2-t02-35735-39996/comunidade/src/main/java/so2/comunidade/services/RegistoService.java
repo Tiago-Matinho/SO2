@@ -47,6 +47,9 @@ public class RegistoService {
         Calendar data_atual = Calendar.getInstance(tz);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        System.out.println(authentication.getName());
+
         Registo novo = new Registo(data_atual.getTime(), espaco, authentication.getName(), nivel);
         this.repository.save(novo);
         return "Adicionado com sucesso: " + novo.getId();

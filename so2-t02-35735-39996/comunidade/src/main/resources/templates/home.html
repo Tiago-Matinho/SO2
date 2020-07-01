@@ -2,20 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="https://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-	<title>Comunidade</title>
-</head>
 <body>
-<div sec:authorize="isAuthenticated()">
-	<a th:href="@{/account}">Nome</a>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out"/>
-	</form>
-</div>
-<!-- ELSE -->
-<div sec:authorize="isAnonymous()">
-	<a th:href="@{/login}">Login</a>
-	<a th:href="@{/join}">Join</a>
+<div th:insert="fragment/header">
 </div>
 <div>
 	<a th:href="@{/espaco/bulkcreate}">Criar espacos</a>
