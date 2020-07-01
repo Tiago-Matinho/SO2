@@ -18,22 +18,17 @@ public class MainController {
     @Autowired
     private UtilizadorService utilizadorService;
 
-    /*
-    @GetMapping(value="/")
-    public String welcome(Principal principal) {
-        return principal != null "home";
-    }
-
-     */
-
     @GetMapping(value="/")
     public String welcome() {
         return "home";
     }
 
     @GetMapping(value = "/login")
-    public String login(){
-        return "login";
+    public String login(Principal principal){
+        if(principal == null)
+            return "login";
+        else
+            return "home";
     }
 
     @GetMapping(value = "/account")
@@ -51,7 +46,7 @@ public class MainController {
     @PostMapping(value = "/join")
     public String joinPost(@ModelAttribute("Utilizador") Utilizador utilizador) {
         if(utilizadorService.createUtilizador(utilizador.getUsername(), utilizador.getPassword()))
-            return "home-sucessfull";
-        return "join-failed";
+            return "login";
+        return "join";
     }
 }
