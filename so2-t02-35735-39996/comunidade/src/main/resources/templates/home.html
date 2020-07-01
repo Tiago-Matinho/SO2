@@ -6,18 +6,17 @@
 	<title>Comunidade</title>
 </head>
 <body>
-<div th:if="${authenticated}">
+<div sec:authorize="isAuthenticated()">
 	<a th:href="@{/account}">Nome</a>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out"/>
 	</form>
 </div>
 <!-- ELSE -->
-<div th:unless="${authenticated}">
+<div sec:authorize="isAnonymous()">
 	<a th:href="@{/login}">Login</a>
 	<a th:href="@{/join}">Join</a>
 </div>
-
 <div>
 	<a th:href="@{/espaco/bulkcreate}">Criar espacos</a>
 	<a th:href="@{/espaco/findall}">Ver espacos</a>
