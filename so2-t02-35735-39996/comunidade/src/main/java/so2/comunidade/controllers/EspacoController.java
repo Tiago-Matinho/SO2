@@ -3,9 +3,9 @@ package so2.comunidade.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import so2.comunidade.dados.Espaco;
+import so2.comunidade.dados.Utilizador;
 import so2.comunidade.services.EspacoService;
 
 @Controller
@@ -20,19 +20,32 @@ public class EspacoController {
         service.createEspaco("Pingo Doce", "rgsdg34");
         service.createEspaco("Lidl", "12334");
         service.createEspaco("asda", "123asdas34");
-        return "user/account";
+        return "/account";
     }
 
     @GetMapping("/findall")
     public String getAllEspaco(Model model){
-        model.addAttribute(service.getAllEspaco());
+        model.addAttribute("espacos", service.getAllEspaco());
         return "espaco/findall";
     }
 
-    @GetMapping("/id={id}")
-    public String getEspacoById(@PathVariable("id") long id, Model model) {
-        model.addAttribute(service.getById(id));
-        return "espaco/id";
+    @GetMapping("/nome={nome}")
+    public String getEspacoByNome(@PathVariable("nome") String nome, Model model){
+        model.addAttribute("espacos", service.getByNome(nome));
+        return "espaco/nome";
+    }
+
+    @GetMapping("/novo")
+    public String createEspacoGet(Model model){
+        Espaco novo = new Espaco();
+        model.addAttribute("Espaco", novo);
+        return "espaco/novo";
+    }
+
+    @PostMapping("/novo")
+    public String createEspaco(@ModelAttribute("Espaco") Espaco espaco){
+        service.createEspaco(espaco.getNome(), espaco.getCoord());
+        return "espaco/novo-sucessfully";//TODO fazer estas páginas (refresh da página para fazer um novo registo)
     }
 
 }

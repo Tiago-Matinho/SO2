@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-	<title>Nigga</title>
+	<title>Comunidade</title>
 </head>
-<body>
-<a th:href="@{/espaco/bulkcreate}">Criar espacos</a>
-<a href="/espaco/findall">Ver espacos</a>
-<a href="/registo/bulkcreate">Criar registos</a>
-<a href="/registo/findall">Ver registos</a>
-
+<body>home.html
+<div>
+	<a th:href="@{/login}">Login</a>
+	<a th:href="@{/join}">Join</a>
+</div>
+<div>
+	<a th:href="@{/espaco/bulkcreate}">Criar espacos</a>
+	<a th:href="@{/espaco/findall}">Ver espacos</a>
+	<a th:href="@{/registo/bulkcreate}">Criar registos</a>
+	<a th:href="@{/registo/findall}">Ver registos</a>
+</div>
 <p>
 </p>
 

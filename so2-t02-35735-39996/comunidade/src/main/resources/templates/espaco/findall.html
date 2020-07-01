@@ -2,10 +2,8 @@
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Task List</title>
-    ...
 </head>
 <body>
-<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
 <div>
     <table class="table table-bordered table-striped">
         <thead>
@@ -16,10 +14,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="registo : ${registos}">
-            <td th:text="${registo.id}">1</td>
-            <td th:text="${registo.data}">Text ...</td>
-            <td th:text="${espaco.coord}">July 11, 2012 2:17:16 PM CDT</td>
+        <tr th:if="${espacos.isEmpty()}">
+            <td colspan="2">Sem nenhum espaço para mostrar</td>
+        </tr>
+        <tr th:each="espaco : ${espacos}">
+            <td>
+                <a th:href="@{/registo/espaco={id}(id=${espaco.id})}"><span th:text="${espaco.id}"></span></a>
+            </td>
+            <td><span th:text="${espaco.nome}"></span></td>
+            <td><span th:text="${espaco.coord}"></span></td>
         </tr>
         </tbody>
     </table>

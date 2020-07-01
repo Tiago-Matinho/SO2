@@ -38,5 +38,4 @@ public class UtilizadorService {
         this.permissaoRepository.save(permissao);
         return true;
     }
-
 }

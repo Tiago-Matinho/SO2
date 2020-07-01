@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org/">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Espacos</title>
 </head>
 <body>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nome</td>
+            <td>Coordenadas</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${espacos.isEmpty()}">
+            <td colspan="2">Sem nenhum espaço para mostrar</td>
+        </tr>
+        <tr th:each="espaco : ${espacos}">
+            <td>
+                <a th:href="@{/registo/espaco={id}(id=${espaco.id})}"><span th:text="${espaco.id}"></span></a>
+            </td>
+            <td><span th:text="${espaco.nome}"></span></td>
+            <td><span th:text="${espaco.coord}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
