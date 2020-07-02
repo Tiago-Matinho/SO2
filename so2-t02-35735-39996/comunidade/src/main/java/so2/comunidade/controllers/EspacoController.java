@@ -31,8 +31,12 @@ public class EspacoController {
         return "espaco/findall";
     }
 
+    @PostMapping("/nome")
+    public String postEspacoByNome(@ModelAttribute("Utilizador") String nome){
+        return "espaco/nome/" + nome;
+    }
 
-    @GetMapping("/{nome}")
+    @GetMapping("/nome/{nome}")
     public String getEspacoByNome(@PathVariable("nome") String nome, Model model){
         model.addAttribute("espacos", service.getByNome(nome));
         return "espaco/nome";

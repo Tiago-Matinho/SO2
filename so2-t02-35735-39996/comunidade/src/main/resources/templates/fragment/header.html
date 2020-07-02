@@ -4,6 +4,11 @@
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title>Comunidade</title>
+	<script>
+		function searchBar(nome) {
+			window.location.pathname = '/espaco/nome/' + nome.value;
+		}
+	</script>
 </head>
 <body>
 <div sec:authorize="isAuthenticated()">
@@ -17,9 +22,9 @@
 	<a th:href="@{/join}">Join</a>
 </div>
 
-<form name="myform" action="/espaco/" method="get">
-	<input type="text" name="nome"/>
-	<input type="button" name="button"/>
+<form th:action="searchBar(inputbox)">
+	<input type="text" name="inputbox" value=""/>
+	<input type="button" name="button" Value="Click" onclick="searchBar(inputbox)"/>
 </form>
 
 </body>
