@@ -17,15 +17,10 @@
 	<a th:href="@{/join}">Join</a>
 </div>
 
-
-
-<form th:action="@{/espaco/nome/}" th:object="${Espaco}" method="post">
-	<div>
-		<input
-				th:type="text" th:field="*{nome}" placeholder="Username"
-		/>
-	</div>
-	<div><button type="submit">Registar</button></div>
+<form name="myform" action="/espaco/" method="get">
+	<input type="text" name="nome"/>
+	<input type="button" name="button"/>
 </form>
+
 </body>
 </html>

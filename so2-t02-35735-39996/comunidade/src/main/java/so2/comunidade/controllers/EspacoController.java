@@ -8,6 +8,8 @@ import so2.comunidade.dados.Espaco;
 import so2.comunidade.dados.Utilizador;
 import so2.comunidade.services.EspacoService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/espaco")
 public class EspacoController {
@@ -29,36 +31,12 @@ public class EspacoController {
         return "espaco/findall";
     }
 
-    @GetMapping("/nome/")
-    public void getEspacoByNome(Model model){
-        Espaco espaco = new Espaco();
-        model.addAttribute("Espaco", espaco);
-        //return "espaco/nome";
-    }
 
-    @PostMapping("/nome/")
-    public String postEspacoByNome(@ModelAttribute("Espaco") Espaco espaco){
-        return "espaco/nome/" + espaco.getNome();
-    }
-
-
-    @GetMapping("/nome/{nome}")
+    @GetMapping("/{nome}")
     public String getEspacoByNome(@PathVariable("nome") String nome, Model model){
         model.addAttribute("espacos", service.getByNome(nome));
         return "espaco/nome";
     }
 
-    @GetMapping("/novo")
-    public String createEspacoGet(Model model){
-        Espaco novo = new Espaco();
-        model.addAttribute("Espaco", novo);
-        return "espaco/novo";
-    }
-
-    @PostMapping("/novo")
-    public String createEspaco(@ModelAttribute("Espaco") Espaco espaco){
-        service.createEspaco(espaco.getNome(), espaco.getCoord());
-        return "espaco/novo-sucessfully";//TODO fazer estas páginas (refresh da página para fazer um novo registo)
-    }
 
 }

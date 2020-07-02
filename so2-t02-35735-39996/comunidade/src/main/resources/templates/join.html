@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Criar utilizador</title>
-</head>
 <body>
+<body>
+<div th:insert="fragment/header">
+</div>
+
 <form th:action="@{/join}" th:object="${Utilizador}" method="POST">
     <div>
         <div th:if="${param.username}"><p style="color: red">Username já existente</p></div>
