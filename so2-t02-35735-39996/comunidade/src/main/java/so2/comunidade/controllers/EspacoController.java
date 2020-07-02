@@ -29,7 +29,20 @@ public class EspacoController {
         return "espaco/findall";
     }
 
-    @GetMapping("/nome={nome}")
+    @GetMapping("/nome/")
+    public void getEspacoByNome(Model model){
+        Espaco espaco = new Espaco();
+        model.addAttribute("Espaco", espaco);
+        //return "espaco/nome";
+    }
+
+    @PostMapping("/nome/")
+    public String postEspacoByNome(@ModelAttribute("Espaco") Espaco espaco){
+        return "espaco/nome/" + espaco.getNome();
+    }
+
+
+    @GetMapping("/nome/{nome}")
     public String getEspacoByNome(@PathVariable("nome") String nome, Model model){
         model.addAttribute("espacos", service.getByNome(nome));
         return "espaco/nome";
