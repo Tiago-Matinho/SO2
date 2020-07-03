@@ -8,8 +8,11 @@ import so2.comunidade.dados.Registo;
 import so2.comunidade.repository.RegistoRepository;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+//TODO: Organizar metodos
 
 @Service
 public class RegistoService {
@@ -21,12 +24,12 @@ public class RegistoService {
         return this.repository.findAll();
     }
 
-    public List<Registo> getByEspacoAndDateAfter(long espaco) {
+    public List<Registo> getByNome_espacoAndDateAfter(String nome_espaco) {
         TimeZone tz = TimeZone.getTimeZone("Portugal");
         Calendar hora_acores = Calendar.getInstance(tz);
-        hora_acores.add(Calendar.HOUR, -1);
+        hora_acores.add(Calendar.HOUR, -1); //TODO novo nome
 
-        return repository.getByEspacoAndDateAfter(espaco, hora_acores.getTime());
+        return repository.getByNome_espacoAndDateAfter(nome_espaco, hora_acores.getTime());
     }
 
     public Registo findById(long id) {
@@ -51,16 +54,14 @@ public class RegistoService {
         this.repository.deleteById(id);
     }
 
-    public void createRegisto(long espaco, int nivel) {
-        TimeZone tz = TimeZone.getTimeZone("Portugal");
-        Calendar data_atual = Calendar.getInstance(tz);
-
+    public void createRegisto(Date data, String nome_espaco, int nivel) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        System.out.println(authentication.getName());
+        String username = authentication.getName();
 
-        Registo novo = new Registo(data_atual.getTime(), espaco, authentication.getName(), nivel);
+        System.out.println("Novo registo feito por: " + username);
+
+        Registo novo = new Registo(data, nome_espaco, username, nivel);
         this.repository.save(novo);
-
     }
 }

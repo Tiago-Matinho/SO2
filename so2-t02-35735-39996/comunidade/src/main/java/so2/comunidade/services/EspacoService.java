@@ -6,7 +6,6 @@ import so2.comunidade.dados.Espaco;
 import so2.comunidade.repository.EspacoRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EspacoService {
@@ -18,10 +17,6 @@ public class EspacoService {
         return this.repository.findAll();
     }
 
-    public Espaco getById(long id) {
-        return this.repository.findById(id);
-    }
-
     public List<Espaco> getByNome(String nome) {
         return this.repository.findByNome(nome);
     }
@@ -30,17 +25,20 @@ public class EspacoService {
         return this.repository.findByCoord(coord);
     }
 
-    public void removeEspaco(long id) {
-        this.repository.deleteById(id);
+    public void removeEspaco(String nome) {
+        this.repository.deleteByNome(nome);
     }
 
-    public long createEspaco(String nome, String coord) {
+    public boolean createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
-        return novo.getId();
+        return true;
+        //TODO: caso não consiga criar retorna false
+        //TODO: as coordenadas n sao validas e validar no form
+
     }
 
-    public boolean valida(long espaco_id) {
-        return repository.findById(espaco_id) != null;
+    public boolean valida(String nome) {
+        return repository.findByNome(nome) != null;
     }
 }

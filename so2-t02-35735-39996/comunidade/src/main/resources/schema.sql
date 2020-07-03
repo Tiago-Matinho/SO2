@@ -1,7 +1,15 @@
 create table espaco(
-    id serial primary key,
-    nome varchar(50) not null,
+    nome varchar(50) not null primary key,
     coord varchar (50) not null
+);
+
+create table registo(
+    id serial primary key,
+    date date not null,
+    nome_espaco varchar(50) not null,
+    utilizador varchar(50) not null,
+    nivel integer not null,
+    constraint fk_registo_espaco foreign key(nome_espaco) references espaco(nome)
 );
 
 create table utilizador(
@@ -18,10 +26,3 @@ create table permissao(
 
 create unique index ix_permissao_utilizador on permissao(username,cargo);
 
-create table registo(
-    id serial primary key,
-    date date not null,
-    espaco integer not null,
-    utilizador varchar(50) not null,
-    nivel integer not null
-);

@@ -28,17 +28,10 @@ public class EspacoController {
         return "espaco/findall";
     }
 
-    @GetMapping(value = "/nome")
-    public String espacoGet(Model model) {
-        String string = "";
-        model.addAttribute("String", string);
-        return "espaco/nome";
-    }
-
     @PostMapping("/nome")
-    public String postEspacoByNome(@ModelAttribute("String") String string, Model model){
-        model.addAttribute("espacos", service.getByNome(string));
-        return "espaco/nome";
+    public String postEspacoByNome(
+            @RequestParam(value = "nome") String nome){
+        return "espaco/nome/" + nome;
     }
 
     @GetMapping("/nome/{nome}")

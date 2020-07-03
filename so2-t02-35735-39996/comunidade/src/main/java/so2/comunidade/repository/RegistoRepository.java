@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RegistoRepository extends CrudRepository<Registo, Long> {
     List<Registo> findAll();
-    List<Registo> getByEspacoAndDateAfter(long espaco, Date date);
+    List<Registo> getByNome_espacoAndDateAfter(String nome_espaco, Date date);
     List<Registo> getByUtilizador(String utilizador);
     Registo findById(long id);
 }

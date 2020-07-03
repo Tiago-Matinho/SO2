@@ -17,7 +17,7 @@ public class MainController {
     private UtilizadorService utilizadorService;
 
     @GetMapping(value="/")
-    public String welcome() {
+    public String home() {
         return "home";
     }
 
