@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+<body>
+<div th:insert="fragment/header">
+</div>
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Data</td>
+            <td>Espaco ID</td>
+            <td>Utilizador nome</td>
+            <td>Nível</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="registo : ${registos}">
+            <td th:text="${registo.id}"></td>
+            <td th:text="${registo.date}"></td>
+            <td th:text="${registo.espaco}"></td>
+            <td th:text="${registo.utilizador}"></td>
+            <td th:text="${registo.nivel}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

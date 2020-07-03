@@ -12,7 +12,7 @@ import so2.comunidade.services.RegistoService;
 @RequestMapping("/registo")
 public class RegistoController {
     @Autowired
-    RegistoService service;
+    private RegistoService service;
 
     @GetMapping("/bulkcreate")
     public String bulkcreateEspaco() {
@@ -39,12 +39,6 @@ public class RegistoController {
     @GetMapping("/id={id}")
     public String findById(@PathVariable("id") long id, Model model){
         model.addAttribute("registos", service.findById(id));
-        return "registo/findall";
-    }
-
-    @GetMapping("/user")
-    public String findByUsername(Model model){
-        model.addAttribute(service.getByUtilizador());
         return "registo/findall";
     }
 

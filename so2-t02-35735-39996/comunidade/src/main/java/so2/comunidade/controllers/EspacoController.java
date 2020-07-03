@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import so2.comunidade.dados.Espaco;
-import so2.comunidade.dados.Utilizador;
 import so2.comunidade.services.EspacoService;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/espaco")
@@ -31,9 +28,17 @@ public class EspacoController {
         return "espaco/findall";
     }
 
+    @GetMapping(value = "/nome")
+    public String espacoGet(Model model) {
+        String string = "";
+        model.addAttribute("String", string);
+        return "espaco/nome";
+    }
+
     @PostMapping("/nome")
-    public String postEspacoByNome(@ModelAttribute("Utilizador") String nome){
-        return "espaco/nome/" + nome;
+    public String postEspacoByNome(@ModelAttribute("String") String string, Model model){
+        model.addAttribute("espacos", service.getByNome(string));
+        return "espaco/nome";
     }
 
     @GetMapping("/nome/{nome}")

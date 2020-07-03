@@ -13,7 +13,6 @@ import java.security.Principal;
 
 @Controller
 public class MainController {
-
     @Autowired
     private UtilizadorService utilizadorService;
 

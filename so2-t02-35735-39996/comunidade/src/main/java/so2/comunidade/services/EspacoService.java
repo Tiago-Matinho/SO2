@@ -6,6 +6,7 @@ import so2.comunidade.dados.Espaco;
 import so2.comunidade.repository.EspacoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EspacoService {
@@ -33,10 +34,13 @@ public class EspacoService {
         this.repository.deleteById(id);
     }
 
-    public String createEspaco(String nome, String coord) {
+    public long createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
-        return "Adicionado com sucesso: " + novo.getId();
+        return novo.getId();
     }
 
+    public boolean valida(long espaco_id) {
+        return repository.findById(espaco_id) == null;
+    }
 }
