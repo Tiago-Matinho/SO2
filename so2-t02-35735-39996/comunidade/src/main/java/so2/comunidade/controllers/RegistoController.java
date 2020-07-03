@@ -17,18 +17,6 @@ public class RegistoController {
     @Autowired
     private RegistoService service;
 
-    @GetMapping("/bulkcreate")
-    public String bulkcreateEspaco() {
-        Calendar cal = Calendar.getInstance();
-        Date data = cal.getTime();
-
-        service.createRegisto(data, "Pingo Doce Graça", 1);
-        service.createRegisto(data, "Pingo Doce Graça", 2);
-        service.createRegisto(data, "Pingo Doce Évora", 1);
-        service.createRegisto(data, "Lidl Évora", 1);
-        return "/account/registos"; //FIXME
-    }
-
     //Bloquear para admin
     @GetMapping("findall")
     public String findAll(Model model){
@@ -38,7 +26,7 @@ public class RegistoController {
 
     @GetMapping("/espaco/{nome}")
     public String findByNomeEspaco(@PathVariable("nome") String nome, Model model){
-        model.addAttribute("registos", service.getByNome_espacoAndDateAfter(nome));
+        model.addAttribute("registos", service.getByespacoAndDateAfter(nome));
         return "registo/findall";
     }
 }

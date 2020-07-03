@@ -37,9 +37,4 @@ public class EspacoService {
         //TODO: as coordenadas n sao validas e validar no form
 
     }
-
-    public boolean valida(String nome, String coord) {
-        Espaco espaco = repository.findByNome(nome);
-        return espaco.getCoord().equals(coord);
-    }
 }

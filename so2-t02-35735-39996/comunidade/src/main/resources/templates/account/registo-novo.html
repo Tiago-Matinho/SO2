@@ -4,22 +4,25 @@
 <div th:insert="fragment/header">
 </div>
 
-<form th:action="@{/account/registo-novo}" th:object="${Registo}" method="post">
+<form th:action="@{/account/registo-novo}" th:object="${RegistoDto}" method="post">
     <div>
-        <label>Espaco ID</label>
-        <input type="number" th:field="*{espaco}" placeholder="Espaco ID"/>
+        <input type="text" th:field="*{nome}" placeholder="nome do espaço"/>
+        <br>
+        <input type="text" th:field="*{coord}" placeholder="coordenadas do espaço"/>
+        <br>
+        <input type="datetime-local" th:field="*{data}"/>
     </div>
     <div>
         <label>Nivel</label>
         <br>
         <input type="radio" id="1" th:field="*{nivel}" value="1">
-        <label for="1">1</label><br>
+        <label for="1">1</label>
         <input type="radio" id="2" th:field="*{nivel}" value="2">
-        <label for="2">2</label><br>
+        <label for="2">2</label>
         <input type="radio" id="3" th:field="*{nivel}" value="3">
-        <label for="3">3</label><br>
+        <label for="3">3</label>
         <input type="radio" id="4" th:field="*{nivel}" value="4">
-        <label for="4">4</label><br>
+        <label for="4">4</label>
     </div>
 
     <div><button type="submit">Novo registo</button></div>

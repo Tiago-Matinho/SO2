@@ -3,30 +3,19 @@
 <body>
 <div th:insert="fragment/header">
 </div>
-<div>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <td>Data</td>
-            <td>Nome Espaco</td>
-            <td>Nível</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="registo : ${registos}">
-            <td th:text="${registo.date}"></td>
-            <td th:text="${registo.espaco}"></td>
-            <td th:text="${registo.nivel}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
 
-<form>
-
+<form th:action="@{/account/registos}" th:method="delete">
+    <tr>
+        <td>
+            <th:block th:each="registo : ${registos}">
+                <input type="checkbox" th:value="${registo.getId()}"/>
+                <label th:text="${registo.printData()}"></label><br>
+                <label th:text="${registo.espaco}"></label><br>
+                <label th:text="${registo.nivel}"></label><br>
+            </th:block>
+        </td>
+    </tr>
+    <input type="submit" value="Apagar"/>
 </form>
-<tr th:each="registo : ${registos}">
-    <div></div>
-</tr>
 </body>
 </html>

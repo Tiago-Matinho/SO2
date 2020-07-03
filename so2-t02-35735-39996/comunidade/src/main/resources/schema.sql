@@ -6,10 +6,10 @@ create table espaco(
 create table registo(
     id serial primary key,
     date date not null,
-    nome_espaco varchar(50) not null,
+    espaco varchar(50) not null,
     utilizador varchar(50) not null,
     nivel integer not null,
-    constraint fk_registo_espaco foreign key(nome_espaco) references espaco(nome)
+    constraint fk_registo_espaco foreign key(espaco) references espaco(nome)
 );
 
 create table utilizador(

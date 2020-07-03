@@ -1,6 +1,7 @@
 package so2.comunidade.dados;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -11,8 +12,8 @@ public class Registo {
     private Long id;
     @Column(name = "date")
     private Date date;
-    @Column(name = "nome_espaco")
-    private String nome_espaco;
+    @Column(name = "espaco")
+    private String espaco;
     @Column(name = "utilizador")
     private String utilizador;
     @Column(name = "nivel")
@@ -21,9 +22,9 @@ public class Registo {
     public Registo() {
     }
 
-    public Registo(Date date, String nome_espaco, String utilizador, int nivel) {
+    public Registo(Date date, String espaco, String utilizador, int nivel) {
         this.date = date;
-        this.nome_espaco = nome_espaco;
+        this.espaco = espaco;
         this.utilizador = utilizador;
         this.nivel = nivel;
     }
@@ -44,12 +45,12 @@ public class Registo {
         this.date = date;
     }
 
-    public String getNome_espaco() {
-        return nome_espaco;
+    public String getEspaco() {
+        return espaco;
     }
 
-    public void setNome_espaco(String nome_espaco) {
-        this.nome_espaco = nome_espaco;
+    public void setEspaco(String espaco) {
+        this.espaco = espaco;
     }
 
     public String getUtilizador() {
@@ -73,9 +74,14 @@ public class Registo {
         return "Registo{" +
                 "id=" + id +
                 ", date=" + date +
-                ", nome_espaco='" + nome_espaco + '\'' +
+                ", espaco='" + espaco + '\'' +
                 ", utilizador='" + utilizador + '\'' +
                 ", nivel=" + nivel +
                 '}';
+    }
+
+    public String printData() {
+        SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return sf.format(date);
     }
 }

@@ -6,13 +6,13 @@ import java.util.Date;
 public class RegistoDto {
     private String nome;
     private String coord;
-    private Date data;
+    private String data;
     private int nivel;
 
     public RegistoDto() {
     }
 
-    public RegistoDto(String nome, String coord, Date data, int nivel) {
+    public RegistoDto(String nome, String coord, String data, int nivel) {
         this.nome = nome;
         this.coord = coord;
         this.data = data;
@@ -35,11 +35,11 @@ public class RegistoDto {
         this.coord = coord;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -67,8 +67,7 @@ public class RegistoDto {
         if(nome.length() > 50)
             return false;
         //TODO verificar coordenadas
-        if(nivel < 1 || nivel > 4)
-            return false;
-        return true;
+        //verificar data
+        return nivel >= 1 && nivel <= 4;
     }
 }

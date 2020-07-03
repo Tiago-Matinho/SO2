@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import so2.comunidade.dados.Espaco;
 import so2.comunidade.dados.Registo;
 import so2.comunidade.dto.RegistoDto;
-import so2.comunidade.services.EspacoService;
 import so2.comunidade.services.RegistoService;
 
 import javax.websocket.server.PathParam;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -18,13 +19,21 @@ import javax.websocket.server.PathParam;
 public class UtilizadorController {
     @Autowired
     private RegistoService registoService;
-    @Autowired
-    private EspacoService espacoService;
 
     //ver registo de utilizador
     @GetMapping("/registos")
-    public String registoUtilizador(Model model) {
-        model.addAttribute("registos", registoService.getByUtilizador());
+    public String registoUtilizador(Map<String, Object> model) {
+        List<Long> list = new LinkedList<>();
+        List<Registo> registos = registoService.getByUtilizador();
+        model.put("listaRemover", list);
+        model.put("registos", registos);
+        return "account/registos";
+    }
+
+    //apagar registos
+    @DeleteMapping("/registos")
+    public String deleteRegistoUtilizador(List<Long> list) {
+        for (Long id : list) registoService.removeRegisto(id);
         return "account/registos";
     }
 
@@ -38,22 +47,9 @@ public class UtilizadorController {
 
     @PostMapping("/registo-novo")
     public String postRegistoNovo(@ModelAttribute("RegistoDto") RegistoDto registoDto) {
-        //valida o registo
-        if(!registoDto.valida())
-            return "registo-erro"; //FIXME
-
-        //procura o espaco
-        Espaco espaco = espacoService.getByNome(registoDto.getNome());
-
-        if(!espacoService.valida(registoDto.getNome(), registoDto.getCoord()))
-            return "registo-erro"; //FIXME
-
-        if(espaco == null)
-            espacoService.createEspaco(registoDto.getNome(), registoDto.getCoord());
-
-        Registo registo = new Registo();
-        registoService.createRegisto(registoDto.getData(), registo.getNome_espaco(), registoDto.getNivel());
-        return "account/registos";
+        if(registoService.createRegisto(registoDto))
+            return "account";
+        return "account/espaco-erro";
     }
 
     @DeleteMapping("/{id}")
