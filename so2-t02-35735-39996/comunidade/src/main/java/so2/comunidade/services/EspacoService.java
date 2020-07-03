@@ -17,7 +17,7 @@ public class EspacoService {
         return this.repository.findAll();
     }
 
-    public List<Espaco> getByNome(String nome) {
+    public Espaco getByNome(String nome) {
         return this.repository.findByNome(nome);
     }
 
@@ -38,7 +38,8 @@ public class EspacoService {
 
     }
 
-    public boolean valida(String nome) {
-        return repository.findByNome(nome) != null;
+    public boolean valida(String nome, String coord) {
+        Espaco espaco = repository.findByNome(nome);
+        return espaco.getCoord().equals(coord);
     }
 }

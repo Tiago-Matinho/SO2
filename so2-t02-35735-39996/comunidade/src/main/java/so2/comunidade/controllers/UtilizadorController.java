@@ -38,7 +38,21 @@ public class UtilizadorController {
 
     @PostMapping("/registo-novo")
     public String postRegistoNovo(@ModelAttribute("RegistoDto") RegistoDto registoDto) {
-        //TODO
+        //valida o registo
+        if(!registoDto.valida())
+            return "registo-erro"; //FIXME
+
+        //procura o espaco
+        Espaco espaco = espacoService.getByNome(registoDto.getNome());
+
+        if(!espacoService.valida(registoDto.getNome(), registoDto.getCoord()))
+            return "registo-erro"; //FIXME
+
+        if(espaco == null)
+            espacoService.createEspaco(registoDto.getNome(), registoDto.getCoord());
+
+        Registo registo = new Registo();
+        registoService.createRegisto(registoDto.getData(), registo.getNome_espaco(), registoDto.getNivel());
         return "account/registos";
     }
 
