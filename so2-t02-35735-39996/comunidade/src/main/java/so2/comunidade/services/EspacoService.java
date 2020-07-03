@@ -41,6 +41,6 @@ public class EspacoService {
     }
 
     public boolean valida(long espaco_id) {
-        return repository.findById(espaco_id) == null;
+        return repository.findById(espaco_id) != null;
     }
 }

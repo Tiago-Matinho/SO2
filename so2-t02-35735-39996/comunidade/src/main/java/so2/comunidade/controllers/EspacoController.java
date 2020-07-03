@@ -19,7 +19,7 @@ public class EspacoController {
         service.createEspaco("Pingo Doce", "rgsdg34");
         service.createEspaco("Lidl", "12334");
         service.createEspaco("asda", "123asdas34");
-        return "/account";
+        return "/account/registos";
     }
 
     @GetMapping("/findall")

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:insert="fragment/header">
+</div>
+
+<form th:action="@{/account/registo-novo-espaco}" th:object="${RegistoDto}" method="post">
+    <div>
+        <label>Nome do espaço</label>
+        <input type="text" th:field="*{nome}" placeholder="nome do espaço"/>
+    </div>
+
+    <div>
+        <label>Coordenadas do espaço</label>
+        <input type="text" th:field="*{coord}" placeholder="coordenadas do espaço"/>
+    </div>
+
+    <div>
+        <label>Nivel</label>
+        <br>
+        <input type="radio" id="1" th:field="*{nivel}" value="1">
+        <label for="1">1</label><br>
+        <input type="radio" id="2" th:field="*{nivel}" value="2">
+        <label for="2">2</label><br>
+        <input type="radio" id="3" th:field="*{nivel}" value="3">
+        <label for="3">3</label><br>
+        <input type="radio" id="4" th:field="*{nivel}" value="4">
+        <label for="4">4</label><br>
+    </div>
+
+    <div><button type="submit">Novo registo e espaço</button></div>
+</form>
+</div>
+</body>
+</html>

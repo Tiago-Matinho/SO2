@@ -39,10 +39,19 @@ public class RegistoService {
     }
 
     public void removeRegisto(long id) {
+        Registo registo = repository.findById(id);
+
+        if(registo == null)
+            return;
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!registo.getUtilizador().equals(username))
+            return;
+
         this.repository.deleteById(id);
     }
 
-    public String createRegisto(long espaco, int nivel) {
+    public void createRegisto(long espaco, int nivel) {
         TimeZone tz = TimeZone.getTimeZone("Portugal");
         Calendar data_atual = Calendar.getInstance(tz);
 
@@ -52,7 +61,6 @@ public class RegistoService {
 
         Registo novo = new Registo(data_atual.getTime(), espaco, authentication.getName(), nivel);
         this.repository.save(novo);
-        return "Adicionado com sucesso: " + novo.getId();
 
     }
 }

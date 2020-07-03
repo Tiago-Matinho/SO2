@@ -21,7 +21,7 @@ public class RegistoController {
         service.createRegisto(1, 1);
         service.createRegisto(2, 1);
         service.createRegisto(1, 4);
-        return "/account";
+        return "/account/registos";
     }
 
     @GetMapping("findall")

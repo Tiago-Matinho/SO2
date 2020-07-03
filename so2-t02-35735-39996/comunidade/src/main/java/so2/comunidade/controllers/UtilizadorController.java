@@ -3,18 +3,15 @@ package so2.comunidade.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import so2.comunidade.dados.Espaco;
 import so2.comunidade.dados.Registo;
-import so2.comunidade.dados.Utilizador;
 import so2.comunidade.dto.RegistoDto;
 import so2.comunidade.services.EspacoService;
 import so2.comunidade.services.RegistoService;
 
-import java.util.Map;
+import javax.websocket.server.PathParam;
+
 
 @Controller
 @RequestMapping("/account")
@@ -27,8 +24,8 @@ public class UtilizadorController {
     //ver registo de utilizador
     @GetMapping("/registos")
     public String registoUtilizador(Model model) {
-        model.addAttribute(registoService.getByUtilizador());
-        return "/account/registos";
+        model.addAttribute("registos", registoService.getByUtilizador());
+        return "account/registos";
     }
 
     //registo novo (usando um espaço ja registado)
@@ -36,15 +33,15 @@ public class UtilizadorController {
     public String getRegistoNovo(Model model) {
         Registo registo = new Registo();
         model.addAttribute("Registo", registo);
-        return "/account/registo-novo";
+        return "account/registo-novo";
     }
 
     @PostMapping("/registo-novo")
     public String postRegistoNovo(@ModelAttribute("Registo") Registo registo) {
         if(!espacoService.valida(registo.getEspaco()))
-            return "nao valido";
+            return "/account/espacoNotFound";
         registoService.createRegisto(registo.getEspaco(), registo.getNivel());
-        return "/account/registos";
+        return "account/registos";
     }
 
     //registo novo (usando um novo espaço)
@@ -52,7 +49,7 @@ public class UtilizadorController {
     public String getRegistoNovoEspaco(Model model) {
         RegistoDto registoDto = new RegistoDto();
         model.addAttribute("RegistoDto", registoDto);
-        return "/account/registo-novo-espaco";
+        return "account/registo-novo-espaco";
     }
 
     // Adicionar novo tipo de objecto? que tenha o espaço e o registo?
@@ -66,6 +63,12 @@ public class UtilizadorController {
 
         registoService.createRegisto(id, registoDto.getNivel());
 
-        return "/account/registos";
+        return "account/registos";
+    }
+
+    @DeleteMapping("/{id}")
+    public String removeRegisto(@PathParam("id") long id) {
+        registoService.removeRegisto(id);
+        return "account/registos";
     }
 }
