@@ -15,33 +15,37 @@
 </head>
 
 <body style="background-color: #212121">
-		<!--LOGGED IN-->
-		<div sec:authorize="isAuthenticated()">
-			<p style="vertical-align: center; color:#d3d3d3; horiz-align: left;"><a href="/">Home</a></p>
+<!--LOGGED IN-->
+<div style="height: 50px;" sec:authorize="isAuthenticated()">
+	<p style="vertical-align: center; color:#d3d3d3; horiz-align: left;"><a href="/">Home</a></p>
 
-			<a th:href="@{/account}">Nome</a>
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out"/>
-			</form>
-		</div>
+	<a th:href="@{/account}">Nome</a>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out"/>
+	</form>
+</div>
 
-		<!--NÃO LOGGED IN-->
-		<div style="height: 50px;" sec:authorize="isAnonymous()">
-			<a href="/">Home</a>
-			<a th:href="@{/login}">Login</a>
-			<a th:href="@{/join}">Join</a>
-		</div>
+<!--NÃO LOGGED IN-->
+<div style="height: 50px;" sec:authorize="isAnonymous()">
+	<a href="/" style="color:#ffffff; position: absolute; left: 5%; top: 2%;text-decoration-color: #212121">Home</a>
+	<a th:href="@{/login}" style="color:#ffffff; position: absolute; left: 90%; top: 2%;text-decoration-color: #212121">Login</a>
+	<a th:href="@{/join}" style="color:#ffffff;position: absolute; left: 95%;top: 2%;text-decoration-color: #212121">Join</a>
+</div>
 
-		<!--SEARCHBAR-->
-		<div class="headerBox" style="background-color: #434343; width: 100%; height:150px;">
-			<!--LOGO-->
-			<form th:action="@{/espaco/nome/}">
-				<input type="text" name="nome" value=""/>
-				<input type="button" name="button" Value="Click" onclick="searchBar(nome)"/>
-			</form>
-		</div>
+<!--SEARCHBAR-->
+<div class="headerBox" style="background-color: #434343; width: 100%; height:150px;">
 
-		<div style="height: 8px;"></div>
+	<!--LOGO-->
+	<div style="position: absolute;left: 30%; top: 14%">
+		<form th:action="@{/espaco/nome/}">
+				<header style="horiz-align: center;position: fixed;top:8%; left:45%; font-size: 40px;color:#ffffff">Comunidade</header>
+				<input type="text" name="nome" value="" style="padding: 8px 0;width: 350%"/>
+				<input type="button" name="button" Value="Pesquisar" onclick="searchBar(nome)" style="position: absolute;left: 350%;top:0%; height: 2.5em; width: 7em"/>
+		</form>
+	</div>
+</div>
+
+<div style="height: 8px;"></div>
 
 </body>
 </html>
