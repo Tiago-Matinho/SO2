@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin=""/>
+    <link rel="shortcut icon" type="image/x-icon" href="" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin=""></script>
@@ -28,22 +29,52 @@
         zoomOffset: -1
     }).addTo(map);
 
-    function adiciona(x, y){
-        L.marker([x, y]).addTo(map);
-    }
 
-    var lista = [[${espacos}]]
+    var LeafIcon = L.Icon.extend({
+        options: {
+            iconSize:     [15, 15],
+            iconAnchor:   [15/2, 15/2],
+            popupAnchor:  [0, 0]
+        }
+    });
 
-    console.log(lista);
+    var grau1 = new LeafIcon({iconUrl: "waypoint1.png"}),
+        grau2 = new LeafIcon({iconUrl: 'Waypoint 2.png'}),
+        grau3 = new LeafIcon({iconUrl: 'Waypoint 3.png'}),
+        grau4 = new LeafIcon({iconUrl: 'Waypoint 4.png'});
 
+
+    var lista = [[${ultimosRegistos}]];
     var coords;
+    var x;
+    var y;
+    var popupContent;
 
     for (i = 0; i < lista.length; i++) {
         coords = lista[i].coord.split(',');
         console.log(coords);
-        adiciona(coords[0], coords[1]);
-    }
+        x = coords[0];
+        y = coords[1];
 
+        popupContent = "<b>"+lista[i].nome+"</b><br>"+lista[i].data;
+
+        switch (lista[i].nivel) {
+            case 1:
+                L.marker([x, y], {icon:grau1}).addTo(map).bindPopup(popupContent);
+                break;
+            case 2:
+                L.marker([x, y], {icon:grau1}).addTo(map).bindPopup(popupContent);
+                break;
+            case 3:
+                L.marker([x, y], {icon:grau1}).addTo(map).bindPopup(popupContent);
+                break;
+            case 4:
+                L.marker([x, y], {icon:grau1}).addTo(map).bindPopup(popupContent);
+                break;
+            default:
+                break;
+        }
+    }
 </script>
 </body>
 </html>

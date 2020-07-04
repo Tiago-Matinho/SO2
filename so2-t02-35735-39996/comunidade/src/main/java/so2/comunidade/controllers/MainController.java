@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import so2.comunidade.dados.Utilizador;
-import so2.comunidade.services.EspacoService;
+import so2.comunidade.services.RegistoService;
 import so2.comunidade.services.UtilizadorService;
-import java.util.List;
 
 import java.security.Principal;
 
@@ -18,11 +17,11 @@ public class MainController {
     private UtilizadorService utilizadorService;
 
     @Autowired
-    private EspacoService espacoService;
+    private RegistoService registoService;
 
     @GetMapping(value="/")
     public String home(Model model) {
-        model.addAttribute("espacos", espacoService.getAllEspaco());
+        model.addAttribute("ultimosRegistos", registoService.getRegistosUltimaHora());
         return "home";
     }
 

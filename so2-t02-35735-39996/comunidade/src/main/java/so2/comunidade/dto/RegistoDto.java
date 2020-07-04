@@ -56,7 +56,7 @@ public class RegistoDto {
         return "RegistoDto{" +
                 "nome='" + nome + '\'' +
                 ", coord='" + coord + '\'' +
-                ", data=" + data +
+                ", data='" + data + '\'' +
                 ", nivel=" + nivel +
                 '}';
     }

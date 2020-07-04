@@ -10,10 +10,7 @@ import so2.comunidade.dto.RegistoDto;
 import so2.comunidade.repository.RegistoRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 //TODO: Organizar metodos
 
@@ -29,16 +26,32 @@ public class RegistoService {
         return this.repository.findAll();
     }
 
+    public List<RegistoDto> getRegistosUltimaHora() {
+        List<Espaco> espacos = espacoService.getAllEspaco();
+        List<RegistoDto> ret = new LinkedList<>();
+        List<Registo> registos;
+        Registo recente;
+
+        for (Espaco espaco : espacos) {
+            registos = getByespacoAndDateAfter(espaco.getNome());
+
+            //caso nao tenham sido todos apagados
+            if(registos.size() > 0) {
+                Collections.sort(registos); //organiza lista por ordem crescente
+                recente = registos.get(registos.size() - 1);    //vai buscar o mais recente (i.e. o ultimo)
+
+                ret.add(new RegistoDto(espaco.getNome(), espaco.getCoord(), recente.printData(), recente.getNivel()));
+            }
+        }
+        return  ret;
+    }
+
     public List<Registo> getByespacoAndDateAfter(String espaco) {
         TimeZone tz = TimeZone.getTimeZone("Portugal");
         Calendar hora_acores = Calendar.getInstance(tz);
         hora_acores.add(Calendar.HOUR, -1); //TODO novo nome
 
         return repository.getByEspacoAndDateAfter(espaco, hora_acores.getTime());
-    }
-
-    public Registo findById(long id) {
-        return this.repository.findById(id);
     }
 
     public List<Registo> getByUtilizador() {

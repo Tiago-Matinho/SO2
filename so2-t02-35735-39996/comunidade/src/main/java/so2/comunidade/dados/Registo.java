@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "registo")
-public class Registo {
+public class Registo implements Comparable<Registo> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -78,6 +78,11 @@ public class Registo {
                 ", utilizador='" + utilizador + '\'' +
                 ", nivel=" + nivel +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Registo r) {
+        return date.compareTo(r.date);
     }
 
     public String printData() {
