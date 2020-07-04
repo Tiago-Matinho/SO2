@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import so2.comunidade.dados.Utilizador;
+import so2.comunidade.services.EspacoService;
 import so2.comunidade.services.UtilizadorService;
 import java.util.List;
 
@@ -16,8 +17,12 @@ public class MainController {
     @Autowired
     private UtilizadorService utilizadorService;
 
+    @Autowired
+    private EspacoService espacoService;
+
     @GetMapping(value="/")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("espacos", espacoService.getAllEspaco());
         return "home";
     }
 
