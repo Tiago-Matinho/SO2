@@ -4,18 +4,18 @@
 <div th:insert="fragment/header">
 </div>
 
-<form th:action="@{/account/registos}" th:method="delete">
+<form th:action="@{/account/registos}" th:method="POST">
     <tr>
         <td>
             <th:block th:each="registo : ${registos}">
-                <input type="checkbox" th:value="${registo.getId()}"/>
                 <label th:text="${registo.printData()}"></label><br>
                 <label th:text="${registo.espaco}"></label><br>
                 <label th:text="${registo.nivel}"></label><br>
+                <input type="hidden" name="id" th:value="${registo.getId()}" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
             </th:block>
         </td>
     </tr>
-    <input type="submit" value="Apagar"/>
 </form>
 </body>
 </html>

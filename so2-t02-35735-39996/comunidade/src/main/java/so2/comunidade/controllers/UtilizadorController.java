@@ -31,9 +31,13 @@ public class UtilizadorController {
     }
 
     //apagar registos
-    @DeleteMapping("/registos")
-    public String deleteRegistoUtilizador(List<Long> list) {
-        for (Long id : list) registoService.removeRegisto(id);
+    @RequestMapping(value = "/registos", method = RequestMethod.POST)
+    public String deleteRegistoUtilizador(@RequestParam long id, Map<String, Object> model) {
+        registoService.removeRegisto(id);
+        List<Long> list = new LinkedList<>();
+        List<Registo> registos = registoService.getByUtilizador();
+        model.put("listaRemover", list);
+        model.put("registos", registos);
         return "account/registos";
     }
 
