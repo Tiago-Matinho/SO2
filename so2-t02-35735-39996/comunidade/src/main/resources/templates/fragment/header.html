@@ -11,10 +11,40 @@
 		}
 	</script>
 
+	<style>
+		*{
+			font-family: verdana,sans-serif;
+			font-size: 15px;
+			color: #dcdcdc;
+		}
+
+		body{
+			background-color: #212121;
+		}
+
+		a{
+			text-decoration: none;
+		}
+
+		.headerBox{
+			background-color: #434343;
+			height:150px;
+			align-content: center;
+		}
+
+		.home{
+			padding-top: 5%;
+			padding-left: 3%;
+		}
+
+		.hello{
+
+		}
+	</style>
 
 </head>
 
-<body style="background-color: #212121">
+<body>
 <!--LOGGED IN-->
 <div style="height: 50px;" sec:authorize="isAuthenticated()">
 	<p style="vertical-align: center; color:#d3d3d3; horiz-align: left;"><a href="/">Home</a></p>
@@ -27,20 +57,24 @@
 
 <!--NÃO LOGGED IN-->
 <div style="height: 50px;" sec:authorize="isAnonymous()">
-	<a href="/" style="color:#ffffff; position: absolute; left: 5%; top: 2%;text-decoration-color: #212121">Home</a>
-	<a th:href="@{/login}" style="color:#ffffff; position: absolute; left: 90%; top: 2%;text-decoration-color: #212121">Login</a>
-	<a th:href="@{/join}" style="color:#ffffff;position: absolute; left: 95%;top: 2%;text-decoration-color: #212121">Join</a>
+	<a href="/" class="home">Home</a>
+	<span  class="hello">Hello, </span>
+	<a th:href="@{/login}" class="loginLink">Login</a>
+	<span class="separador">|</span>
+	<a th:href="@{/join}" class="joinLink">Join</a>
 </div>
 
-<!--SEARCHBAR-->
-<div class="headerBox" style="background-color: #434343; width: 100%; height:150px;">
+<!--PARTE CINZENTA-->
+<div class="headerBox">
 
 	<!--LOGO-->
-	<div style="position: absolute;left: 30%; top: 14%">
+	<header style="horiz-align: center;">Comunidade</header>
+
+	<!--SEARCHBAR-->
+	<div style="width: 100%">
 		<form th:action="@{/espaco/nome/}">
-				<header style="horiz-align: center;position: fixed;top:8%; left:45%; font-size: 40px;color:#ffffff">Comunidade</header>
-				<input type="text" name="nome" value="" style="padding: 8px 0;width: 350%"/>
-				<input type="button" name="button" Value="Pesquisar" onclick="searchBar(nome)" style="position: absolute;left: 350%;top:0%; height: 2.5em; width: 7em"/>
+				<input type="text" name="nome" placeholder="Pesquisar"/>
+				<input type="button" name="button" Value="Pesquisar" onclick="searchBar(nome)"/>
 		</form>
 	</div>
 </div>
