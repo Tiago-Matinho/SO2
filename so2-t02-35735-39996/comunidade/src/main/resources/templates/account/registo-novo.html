@@ -6,9 +6,9 @@
 
 <form th:action="@{/account/registo-novo}" th:object="${RegistoDto}" method="post">
     <div>
-        <input type="text" th:field="*{nome}" placeholder="nome do espaço"/>
+            <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
         <br>
-        <input type="text" th:field="*{coord}" placeholder="coordenadas do espaço"/>
+        <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS"/>
         <br>
         <input type="datetime-local" th:field="*{data}"/>
     </div>
@@ -28,5 +28,9 @@
     <div><button type="submit">Novo registo</button></div>
 </form>
 </div>
+
+<!--MAPA-->
+<div th:insert="map"></div>
+
 </body>
 </html>

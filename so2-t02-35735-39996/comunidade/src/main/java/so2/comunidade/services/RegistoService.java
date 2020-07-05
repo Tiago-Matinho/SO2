@@ -22,55 +22,10 @@ public class RegistoService {
     @Autowired
     private EspacoService espacoService;
 
-    public List<Registo> getAllRegisto() {
-        return this.repository.findAll();
-    }
+    private final TimeZone tz = TimeZone.getTimeZone("Portugal");
+    private final Calendar hora_acores = Calendar.getInstance(tz);
 
-    public List<RegistoDto> getRegistosUltimaHora() {
-        List<Espaco> espacos = espacoService.getAllEspaco();
-        List<RegistoDto> ret = new LinkedList<>();
-        List<Registo> registos;
-        Registo recente;
-
-        for (Espaco espaco : espacos) {
-            registos = getByespacoAndDateAfter(espaco.getNome());
-
-            //caso nao tenham sido todos apagados
-            if(registos.size() > 0) {
-                Collections.sort(registos); //organiza lista por ordem crescente
-                recente = registos.get(registos.size() - 1);    //vai buscar o mais recente (i.e. o ultimo)
-
-                ret.add(new RegistoDto(espaco.getNome(), espaco.getCoord(), recente.printData(), recente.getNivel()));
-            }
-        }
-        return  ret;
-    }
-
-    public List<Registo> getByespacoAndDateAfter(String espaco) {
-        TimeZone tz = TimeZone.getTimeZone("Portugal");
-        Calendar hora_acores = Calendar.getInstance(tz);
-        hora_acores.add(Calendar.HOUR, -1); //TODO novo nome
-
-        return repository.getByEspacoAndDateAfter(espaco, hora_acores.getTime());
-    }
-
-    public List<Registo> getByUtilizador() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return repository.getByUtilizador(authentication.getName());
-    }
-
-    public void removeRegisto(long id) {
-        Registo registo = repository.findById(id);
-
-        if(registo == null)
-            return;
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(!registo.getUtilizador().equals(username))
-            return;
-
-        this.repository.deleteById(id);
-    }
+/************************************************************************************/
 
     public boolean createRegisto(RegistoDto registoDto) {
         //valida o registo
@@ -113,4 +68,79 @@ public class RegistoService {
             return false;
         }
     }
+
+    public void removeRegisto(long id) {
+        Registo registo = repository.findById(id);
+
+        if(registo == null)
+            return;
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!registo.getUtilizador().equals(username))
+            return;
+
+        this.repository.deleteById(id);
+    }
+
+    public List<Registo> getAllRegisto() {
+        return this.repository.findAll();
+    }
+
+    public List<RegistoDto> getByespacoAndDateAfter(String nome_espaco) {
+        Calendar calendario = hora_acores;
+        calendario.add(Calendar.HOUR, -1);
+
+        List<Registo> registos = repository.getByEspacoAndDateAfter(nome_espaco, calendario.getTime());
+
+        List<RegistoDto> registoDtos = new LinkedList<>();
+        RegistoDto registoDto;
+        Espaco espaco;
+
+        for (Registo registo : registos) {
+            espaco = espacoService.getByNome(nome_espaco);
+            registoDto = new RegistoDto(registo.getId(), nome_espaco, espaco.getCoord(),
+                    registo.printData(), registo.getNivel());
+            registoDtos.add(registoDto);
+        }
+        return registoDtos;
+    }
+
+    public List<RegistoDto> getRegistosUltimaHora() {
+        //tempo
+        Calendar calendario = hora_acores;
+        calendario.add(Calendar.HOUR, -1);
+
+        List<Espaco> espacos = espacoService.getAllEspaco();
+        List<RegistoDto> ret = new LinkedList<>();
+        List<Registo> registos;
+        Registo recente;
+
+        for (Espaco espaco : espacos) {
+            registos = repository.getByEspacoAndDateAfter(espaco.getNome(), calendario.getTime());
+
+            //caso nao tenham sido todos apagados
+            if(registos.size() > 0) {
+                Collections.sort(registos); //organiza lista por ordem crescente
+                recente = registos.get(registos.size() - 1);    //vai buscar o mais recente (i.e. o ultimo)
+
+                ret.add(new RegistoDto(recente.getId(), espaco.getNome(), espaco.getCoord(), recente.printData(), recente.getNivel()));
+            }
+        }
+        return  ret;
+    }
+
+    public List<RegistoDto> getByUtilizador() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Registo> registos = repository.getByUtilizador(authentication.getName());
+        List<RegistoDto> ret = new LinkedList<>();
+        Espaco espaco;
+
+        for(Registo registo : registos) {
+            espaco = espacoService.getByNome(registo.getEspaco());
+            ret.add(new RegistoDto(registo.getId(), espaco.getNome(), espaco.getCoord(), registo.printData(), registo.getNivel()));
+        }
+
+        return ret;
+    }
+
 }

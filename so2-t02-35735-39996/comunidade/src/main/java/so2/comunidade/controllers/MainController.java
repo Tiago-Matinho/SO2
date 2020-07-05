@@ -33,11 +33,6 @@ public class MainController {
             return "home";
     }
 
-    @GetMapping(value = "/account")
-    public String account(){
-        return "account";
-    }
-
     @GetMapping(value = "/join")
     public String joinGet(Model model) {
         Utilizador novo = new Utilizador();

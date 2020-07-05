@@ -17,7 +17,7 @@ public class RegistoController {
     @Autowired
     private RegistoService service;
 
-    //Bloquear para admin
+    //TODO: Bloquear para admin
     @GetMapping("findall")
     public String findAll(Model model){
         model.addAttribute("registos", service.getAllRegisto());

@@ -1,9 +1,8 @@
 package so2.comunidade.dto;
 
 
-import java.util.Date;
-
 public class RegistoDto {
+    private long id;
     private String nome;
     private String coord;
     private String data;
@@ -12,11 +11,20 @@ public class RegistoDto {
     public RegistoDto() {
     }
 
-    public RegistoDto(String nome, String coord, String data, int nivel) {
+    public RegistoDto(long id, String nome, String coord, String data, int nivel) {
+        this.id = id;
         this.nome = nome;
         this.coord = coord;
         this.data = data;
         this.nivel = nivel;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -54,7 +62,8 @@ public class RegistoDto {
     @Override
     public String toString() {
         return "RegistoDto{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", coord='" + coord + '\'' +
                 ", data='" + data + '\'' +
                 ", nivel=" + nivel +

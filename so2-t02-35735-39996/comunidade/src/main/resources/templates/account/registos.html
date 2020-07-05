@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div th:insert="fragment/header">
 </div>
 
-<form th:action="@{/account/registos}" th:method="POST">
+<h1 style="color:#4c93e3" sec:authentication="name"></h1>
+
+<h3>REGISTOS</h3>
+
+<a href="/account/registo-novo">Registo Novo</a>
+
+<form th:action="@{/account/registos}" th:method="post">
     <tr>
         <td>
             <th:block th:each="registo : ${registos}">
-                <label th:text="${registo.printData()}"></label><br>
-                <label th:text="${registo.espaco}"></label><br>
-                <label th:text="${registo.nivel}"></label><br>
-                <input type="hidden" name="id" th:value="${registo.getId()}" />
+                <input type="hidden" name="id" th:value="${registo.id}" />
                 <input type="submit" value="Delete" class="btn btn-danger" />
+                <b th:text="${registo.nome}"></b><br>
+                <label th:text="${registo.coord}"></label><br>
+                <label th:text="${registo.data}"></label><br>
+                <label th:text="${registo.nivel}"></label><br>
             </th:block>
         </td>
     </tr>

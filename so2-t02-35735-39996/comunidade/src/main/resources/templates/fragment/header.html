@@ -49,7 +49,7 @@
 <div style="height: 50px;" sec:authorize="isAuthenticated()">
 	<p style="vertical-align: center; color:#d3d3d3; horiz-align: left;"><a href="/">Home</a></p>
 
-	<a th:href="@{/account}">Nome</a>
+	<a th:href="@{/account/registos}" sec:authentication="name"></a>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out"/>
 	</form>

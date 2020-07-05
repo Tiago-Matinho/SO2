@@ -21,14 +21,6 @@ public class EspacoService {
         return this.repository.findByNome(nome);
     }
 
-    public List<Espaco> getByCoord(String coord) {
-        return this.repository.findByCoord(coord);
-    }
-
-    public void removeEspaco(String nome) {
-        this.repository.deleteByNome(nome);
-    }
-
     public boolean createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);

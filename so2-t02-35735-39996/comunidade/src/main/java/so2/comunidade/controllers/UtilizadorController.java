@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import so2.comunidade.dados.Registo;
+import so2.comunidade.dados.Espaco;
 import so2.comunidade.dto.RegistoDto;
+import so2.comunidade.services.EspacoService;
 import so2.comunidade.services.RegistoService;
 
 import javax.websocket.server.PathParam;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,40 +19,40 @@ import java.util.Map;
 public class UtilizadorController {
     @Autowired
     private RegistoService registoService;
+    @Autowired
+    private EspacoService espacoService;
 
     //ver registo de utilizador
     @GetMapping("/registos")
-    public String registoUtilizador(Map<String, Object> model) {
-        List<Long> list = new LinkedList<>();
-        List<Registo> registos = registoService.getByUtilizador();
-        model.put("listaRemover", list);
-        model.put("registos", registos);
+    public String registoUtilizador(Model model) {
+        List<RegistoDto> registos = registoService.getByUtilizador();
+        model.addAttribute("registos", registos);
         return "account/registos";
     }
 
     //apagar registos
     @RequestMapping(value = "/registos", method = RequestMethod.POST)
-    public String deleteRegistoUtilizador(@RequestParam long id, Map<String, Object> model) {
+    public String deleteRegistoUtilizador(@RequestParam long id, Model model) {
         registoService.removeRegisto(id);
-        List<Long> list = new LinkedList<>();
-        List<Registo> registos = registoService.getByUtilizador();
-        model.put("listaRemover", list);
-        model.put("registos", registos);
+        List<RegistoDto> registos = registoService.getByUtilizador();
+        model.addAttribute("registos", registos);
         return "account/registos";
     }
 
     //registo novo
     @GetMapping("/registo-novo")
-    public String getRegistoNovo(Model model) {
+    public String getRegistoNovo(Map<String, Object> model) {
         RegistoDto registoDto = new RegistoDto();
-        model.addAttribute("RegistoDto", registoDto);
+        List<Espaco> espacos = espacoService.getAllEspaco();
+        model.put("RegistoDto", registoDto);
+        model.put("espacos", espacos);
         return "account/registo-novo";
     }
 
-    @PostMapping("/registo-novo")
-    public String postRegistoNovo(@ModelAttribute("RegistoDto") RegistoDto registoDto) {
+    @RequestMapping(value = "/registos-novo", method = RequestMethod.POST)
+    public String postRegistoNovo(@RequestParam RegistoDto registoDto) {
         if(registoService.createRegisto(registoDto))
-            return "account";
+            return "account/registos";
         return "account/espaco-erro";
     }
 
