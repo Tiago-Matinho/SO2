@@ -44,15 +44,15 @@ public class UtilizadorController {
     public String getRegistoNovo(Map<String, Object> model) {
         RegistoDto registoDto = new RegistoDto();
         List<Espaco> espacos = espacoService.getAllEspaco();
-        model.put("RegistoDto", registoDto);
-        model.put("espacos", espacos);
+        model.put("registoNovo", registoDto);
+        model.put("espacosExistentes", espacos);
         return "account/registo-novo";
     }
 
-    @RequestMapping(value = "/registos-novo", method = RequestMethod.POST)
-    public String postRegistoNovo(@RequestParam RegistoDto registoDto) {
+    @PostMapping(value = "/registo-novo")
+    public String postRegistoNovo(@ModelAttribute("registoNovo") RegistoDto registoDto, Model model) {
         if(registoService.createRegisto(registoDto))
-            return "account/registos";
+            return registoUtilizador(model);
         return "account/espaco-erro";
     }
 

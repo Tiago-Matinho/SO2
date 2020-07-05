@@ -3,11 +3,13 @@ package so2.comunidade.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import so2.comunidade.dados.Espaco;
+import so2.comunidade.dto.EspacoDto;
+import so2.comunidade.dto.RegistoDto;
 import so2.comunidade.services.RegistoService;
 
+import javax.websocket.server.PathParam;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,9 +26,10 @@ public class RegistoController {
         return "registo/findall";
     }
 
-    @GetMapping("/espaco/{nome}")
-    public String findByNomeEspaco(@PathVariable("nome") String nome, Model model){
-        model.addAttribute("registos", service.getByespacoAndDateAfter(nome));
+    @RequestMapping(value = "/nome")
+    public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Model model) {
+        System.out.println("Nome: "+nome);
+        //model.addAttribute("registos", service.getByespacoAndDateAfter(nome));
         return "registo/findall";
     }
 }

@@ -4,82 +4,74 @@
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title>Comunidade</title>
-	<!--SEARCH BAR-->
-	<script>
-		function searchBar(nome) {
-			window.location.pathname = '/espaco/nome/' + nome.value;
-		}
-	</script>
 
-	<style>
-		*{
-			font-family: verdana,sans-serif;
-			font-size: 15px;
-			color: #dcdcdc;
-		}
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		body{
-			background-color: #212121;
-		}
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-		a{
-			text-decoration: none;
-		}
+	<!-- LEAFLETS -->
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
-		.headerBox{
-			background-color: #434343;
-			height:150px;
-			align-content: center;
-		}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
-		.home{
-			padding-top: 5%;
-			padding-left: 3%;
-		}
+	<title>Hello, world!</title>
+  <style type="text/css">
+	body{
+	  	background-color: #040404;
+	}
 
-		.hello{
+	.col-8{
+	  	padding-left: 120px;
+	}
 
-		}
-	</style>
-
+	a{
+	  	font-family: Verdana, Geneva, sans-serif;
+		color:#d2c8c6;
+	}
+  </style>
 </head>
 
 <body>
-<!--LOGGED IN-->
-<div style="height: 50px;" sec:authorize="isAuthenticated()">
-	<p style="vertical-align: center; color:#d3d3d3; horiz-align: left;"><a href="/">Home</a></p>
+	<div class="row align-items-end" style="padding-top: 20px">
+	  <div class="col-8">
+		<a href="/" style="text-align: right;">Home</a>
+	  </div>
 
-	<a th:href="@{/account/registos}" sec:authentication="name"></a>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out"/>
-	</form>
-</div>
+	  <div class="col-4">
+		<div class="float-right" style="padding-right: 120px">
+			<!--NÃO LOGGED IN-->
+			<div sec:authorize="isAnonymous()">
+			  <span style="color: #d2c8c6;">Hello, </span>
+			  <a th:href="@{/login}">login</a>
+			  <span style="color: #d2c8c6;"> | </span>
+			  <a th:href="@{/join}">Join</a>
+			</div>
 
-<!--NÃO LOGGED IN-->
-<div style="height: 50px;" sec:authorize="isAnonymous()">
-	<a href="/" class="home">Home</a>
-	<span  class="hello">Hello, </span>
-	<a th:href="@{/login}" class="loginLink">Login</a>
-	<span class="separador">|</span>
-	<a th:href="@{/join}" class="joinLink">Join</a>
-</div>
+				<!--LOGGED IN-->
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
+				<span style="color: #d2c8c6;"> | </span>
+				<a th:href="@{/logout}">Logout</a>
+			</div>
 
-<!--PARTE CINZENTA-->
-<div class="headerBox">
-
-	<!--LOGO-->
-	<header style="horiz-align: center;">Comunidade</header>
-
-	<!--SEARCHBAR-->
-	<div style="width: 100%">
-		<form th:action="@{/espaco/nome/}">
-				<input type="text" name="nome" placeholder="Pesquisar"/>
-				<input type="button" name="button" Value="Pesquisar" onclick="searchBar(nome)"/>
-		</form>
+		</div>
+	  </div>
 	</div>
-</div>
 
-<div style="height: 8px;"></div>
+	<!--LOGO E PESQUISA-->
+	<div class="col-12" style="height: 150px ; background-color: #444444; text-align: center;">
+	  <h1 style="padding-top: 30px; color: #d2c8c6;">COM_UNIDADE</h1>
+	  <form th:action="@{/registo/nome}">
+		<input type="text" name="nome" placeholder="Pesquisar" style="width: 50%;">
+		<input type="submit" value="OK">
+	  </form>
+	</div>
+
+	<div style="padding-top:10px;"></div>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
 <div th:insert="fragment/header">
 </div>
 
-<form th:action="@{/account/registo-novo}" th:object="${RegistoDto}" method="post">
+<form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post">
     <div>
             <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
         <br>
@@ -27,10 +27,7 @@
 
     <div><button type="submit">Novo registo</button></div>
 </form>
-</div>
 
-<!--MAPA-->
-<div th:insert="map"></div>
 
 </body>
 </html>
