@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:insert="fragment/header">
+</div>
+<h1 th:text="${espaco}"></h1>
+<div>
+    <table class="table table-bordered table-striped">
+        <tbody>
+        <tr th:if="${registos.isEmpty()}">
+            <td colspan="1">Sem nenhum registo para mostrar</td>
+        </tr>
+        <tr th:each="registo : ${registos}">
+            <td th:text="${registo.nivel}"></td>
+            <td th:text="${registo.data}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

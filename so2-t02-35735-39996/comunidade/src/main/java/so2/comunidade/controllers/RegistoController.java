@@ -12,6 +12,7 @@ import so2.comunidade.services.RegistoService;
 import javax.websocket.server.PathParam;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/registo")
@@ -27,9 +28,14 @@ public class RegistoController {
     }
 
     @RequestMapping(value = "/nome")
-    public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Model model) {
-        System.out.println("Nome: "+nome);
-        //model.addAttribute("registos", service.getByespacoAndDateAfter(nome));
-        return "registo/findall";
+    public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Map<String, Object> model) {
+        System.out.println("Nome: " + nome);
+        return findByNome(nome, model);
+    }
+
+    public String findByNome(String nome, Map<String, Object> model) {
+        model.put("espaco", nome);
+        model.put("registos", service.getByespacoAndDateAfter(nome));
+        return "registo/nome";
     }
 }
