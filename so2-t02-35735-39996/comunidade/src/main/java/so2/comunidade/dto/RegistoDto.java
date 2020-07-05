@@ -6,16 +6,18 @@ public class RegistoDto {
     private String nome;
     private String coord;
     private String data;
+    private String hora;
     private int nivel;
 
     public RegistoDto() {
     }
 
-    public RegistoDto(long id, String nome, String coord, String data, int nivel) {
+    public RegistoDto(long id, String nome, String coord, String data, String hora, int nivel) {
         this.id = id;
         this.nome = nome;
         this.coord = coord;
         this.data = data;
+        this.hora = hora;
         this.nivel = nivel;
     }
 
@@ -51,6 +53,14 @@ public class RegistoDto {
         this.data = data;
     }
 
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
     public int getNivel() {
         return nivel;
     }
@@ -66,8 +76,13 @@ public class RegistoDto {
                 ", nome='" + nome + '\'' +
                 ", coord='" + coord + '\'' +
                 ", data='" + data + '\'' +
+                ", hora='" + hora + '\'' +
                 ", nivel=" + nivel +
                 '}';
+    }
+
+    public String dataCompleta() {
+        return data + " " + hora;
     }
 
     public boolean valida() {

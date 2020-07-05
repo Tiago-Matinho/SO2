@@ -44,13 +44,9 @@ public class RegistoService {
         if(!espaco.getCoord().equals(registoDto.getCoord()))
             return false;
 
-        //cria um novo registo
-        Registo registo = new Registo();
-
         //controi a data
         try {
-            String data_str = registoDto.getData();
-            data_str = data_str.replace('T', ' ');
+            String data_str = registoDto.getData() + " " + registoDto.getHora();
             System.out.println(data_str);
             Date data = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(data_str);
 
@@ -99,7 +95,7 @@ public class RegistoService {
         for (Registo registo : registos) {
             espaco = espacoService.getByNome(nome_espaco);
             registoDto = new RegistoDto(registo.getId(), nome_espaco, espaco.getCoord(),
-                    registo.printData(), registo.getNivel());
+                    registo.printData(), registo.printHora(), registo.getNivel());
             registoDtos.add(registoDto);
         }
         return registoDtos;
@@ -123,7 +119,8 @@ public class RegistoService {
                 Collections.sort(registos); //organiza lista por ordem crescente
                 recente = registos.get(registos.size() - 1);    //vai buscar o mais recente (i.e. o ultimo)
 
-                ret.add(new RegistoDto(recente.getId(), espaco.getNome(), espaco.getCoord(), recente.printData(), recente.getNivel()));
+                ret.add(new RegistoDto(recente.getId(), espaco.getNome(), espaco.getCoord(),
+                        recente.printData(), recente.printHora(), recente.getNivel()));
             }
         }
         return  ret;
@@ -137,7 +134,8 @@ public class RegistoService {
 
         for(Registo registo : registos) {
             espaco = espacoService.getByNome(registo.getEspaco());
-            ret.add(new RegistoDto(registo.getId(), espaco.getNome(), espaco.getCoord(), registo.printData(), registo.getNivel()));
+            ret.add(new RegistoDto(registo.getId(), espaco.getNome(), espaco.getCoord(),
+                    registo.printData(), registo.printHora(), registo.getNivel()));
         }
 
         return ret;

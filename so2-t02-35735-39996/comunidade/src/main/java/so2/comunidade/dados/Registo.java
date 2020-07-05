@@ -85,8 +85,19 @@ public class Registo implements Comparable<Registo> {
         return date.compareTo(r.date);
     }
 
-    public String printData() {
+    public String printDataCompleta() {
         SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return sf.format(date);
+    }
+
+
+    public String printData() {
+        SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+        return sf.format(date);
+    }
+
+    public String printHora() {
+        SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
         return sf.format(date);
     }
 }

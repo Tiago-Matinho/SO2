@@ -7,16 +7,15 @@
 <div>
     <table class="table table-bordered table-striped">
         <tbody>
-        <tr th:if="${registos.isEmpty()}">
-            <td colspan="1">Sem nenhum registo para mostrar</td>
-        </tr>
-        <tr th:each="registo : ${registos}">
-            <td th:text="${registo.nivel}"></td>
-            <td th:text="${registo.data}"></td>
-        </tr>
+            <tr th:if="${registos.isEmpty()}">
+                <td colspan="1">Sem nenhum registo para mostrar</td>
+            </tr>
+            <tr th:each="registo : ${registos}">
+                <td th:text="${registo.nivel}"></td>
+                <td th:text="${registo.dataCompleta()}"></td>
+            </tr>
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
