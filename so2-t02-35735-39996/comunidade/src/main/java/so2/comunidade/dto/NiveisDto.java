@@ -1,16 +1,39 @@
 package so2.comunidade.dto;
 
 public class NiveisDto {
+    private String nome;
+    private String coord;
     private int grau1;
     private int grau2;
     private int grau3;
     private int grau4;
 
-    public NiveisDto(int grau1, int grau2, int grau3, int grau4) {
+    public NiveisDto() {
+    }
+
+    public NiveisDto(String nome, String coord, int grau1, int grau2, int grau3, int grau4) {
+        this.nome = nome;
+        this.coord = coord;
         this.grau1 = grau1;
         this.grau2 = grau2;
         this.grau3 = grau3;
         this.grau4 = grau4;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCoord() {
+        return coord;
+    }
+
+    public void setCoord(String coord) {
+        this.coord = coord;
     }
 
     public int getGrau1() {
@@ -48,7 +71,9 @@ public class NiveisDto {
     @Override
     public String toString() {
         return "NiveisDto{" +
-                "grau1=" + grau1 +
+                "nome='" + nome + '\'' +
+                ", coord='" + coord + '\'' +
+                ", grau1=" + grau1 +
                 ", grau2=" + grau2 +
                 ", grau3=" + grau3 +
                 ", grau4=" + grau4 +

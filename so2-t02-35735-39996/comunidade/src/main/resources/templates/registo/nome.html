@@ -3,19 +3,20 @@
 <body>
 <div th:insert="fragment/header">
 </div>
-<h1 th:text="${espaco}"></h1>
+<h1 th:text="${niveis.nome}"></h1>
 <div>
-    <table class="table table-bordered table-striped">
-        <tbody>
-            <tr th:if="${registos.isEmpty()}">
-                <td colspan="1">Sem nenhum registo para mostrar</td>
-            </tr>
-            <tr th:each="registo : ${registos}">
-                <td th:text="${registo.nivel}"></td>
-                <td th:text="${registo.dataCompleta()}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div th:if="${niveis.grau1}">
+        <span>grau 1: </span><span th:text="${niveis.grau1}"></span><br>
+    </div>
+    <div th:if="${niveis.grau2}">
+        <span>grau 2: </span><span th:text="${niveis.grau2}"></span><br>
+    </div>
+    <div th:if="${niveis.grau3}">
+        <span>grau 3: </span><span th:text="${niveis.grau3}"></span><br>
+    </div>
+    <div th:if="${niveis.grau4}">
+        <span>grau 4: </span><span th:text="${niveis.grau4}"></span><br>
+    </div>
 </div>
 </body>
 </html>

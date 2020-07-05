@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import so2.comunidade.dados.Espaco;
 import so2.comunidade.dados.Registo;
+import so2.comunidade.dto.NiveisDto;
 import so2.comunidade.dto.RegistoDto;
 import so2.comunidade.repository.RegistoRepository;
 
@@ -82,23 +83,39 @@ public class RegistoService {
         return this.repository.findAll();
     }
 
-    public List<RegistoDto> getByespacoAndDateAfter(String nome_espaco) {
+    public NiveisDto getByespacoAndDateAfter(String nome_espaco) {
         Calendar calendario = hora_acores;
         calendario.add(Calendar.HOUR, -1);
 
-        List<Registo> registos = repository.getByEspacoAndDateAfter(nome_espaco, calendario.getTime());
+        Espaco espaco = espacoService.getByNome(nome_espaco);
+        if(espaco == null)
+            return null;
 
-        List<RegistoDto> registoDtos = new LinkedList<>();
-        RegistoDto registoDto;
-        Espaco espaco;
+        List<Registo> registos = repository.getByEspacoAndDateAfter(nome_espaco, calendario.getTime());
+        int grau1 = 0;
+        int grau2 = 0;
+        int grau3 = 0;
+        int grau4 = 0;
 
         for (Registo registo : registos) {
-            espaco = espacoService.getByNome(nome_espaco);
-            registoDto = new RegistoDto(registo.getId(), nome_espaco, espaco.getCoord(),
-                    registo.printData(), registo.printHora(), registo.getNivel());
-            registoDtos.add(registoDto);
+            switch(registo.getNivel()) {
+                case 1:
+                    grau1++;
+                    break;
+                case 2:
+                    grau2++;
+                    break;
+                case 3:
+                    grau3++;
+                    break;
+                case 4:
+                    grau4++;
+                    break;
+                default:
+                    break;
+            }
         }
-        return registoDtos;
+        return new NiveisDto(nome_espaco, espaco.getCoord(), grau1, grau2, grau3, grau4);
     }
 
     public List<RegistoDto> getRegistosUltimaHora() {

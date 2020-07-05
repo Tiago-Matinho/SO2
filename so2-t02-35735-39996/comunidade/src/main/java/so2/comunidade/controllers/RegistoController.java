@@ -29,7 +29,7 @@ public class RegistoController {
 
     public String findByNome(String nome, Map<String, Object> model) {
         model.put("espaco", nome);
-        model.put("registos", service.getByespacoAndDateAfter(nome));
+        model.put("niveis", service.getByespacoAndDateAfter(nome));
         return "registo/nome";
     }
 }
