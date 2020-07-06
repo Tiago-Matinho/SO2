@@ -9,7 +9,6 @@ import so2.comunidade.dto.RegistoDto;
 import so2.comunidade.services.EspacoService;
 import so2.comunidade.services.RegistoService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -32,11 +31,9 @@ public class UtilizadorController {
 
     //apagar registos
     @RequestMapping(value = "/registos", method = RequestMethod.POST)
-    public String deleteRegistoUtilizador(@RequestParam long id, Model model) {
+    public String deleteRegistoUtilizador(@RequestParam(value = "id") long id , Model model) {
         registoService.removeRegisto(id);
-        List<RegistoDto> registos = registoService.getByUtilizador();
-        model.addAttribute("registos", registos);
-        return "account/registos";
+        return registoUtilizador(model);
     }
 
     //registo novo
@@ -54,11 +51,5 @@ public class UtilizadorController {
         if(registoService.createRegisto(registoDto))
             return registoUtilizador(model);
         return "account/espaco-erro";
-    }
-
-    @DeleteMapping("/{id}")
-    public String removeRegisto(@PathParam("id") long id) {
-        registoService.removeRegisto(id);
-        return "account/registos";
     }
 }

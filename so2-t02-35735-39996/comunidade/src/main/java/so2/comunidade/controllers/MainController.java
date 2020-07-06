@@ -46,4 +46,9 @@ public class MainController {
             return "login";
         return "join";
     }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
 }

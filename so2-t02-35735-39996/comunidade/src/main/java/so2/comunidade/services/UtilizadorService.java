@@ -21,6 +21,9 @@ public class UtilizadorService {
         if(this.utilizadorRepository.findByUsername(username) != null)
             return false;
 
+        if(password.isEmpty())
+            return false;
+
         Utilizador novo = new Utilizador();
         novo.setUsername(username);
         novo.setPassword(this.passwordEncoder.encode(password));
@@ -32,9 +35,6 @@ public class UtilizadorService {
 
         permissao.setCargo("USER");
         permissao.setUsername(username);
-        if(username.equals("tiago") || username.equals("joao") || username.equals("jose"))
-            permissao.setCargo("ADMIN");
-
         this.permissaoRepository.save(permissao);
         return true;
     }
