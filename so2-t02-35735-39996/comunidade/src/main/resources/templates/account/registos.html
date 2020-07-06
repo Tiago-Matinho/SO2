@@ -13,7 +13,7 @@
 		height: 100%;
 	}
 	span{
-		color: #444444;
+
 	}
 </style>
 <div class="row" style="width: 100%; margin: 0;">
@@ -43,9 +43,9 @@
 			  <form th:action="@{/account/registos}" th:method="post">
 					<th:block th:each="registo : ${registos}">
 						<b th:text="${registo.nome}" style="text-align: left"></b><br><br>
-						<span th:text="${registo.coord}" style="text-align: left"></span>
+						<span th:text="${registo.coord}" style="text-align: left; color: #444444;"></span>
 						<button type="submit" th:name="id" th:value="${registo.id}"><img style="width: auto; height: 20px;" alt="apagar registo" src="https://i.ibb.co/mDv1cPB/trashcan.png"/></button><br><br>
-						<span th:text="${registo.dataCompleta()}" style="text-align: left"></span>
+						<span th:text="${registo.dataCompleta()}" style="text-align: left; color: #444444;"></span>
 						<span th:if="${registo.nivel} == 1" style="padding-left: 15px;"><img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px"></span>
 						<span th:if="${registo.nivel} == 2" style="padding-left: 13px;"><img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"></span>
 						<span th:if="${registo.nivel} == 3" style="padding-left: 12px;"><img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"></span>
