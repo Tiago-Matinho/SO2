@@ -112,9 +112,11 @@ public class RegistoDto {
         // verificar data
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try{
-            df.format(data + " " + hora);
+            df.parse(data + " " + hora);
         }
         catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("xeeee");
             return false;
         }
 
