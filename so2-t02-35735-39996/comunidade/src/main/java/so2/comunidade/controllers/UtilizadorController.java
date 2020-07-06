@@ -50,6 +50,6 @@ public class UtilizadorController {
     public String postRegistoNovo(@ModelAttribute("registoNovo") RegistoDto registoDto, Model model) {
         if(registoService.createRegisto(registoDto))
             return registoUtilizador(model);
-        return "account/espaco-erro";
+        return "account/registo-novo";
     }
 }

@@ -37,7 +37,7 @@
               style="text-align: center; padding-top: 100px">
             <h2 class="LoginJoinText">JOIN COM_UNIDADE</h2>
             <div style="padding-top: 40px">
-                <div th:if="${param.username}"><p style="color: red">Username já existente</p></div>
+                <div th:if="${param.username}"><p style="color: red">Username ou Password não válidos</p></div>
                 <input type="text" th:field="*{username}" placeholder="USERNAME" style="text-align: center; height: 40px; width: 30%"/>
             </div>
             <div style="padding-top: 20px">

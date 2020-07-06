@@ -15,31 +15,42 @@
 </style>
 <div class="row" style="width: 100%; margin: 0;">
 	<div class="col" style="width: 100%">
-		<h1 style="color:#4c93e3; text-align: center" sec:authentication="name"></h1>
+		<h1 style="padding-top: 30px;color:#4c93e3; text-align: center" sec:authentication="name"></h1>
 
-		<h3 style="text-align: center">REGISTOS</h3>
-
+		<h3 style="padding-top: 40px; text-align: center; color: #444444">REGISTOS</h3>
+		<div style="text-align: center">
+			<svg height="10px">
+				<line x1="0" x2="300" style="stroke:rgb(67,67,67);stroke-width:2"  />
+			</svg>
+		</div>
 		<div style="text-align: center">
 			<a href="/account/registo-novo">
 				<img src="https://i.ibb.co/bd4GBZh/addregisto.png" alt="novo registo" style="width: auto; height: 30px">
 			</a>
-			<br><span style="text-align: center; font-size: 10px">NOVO REGISTO</span>
+			<br><span style="text-align: center; font-size: 10px; color: #444444">NOVO REGISTO</span><br>
+			<svg height="10px">
+				<line x1="0" x2="300" style="stroke:rgb(67,67,67);stroke-width:2"/>
+			</svg>
 		</div>
 
 		<div th:if="${registos.isEmpty()}" style="text-align: center">
-			<span style="text-align: center">Sem registos</span>
+			<b style="text-align: center; color: #444444">Sem registos</b>
 		</div>
 		<div style="padding-left: 45%">
 			  <form th:action="@{/account/registos}" th:method="post">
 					<th:block th:each="registo : ${registos}">
-						<b th:text="${registo.nome}" style="text-align: left"></b><br>
+						<b th:text="${registo.nome}" style="text-align: left"></b><br><br>
 						<span th:text="${registo.coord}" style="text-align: left"></span>
-						<input type="submit" th:name="id" th:value="${registo.id}"/><br>
+						<button type="submit" th:name="id" th:value="${registo.id}"><img style="width: auto; height: 20px;" alt="apagar registo" src="https://i.ibb.co/mDv1cPB/trashcan.png"/></button><br><br>
 						<span th:text="${registo.dataCompleta()}" style="text-align: left"></span>
 						<span th:if="${registo.nivel} == 1" style="padding-left: 15px;"><img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px"></span>
-						<span th:if="${registo.nivel} == 2" style="padding-left: 15px;"><img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"></span>
-						<span th:if="${registo.nivel} == 3" style="padding-left: 15px;"><img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"></span>
-						<span th:if="${registo.nivel} == 4" style="padding-left: 15px;"><img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"></span>
+						<span th:if="${registo.nivel} == 2" style="padding-left: 13px;"><img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"></span>
+						<span th:if="${registo.nivel} == 3" style="padding-left: 12px;"><img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"></span>
+						<span th:if="${registo.nivel} == 4" style="padding-left: 11px;"><img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"></span>
+						<br><br>
+						<svg height="10px">
+							<line x1="0" x2="200" style="stroke:rgb(67,67,67);stroke-width:2"  />
+						</svg>
 						<br>
 					</th:block>
 			  </form>

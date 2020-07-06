@@ -1,6 +1,8 @@
 package so2.comunidade.dto;
 
 
+import java.text.SimpleDateFormat;
+
 public class RegistoDto {
     private long id;
     private String nome;
@@ -90,8 +92,32 @@ public class RegistoDto {
             return false;
         if(nome.length() > 50)
             return false;
-        //TODO verificar coordenadas
-        //verificar data
+
+        // verificar coordenadas
+        if(!coord.contains(","))
+            return false;
+        String[] coordSplited = coord.split(",", 2);
+        try {
+            float lat = Float.parseFloat(coordSplited[0]);
+            float lng = Float.parseFloat(coordSplited[1]);
+            if(lat < -90 || lat > 90)
+                return false;
+            if(lng < -180 || lng > 180) // ref: https://stackoverflow.com/questions/15965166/what-is-the-maximum-length-of-latitude-and-longitude
+                return false;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+        // verificar data
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try{
+            df.format(data + " " + hora);
+        }
+        catch (Exception e) {
+            return false;
+        }
+
         return nivel >= 1 && nivel <= 4;
     }
 }
