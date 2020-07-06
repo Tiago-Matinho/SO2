@@ -9,8 +9,15 @@
 <!--LOAD HEADER-->
 <div th:insert="fragment/header"></div>
 
+<style>
+	html, body, #mapid {
+		height: 93%;
+		width: 100%;
+	}
+</style>
+
 <!--MAPA-->
-<div id="mapid" style="padding-top: 30%; width: 100%; height:850px ;"></div>
+<div id="mapid"></div>
 <script type="text/javascript" th:inline="javascript">
 	var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
 

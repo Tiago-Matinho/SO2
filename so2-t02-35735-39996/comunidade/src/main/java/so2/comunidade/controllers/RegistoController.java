@@ -32,12 +32,10 @@ public class RegistoController {
         model.put("registos", service.pesquisaNome(nome));
         return "registo/pesquisa-nome";
     }
-    /*
-    public String findByNome(String nome, Map<String, Object> model) {
-        model.put("espaco", nome);
-        model.put("registos", service.pesquisaNome(nome));
+
+    @GetMapping("/nome/{nome}")
+    public String getEspacoByNome(@PathVariable("nome") String nome, Model model) {
+        model.addAttribute("niveis", service.getByespacoAndDateAfter(nome));
         return "registo/nome";
     }
-
-     */
 }

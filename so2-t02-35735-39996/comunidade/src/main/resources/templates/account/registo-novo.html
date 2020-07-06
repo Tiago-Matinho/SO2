@@ -4,6 +4,13 @@
 <div th:insert="fragment/header">
 </div>
 
+<style>
+    html, body, #mapid {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
 <!--REGISTO-->
 <form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post">
     <div>

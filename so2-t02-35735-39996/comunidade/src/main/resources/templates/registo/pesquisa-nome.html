@@ -4,14 +4,27 @@
 <div th:insert="fragment/header">
 </div>
 
-<div class="row" style="height: 800px">
+<style>
+    .row, html, body {
+        height: 93%;
+        width: 100%;
+    }
+
+    #mapid {
+        width: 103%;
+        height: 100%;
+        padding-right: 10px;
+    }
+</style>
+
+<div class="row">
     <div class="col-2" style="background-color: #d2c8c6; overflow-y: scroll;">
         <div th:if="${registos}" style="padding-left: 30px; padding-top: 20px;">
             <div th:if="${registos.isEmpty()}">
                 <b>Sem nenhum registo para mostrar</b>
             </div>
             <div th:each="registo : ${registos}">
-                <b th:text="${registo.nome}" style="color: #444444"></b><span th:text="${registo.nivel}"></span><br>
+                <a th:href="@{/registo/nome/} + ${registo.nome}" th:text="${registo.nome}" style="color: #444444"></a><span th:text="${registo.nivel}"></span><br>
                 <span th:text="${registo.coord}" style="color: #444444"></span><br>
 
                 <span th:text="${registo.dataCompleta()}" style="color: #444444"></span>
@@ -25,12 +38,13 @@
             </div>
         </div>
 
-        <div th:unless="${registos}">
+        <div style="text-align: center" th:unless="${registos}">
+            <br><br>
             <b>Espaço não encontrado</b>
         </div>
     </div>
     <div class="col-10" style="padding-right: 20px">
-        <div id="mapid" style="padding-right: 20px; padding-top: 30px; width: 100%; height:800px ;"></div>
+        <div id="mapid"></div>
     </div>
 </div>
 </body>
