@@ -8,40 +8,65 @@
     html, body, #mapid {
         height: 100%;
         width: 100%;
+        background-color: #212121;
     }
+
+    ::placeholder {
+        color: #040404;
+        font-weight: bold;
+        opacity: 0.75;
+    }
+
+    .buttons{
+        background-color: #212121;
+        font-family: Verdana, Geneva, sans-serif;
+        color: #d2c8c6;
+    }
+
+
 </style>
 
 <!--REGISTO-->
-<form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post">
-    <div>
-            <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
-        <br>
-        <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS"/>
-        <br>
-        <input type="date" th:field="*{data}" th:id="data"/>
-        <input type="time" th:field="*{hora}" th:id="hora"/>
+<div class="row justify-content-md-center">
+    <div class="col-md-auto">
+        <form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post">
+            <div>
+                    <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
+                <br>
+                <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS"/>
+                <br>
+                <input type="date" th:field="*{data}" th:id="data"/>
+                <input type="time" th:field="*{hora}" th:id="hora"/>
 
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <label>Nivel</label>
+                    <br>
+                    <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
+                    <label for="1" style="color: #d2c8c6">1</label>
+                    <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
+                    <label for="2" style="color: #d2c8c6">2</label>
+                    <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
+                    <label for="3" style="color: #d2c8c6">3</label>
+                    <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
+                    <label for="4" style="color: #d2c8c6">4</label>
+
+
+            <div><button type="submit" class="buttons" style="padding-right: 30px;">Novo registo</button></div>
+                </div>
+            </div>
+        </form>
+        <div class="row justify-content-md-center">
+            <div class="col text-center">
+                <button onclick="autoFillData()" class="buttons">Hora atual</button>
+            </div>
+        </div>
     </div>
-    <div id="nivelRadio">
-        <label>Nivel</label>
-        <br>
-        <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
-        <label for="1">1</label>
-        <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
-        <label for="2">2</label>
-        <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
-        <label for="3">3</label>
-        <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
-        <label for="4">4</label>
-    </div>
-
-    <div><button type="submit">Novo registo</button></div>
-</form>
-
-<button onclick="autoFillData()">Hora atual</button>
+</div>
 
 <!--MAPA-->
-<div id="mapid" style="padding-left: 30%; padding-top: 30%; width: 100%; height:400px ;"></div>
+<div id="mapid" style="padding-left: 30%; padding-top: 30%; width: 100%; height:625px ;"></div>
 <script type="text/javascript" th:inline="javascript">
     var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
 

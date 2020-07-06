@@ -56,16 +56,12 @@
 	  }
 
 	  .signOut{
-		  background-color: Transparent;
-		  background-repeat:no-repeat;
+		  background-color: #212121;
 		  border: none;
-		  cursor:pointer;
-		  color: #ffffff;
-		  overflow: hidden;
-		  outline:none;
-		  font-size: 13px;
 		  font-family: Verdana, Geneva, sans-serif;
+		  color: #d2c8c6;
 	  }
+
   </style>
 </head>
 
@@ -79,7 +75,7 @@
 		<div class="float-right" style="padding-right: 100px;">
 			<!--NÃO LOGGED IN-->
 			<div sec:authorize="isAnonymous()">
-			  <a th:href="@{/login}">login</a>
+			  <a th:href="@{/login}">Login</a>
 			  <span> | </span>
 			  <a th:href="@{/join}">Join</a>
 			</div>
@@ -90,7 +86,7 @@
 				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
 				<span> | </span>
 				<form th:action="@{/logout}" method="post" style="display: inline-block;">
-					<input type="submit" class="signOut">Sign Out</input>
+					<input type="submit" class="signOut" value="Logout">
 				</form>
 			</div>
 		</div>

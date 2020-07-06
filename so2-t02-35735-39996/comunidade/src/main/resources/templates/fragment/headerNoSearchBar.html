@@ -62,14 +62,14 @@
 		<div class="float-right" style="padding-right: 100px;">
 			<!--NÃO LOGGED IN-->
 			<div sec:authorize="isAnonymous()">
-				<span>Hello, </span>
-				<a th:href="@{/login}">login</a>
+				<a th:href="@{/login}">Login</a>
 				<span> | </span>
 				<a th:href="@{/join}">Join</a>
 			</div>
 
 			<!--LOGGED IN-->
 			<div sec:authorize="isAuthenticated()">
+				<span>Hello, </span>
 				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
 				<span> | </span>
 				<form th:action="@{/logout}" method="post" style="display: inline-block;">

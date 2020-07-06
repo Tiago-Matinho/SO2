@@ -23,29 +23,30 @@
             <a href="/account/registo-novo">
                 <img src="https://i.ibb.co/bd4GBZh/addregisto.png" alt="novo registo" style="width: auto; height: 30px">
             </a>
+            <br><span style="text-align: center; font-size: 10px">NOVO REGISTO</span>
         </div>
 
         <div th:if="${registos.isEmpty()}" style="text-align: center">
             <span style="text-align: center">Sem registos</span>
         </div>
-
-        <form th:action="@{/account/registos}" th:method="post">
+        <div style="padding-left: 45%">
             <th:block th:each="registo : ${registos}">
-                <div style="padding-left: 45%">
-                    <b th:text="${registo.nome}" style="text-align: left"></b><br>
-                    <span th:text="${registo.coord}" style="text-align: left"></span>
-                    <input type="hidden" name="id" th:value="${registo.id}" />
-                    <input type="image" class="apagar" src="https://i.ibb.co/mDv1cPB/trashcan.png" style="width: auto; height: 20px" /><br>
-                    <span th:text="${registo.dataCompleta()}" style="text-align: left"></span>
-                    <span th:if="${registo.nivel} == 1" style="text-align: left"><img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px"></span>
-                    <span th:if="${registo.nivel} == 2" style="text-align: left"><img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px"></span>
-                    <span th:if="${registo.nivel} == 3" style="text-align: left"><img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px"></span>
-                    <span th:if="${registo.nivel} == 4" style="text-align: left"><img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px"></span>
+                    <form th:action="@{/account/registos}" th:method="post">
+                      <b th:text="${registo.nome}" style="text-align: left"></b><br>
+                      <span th:text="${registo.coord}" style="text-align: left"></span>
+                      <input type="hidden" name="id" th:value="${registo.id}"/>
+                      <button class="apagar"style="width: auto; height: 20px; padding-left: 3px"/>Cona</button><br>
+                      <span th:text="${registo.dataCompleta()}" style="text-align: left"></span>
+                      <span th:if="${registo.nivel} == 1" style="padding-left: 15px;"><img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px"></span>
+                      <span th:if="${registo.nivel} == 2" style="padding-left: 15px;"><img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"></span>
+                      <span th:if="${registo.nivel} == 3" style="padding-left: 15px;"><img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"></span>
+                      <span th:if="${registo.nivel} == 4" style="padding-left: 15px;"><img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"></span>
                     <br>
-                </div>
+                  </form>
             </th:block>
-        </form>
+          </div>
     </div>
 </div>
 </body>
+
 </html>
