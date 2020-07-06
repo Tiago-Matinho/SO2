@@ -6,25 +6,39 @@
 <div th:insert="fragment/header">
 </div>
 
-<h1 style="color:#4c93e3" sec:authentication="name"></h1>
+<style>
+    body, col{
+        background-color: #fdfdfd;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div class="row" style="width: 100%; margin: 0;">
+    <div class="col" style="width: 100%">
+        <h1 style="color:#4c93e3; text-align: center" sec:authentication="name"></h1>
 
-<h3>REGISTOS</h3>
+        <h3 style="text-align: center">REGISTOS</h3>
 
-<a href="/account/registo-novo">Registo Novo</a>
+        <div style="align-content: center">
+            <a href="/account/registo-novo">
+                <img src="https://i.ibb.co/bd4GBZh/addregisto.png" alt="novo registo" style="width: auto; height: 40px">
+            </a>
 
-<form th:action="@{/account/registos}" th:method="post">
-    <tr>
-        <td>
+        </div>
+
+        <form th:action="@{/account/registos}" th:method="post">
             <th:block th:each="registo : ${registos}">
-                <input type="hidden" name="id" th:value="${registo.id}" />
-                <input type="submit" value="Delete" class="btn btn-danger" />
-                <b th:text="${registo.nome}"></b><br>
-                <label th:text="${registo.coord}"></label><br>
-                <label th:text="${registo.dataCompleta()}"></label><br>
-                <label th:text="${registo.nivel}"></label><br>
+                <div style="padding-left: 45%">
+                    <input type="hidden" name="id" th:value="${registo.id}" />
+                    <input type="image" class="apagar" src="https://i.ibb.co/mDv1cPB/trashcan.png" style="width: auto; height: 20px" />
+                    <b th:text="${registo.nome}" style="text-align: left"></b><br>
+                    <label th:text="${registo.coord}" style="text-align: left"></label><br>
+                    <label th:text="${registo.dataCompleta()}" style="text-align: left"></label><br>
+                    <label th:text="${registo.nivel}" style="text-align: left"></label><br>
+                </div>
             </th:block>
-        </td>
-    </tr>
-</form>
+        </form>
+    </div>
+</div>
 </body>
 </html>

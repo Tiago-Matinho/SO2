@@ -7,32 +7,45 @@
         opacity: 0.75;
     }
 
-    h2{
-        font-family: Verdana, Geneva, sans-serif;
-        color:#d2c8c6;
+    .Join{
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        color: #ffffff;
+        overflow: hidden;
+        outline:none;
+        font-weight: bold; font-size: 25px;
     }
+
+    .LoginJoinText{
+        color: #dcdcdc;
+        font-weight: bold;
+        font-size: 25px;
+    }
+
 </style>
 
 
-<body>
-<div th:insert="fragment/header"></div>
+<body style="background-color: #212121">
+<div th:insert="fragment/headerNoSearchBar"></div>
 
 <div class="row align-items-center">
     <div class="col">
 
         <form th:action="@{/join}" th:object="${Utilizador}" method="post"
               style="text-align: center; padding-top: 100px">
-            <h2> JOIN COM_UNIDADE</h2>
-            <div style="padding-top: 30px">
+            <h2 class="LoginJoinText">JOIN COM_UNIDADE</h2>
+            <div style="padding-top: 40px">
                 <div th:if="${param.username}"><p style="color: red">Username já existente</p></div>
-                <input
-                        type="text" th:field="*{username}" placeholder="Username" title="O utilizador só pode conter letras" pattern="[?:a-Z]{30}" style="text-align: center;padding-top:6px;width: 40%" />
+                <input type="text" th:field="*{username}" placeholder="USERNAME" style="text-align: center; height: 40px; width: 30%"/>
             </div>
             <div style="padding-top: 20px">
-                <input
-                        type="password" th:field="*{password}" placeholder="Password" style="text-align: center;padding-top:6px;width: 40%"/>
+                <input type="password" th:field="*{password}" placeholder="PASSWORD" style="text-align: center; height: 40px; width: 30%"/>
             </div>
-            <div style="padding-top: 10px"><button type="submit" style="border-color: #040404;background-color: #040404; color: #ffffff;font-weight: bold; font-size: 25px">OK</button></div>
+            <div style="padding-top: 20px">
+                <input class="Join" type="submit" value="OK">
+            </div>
         </form>
     </div>
 </div>

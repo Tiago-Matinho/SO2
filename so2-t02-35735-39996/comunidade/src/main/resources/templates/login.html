@@ -11,15 +11,28 @@
 			opacity: 0.75;
 		}
 
-		h2{
-			font-family: Verdana, Geneva, sans-serif;
-			color:#d2c8c6;
+		.Login{
+			background-color: Transparent;
+			background-repeat:no-repeat;
+			border: none;
+			cursor:pointer;
+			color: #ffffff;
+			overflow: hidden;
+			outline:none;
+			font-weight: bold; font-size: 25px;
 		}
+
+		.LoginJoinText{
+			color: #dcdcdc;
+			font-weight: bold;
+			font-size: 25px;
+		}
+
 	</style>
 
 </head>
-<body>
-<div th:insert="fragment/header"></div>
+<body style="background-color: #212121">
+<div th:insert="fragment/headerNoSearchBar"></div>
 <div class="row align-items-center">
 	<div class="col">
 		<div th:if="${param.error}">
@@ -29,10 +42,12 @@
 			Fez log out.
 		</div>
 		<form th:action="@{/login}" method="post" style="text-align: center; padding-top: 100px">
-			<h2> LOGIN COM_UNIDADE</h2>
-			<div style="padding-top: 30px"> <input type="text" name="username" placeholder="Username" style="text-align: center;padding-top:6px;width: 40%"/></div>
-			<div style="padding-top: 20px"> <input type="password" name="password" placeholder="Password" style="text-align: center;padding-top:6px;width: 40%"/></div>
-			<div style="padding-top: 10px"> <input type="submit" value="OK" style="border-color: #040404;background-color: #040404; color: #ffffff;font-weight: bold; font-size: 25px"/></div>
+			<h2 class="LoginJoinText">LOGIN</h2>
+			<div style="padding-top: 30px"> <input type="text" name="username" placeholder="Username" style="text-align: center;padding-top:6px;width: 35%"/></div>
+			<div style="padding-top: 20px"> <input type="password" name="password" placeholder="Password" style="text-align: center;padding-top:6px;width: 35%"/></div>
+			<div style="padding-top: 10px">
+				<input class="Login" type="submit" value="OK">
+			</div>
 		</form>
 	</div>
 </div>

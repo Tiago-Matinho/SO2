@@ -25,18 +25,20 @@
     <div id="nivelRadio">
         <label>Nivel</label>
         <br>
-        <input type="radio" id="1" th:field="*{nivel}" value="1">
+        <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
         <label for="1">1</label>
-        <input type="radio" id="2" th:field="*{nivel}" value="2">
+        <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
         <label for="2">2</label>
-        <input type="radio" id="3" th:field="*{nivel}" value="3">
+        <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
         <label for="3">3</label>
-        <input type="radio" id="4" th:field="*{nivel}" value="4">
+        <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
         <label for="4">4</label>
     </div>
 
     <div><button type="submit">Novo registo</button></div>
 </form>
+
+<button onclick="autoFillData()">Hora atual</button>
 
 <!--MAPA-->
 <div id="mapid" style="padding-left: 30%; padding-top: 30%; width: 100%; height:400px ;"></div>
@@ -117,6 +119,40 @@
     function autoFillExistente(nome, coord) {
         document.getElementById('nome').value = nome;
         document.getElementById('coord').value = coord;
+    }
+
+    function autoFillData(){
+        let data = new Date();
+        let yyyy = data.getFullYear();
+        let MM = String(data.getMonth() + 1).padStart(2, '0');
+        let dd = String(data.getDate()).padStart(2, '0');
+        let dataStr = yyyy+"-"+MM+"-"+dd;
+        let hh = String(data.getHours()).padStart(2, '0');
+        let mm = String(data.getMinutes()).padStart(2, '0');
+        let hora = hh+":"+mm;
+        document.getElementById('data').value = dataStr;
+        document.getElementById('hora').value = hora;
+    }
+
+    function change(nivel) {
+        if(temp != null)
+            map.removeLayer(temp);
+
+        switch(nivel) {
+            case 1:
+                temp = L.marker([lat, lng], {icon:grau1}).addTo(map);
+                break;
+            case 2:
+                temp = L.marker([lat, lng], {icon:grau2}).addTo(map);
+                break;
+            case 3:
+                temp = L.marker([lat, lng], {icon:grau3}).addTo(map);
+                break;
+            case 4:
+                temp = L.marker([lat, lng], {icon:grau4}).addTo(map);
+                break;
+            break;
+        }
     }
 
 </script>

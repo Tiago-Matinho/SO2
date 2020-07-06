@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Comunidade</title>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+	<style type="text/css">
+		*{
+			font-family: Verdana, Geneva, sans-serif;
+		}
+
+		a{
+			color:#d2c8c6;
+			text-decoration: none;
+		}
+
+		/* visited link */
+		a:visited {
+			color: #d2c8c6;
+			text-decoration: none;
+		}
+		/* mouse over link */
+		a:hover {
+			color: #d2c8c6;
+			text-decoration: none;
+		}
+		/* selected link */
+		a:active {
+			color: #d2c8c6;
+		}
+
+		span{
+			color:#d2c8c6;
+		}
+
+		h1{
+			color:#d2c8c6;
+		}
+
+		.signOut{
+			border-color: #212121;background-color: #212121; color: #d2c8c6; font-size: 12px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="row align-items-center" style="height:50px; width: 100%; background-color: #212121">
+	<div class="col-8" style="padding-top: 10px;">
+		<a href="/" style="text-align: right; padding-left: 100px;">Home</a>
+	</div>
+
+	<div class="col-4" style="padding-top: 10px;">
+		<div class="float-right" style="padding-right: 100px;">
+			<!--NÃO LOGGED IN-->
+			<div sec:authorize="isAnonymous()">
+				<span>Hello, </span>
+				<a th:href="@{/login}">login</a>
+				<span> | </span>
+				<a th:href="@{/join}">Join</a>
+			</div>
+
+			<!--LOGGED IN-->
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
+				<span> | </span>
+				<form th:action="@{/logout}" method="post" style="display: inline-block;">
+					<input type="submit" class="signOut">Sign Out</input>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--LOGO E PESQUISA-->
+<div class="col-12" style="height: 170px ; background-color: #444444; text-align: center;">
+	<h1 style="padding-top: 30px;">COM_UNIDADE</h1>
+</div>
+
+<div style="padding-top:10px; background-color: #212121"></div>
+
+</body>
+</html>

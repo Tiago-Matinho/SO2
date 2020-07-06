@@ -23,42 +23,54 @@
 			crossorigin=""></script>
 
   <style type="text/css">
-	body{
-	  	background-color: #040404;
-	}
+	  *{
+		  font-family: Verdana, Geneva, sans-serif;
+	  }
 
-	.col-8{
-	  	padding-left: 100px;
-	}
+	  a{
+		  color:#d2c8c6;
+		  text-decoration: none;
+	  }
 
-	a{
-	  	font-family: Verdana, Geneva, sans-serif;
-		color:#d2c8c6;
-	}
+	  /* visited link */
+	  a:visited {
+		  color: #d2c8c6;
+		  text-decoration: none;
+	  }
+	  /* mouse over link */
+	  a:hover {
+		  color: #d2c8c6;
+		  text-decoration: none;
+	  }
+	  /* selected link */
+	  a:active {
+		  color: #d2c8c6;
+	  }
 
-	span{
-		font-family: Verdana, Geneva, sans-serif;
-		color:#d2c8c6;
-	}
+	  span{
+		  color:#d2c8c6;
+	  }
 
-	h1{
-		font-family: Verdana, Geneva, sans-serif;
-		color:#d2c8c6;
-	}
+	  h1{
+		  color:#d2c8c6;
+	  }
+
+	  .signOut{
+		  border-color: #212121;background-color: #212121; color: #d2c8c6; font-size: 12px;
+	  }
   </style>
 </head>
 
 <body>
-	<div class="row align-items-end" style="padding-top: 20px">
-	  <div class="col-8">
-		<a href="/" style="text-align: right;">Home</a>
+	<div class="row align-items-center" style="height:50px; width: 100%; background-color: #212121">
+	  <div class="col-8" style="padding-top: 10px;">
+		<a href="/" style="text-align: right; padding-left: 100px;">Home</a>
 	  </div>
 
-	  <div class="col-4">
-		<div class="float-right" style="padding-right: 120px">
+	  <div class="col-4" style="padding-top: 10px;">
+		<div class="float-right" style="padding-right: 100px;">
 			<!--NÃO LOGGED IN-->
 			<div sec:authorize="isAnonymous()">
-			  <span>Hello, </span>
 			  <a th:href="@{/login}">login</a>
 			  <span> | </span>
 			  <a th:href="@{/join}">Join</a>
@@ -66,10 +78,11 @@
 
 				<!--LOGGED IN-->
 			<div sec:authorize="isAuthenticated()">
+				<span>Hello, </span>
 				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
 				<span> | </span>
-				<form th:action="@{/logout}" method="post">
-					<input type="submit" value="Sign Out"/>
+				<form th:action="@{/logout}" method="post" style="display: inline-block;">
+					<input type="submit" class="signOut">Sign Out</input>
 				</form>
 			</div>
 		</div>
@@ -77,14 +90,14 @@
 	</div>
 
 	<!--LOGO E PESQUISA-->
-	<div class="col-12" style="height: 150px ; background-color: #444444; text-align: center;">
+	<div class="col-12" style="height: 170px ; background-color: #444444; text-align: center;">
 	  <h1 style="padding-top: 30px;">COM_UNIDADE</h1>
 	  <form th:action="@{/registo/pesquisa-nome}">
 		<input type="text" name="nome" placeholder="Pesquisar" style="width: 35%; height: 40px; padding-left: 10px">
 	  </form>
 	</div>
 
-	<div style="padding-top:10px;"></div>
+	<div style="padding-top:10px; background-color: #212121"></div>
 
 </body>
 </html>
