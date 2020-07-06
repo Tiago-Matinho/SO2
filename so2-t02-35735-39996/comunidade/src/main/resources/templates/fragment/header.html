@@ -13,7 +13,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 	<!-- LEAFLETS -->
-	<!--LEAFLETS-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 		  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 		  crossorigin=""/>
@@ -78,9 +79,8 @@
 	<!--LOGO E PESQUISA-->
 	<div class="col-12" style="height: 150px ; background-color: #444444; text-align: center;">
 	  <h1 style="padding-top: 30px;">COM_UNIDADE</h1>
-	  <form th:action="@{/registo/nome}">
-		<input type="text" name="nome" placeholder="Pesquisar" style="width: 50%;">
-		<input type="submit" value="OK">
+	  <form th:action="@{/registo/pesquisa-nome}">
+		<input type="text" name="nome" placeholder="Pesquisar" style="width: 35%; height: 40px; padding-left: 10px">
 	  </form>
 	</div>
 

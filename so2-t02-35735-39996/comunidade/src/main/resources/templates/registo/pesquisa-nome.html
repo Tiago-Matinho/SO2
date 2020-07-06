@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:insert="fragment/header">
+</div>
+
+<div class="row" style="height: 800px">
+    <div class="col-2" style="background-color: #d2c8c6; overflow-y: scroll;">
+        <div th:if="${registos}" style="padding-left: 30px; padding-top: 20px;">
+            <div th:if="${registos.isEmpty()}">
+                <b>Sem nenhum registo para mostrar</b>
+            </div>
+            <div th:each="registo : ${registos}">
+                <b th:text="${registo.nome}" style="color: #444444"></b><span th:text="${registo.nivel}"></span><br>
+                <span th:text="${registo.coord}" style="color: #444444"></span><br>
+
+                <span th:text="${registo.dataCompleta()}" style="color: #444444"></span>
+                <br>
+                <img th:if="${registo.nivel} == 1" style="align-content: center; height: 25px; width: auto;" src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nivel-1">
+                <img th:if="${registo.nivel} == 2" style="height: 25px; width: auto;" src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nivel-2">
+                <img th:if="${registo.nivel} == 3" style="height: 25px; width: auto;" src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nivel-3">
+                <img th:if="${registo.nivel} == 4" style="height: 25px; width: auto;" src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nivel-4">
+
+                <br><br>
+            </div>
+        </div>
+
+        <div th:unless="${registos}">
+            <b>Espaço não encontrado</b>
+        </div>
+    </div>
+    <div class="col-10" style="padding-right: 20px">
+        <div id="mapid" style="padding-right: 20px; padding-top: 30px; width: 100%; height:800px ;"></div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" th:inline="javascript">
+    var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+
+    var lista = [[${registos}]];
+    console.log(lista);
+    var coords, x, y, atual;
+    var popupContent;
+
+    var Waypoints = L.Icon.extend({
+        options: {
+            iconSize:     [20, 20],
+            iconAnchor:   [10, 10],
+            popupAnchor:  [0, 0]
+        }
+    });
+
+    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
+    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
+    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
+    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+
+    if(lista) {
+        for (i = 0; i < lista.length; i++) {
+            atual = lista[i];
+            coords = atual.coord.split(',');
+            console.log(coords);
+            x = coords[0];
+            y = coords[1];
+
+            popupContent = "<b>"+lista[i].nome + "</b><br>" + atual.data + " " + atual.hora;
+
+            switch (atual.nivel) {
+                case 1:
+                    L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
+                    break;
+                case 2:
+                    L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
+                    break;
+                case 3:
+                    L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
+                    break;
+                case 4:
+                    L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+</script>
+
+</html>

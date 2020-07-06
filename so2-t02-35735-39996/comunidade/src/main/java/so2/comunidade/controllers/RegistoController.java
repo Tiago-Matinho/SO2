@@ -21,7 +21,7 @@ public class RegistoController {
         return "registo/findall";
     }
 
-    @RequestMapping(value = "/nome")
+    @RequestMapping(value = "/pesquisa-nome")
     public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Map<String, Object> model) {
         System.out.println("Nome: " + nome);
         return findByNome(nome, model);
@@ -29,7 +29,15 @@ public class RegistoController {
 
     public String findByNome(String nome, Map<String, Object> model) {
         model.put("espaco", nome);
-        model.put("niveis", service.getByespacoAndDateAfter(nome));
+        model.put("registos", service.pesquisaNome(nome));
+        return "registo/pesquisa-nome";
+    }
+    /*
+    public String findByNome(String nome, Map<String, Object> model) {
+        model.put("espaco", nome);
+        model.put("registos", service.pesquisaNome(nome));
         return "registo/nome";
     }
+
+     */
 }

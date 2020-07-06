@@ -25,43 +25,46 @@
 	}).addTo(map);
 
 
-	var LeafIcon = L.Icon.extend({
+	var Waypoints = L.Icon.extend({
 		options: {
-			iconSize:     [15, 15],
-			iconAnchor:   [15/2, 15/2],
+			iconSize:     [20, 20],
+			iconAnchor:   [10, 10],
 			popupAnchor:  [0, 0]
 		}
 	});
 
-	//var grau1 = new LeafIcon({iconUrl: 'waypoint1.png'});
+	var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
+	var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
+	var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
+	var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
 
 
 	var lista = [[${ultimosRegistos}]];
-	var coords;
-	var x;
-	var y;
+	var coords, x, y;
 	var popupContent;
+	var atual;
 
 	for (i = 0; i < lista.length; i++) {
-		coords = lista[i].coord.split(',');
+		atual = lista[i];
+		coords = atual.coord.split(',');
 		console.log(coords);
 		x = coords[0];
 		y = coords[1];
 
-		popupContent = "<b>"+lista[i].nome+"</b><br>"+lista[i].data;
+		popupContent = "<b>"+atual.nome+"</b><br>"+ atual.nivel + "<br>" + atual.data;
 
-		switch (lista[i].nivel) {
+		switch (atual.nivel) {
 			case 1:
-				L.marker([x, y]).addTo(map).bindPopup(popupContent);
+				L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
 				break;
 			case 2:
-				L.marker([x, y]).addTo(map).bindPopup(popupContent);
+				L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
 				break;
 			case 3:
-				L.marker([x, y]).addTo(map).bindPopup(popupContent);
+				L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
 				break;
 			case 4:
-				L.marker([x, y]).addTo(map).bindPopup(popupContent);
+				L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
 				break;
 			default:
 				break;

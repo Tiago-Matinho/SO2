@@ -83,6 +83,34 @@ public class RegistoService {
         return this.repository.findAll();
     }
 
+    public List<RegistoDto> pesquisaNome(String nome_espaco) {
+        Calendar calendario = hora_acores;
+        calendario.add(Calendar.HOUR, -1);
+
+        List<Espaco> espacos = espacoService.getEspacoContaining(nome_espaco);
+        if(espacos.isEmpty())
+            return null;
+
+        List<Registo> registos;
+        Registo recente;
+        List<RegistoDto> ret = new LinkedList<>();
+
+        for (Espaco espaco : espacos) {
+            registos = repository.getByEspacoAndDateAfter(espaco.getNome(), calendario.getTime());
+
+            //caso nao tenham sido todos apagados
+            if(registos.size() > 0) {
+                Collections.sort(registos); //organiza lista por ordem crescente
+                recente = registos.get(registos.size() - 1);    //vai buscar o mais recente (i.e. o ultimo)
+                ret.add(new RegistoDto(recente.getId(), espaco.getNome(), espaco.getCoord(),
+                        recente.printData(), recente.printHora(), recente.getNivel()));
+            }
+        }
+
+        System.out.println(ret);
+        return ret;
+    }
+
     public NiveisDto getByespacoAndDateAfter(String nome_espaco) {
         Calendar calendario = hora_acores;
         calendario.add(Calendar.HOUR, -1);

@@ -15,7 +15,7 @@
         <input type="time" th:field="*{hora}" th:id="hora"/>
 
     </div>
-    <div>
+    <div id="nivelRadio">
         <label>Nivel</label>
         <br>
         <input type="radio" id="1" th:field="*{nivel}" value="1">
@@ -48,13 +48,22 @@
 
 
     var lista = [[${espacosExistentes}]];
-    console.log(lista);
-    var coords;
-    var x;
-    var y;
-    var popupContent;
+    var coords, x, y, popupContent;
     var dict = {};
     var temp = null;
+
+    var Waypoints = L.Icon.extend({
+        options: {
+            iconSize:     [20, 20],
+            iconAnchor:   [10, 10],
+            popupAnchor:  [0, 0]
+        }
+    });
+
+    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
+    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
+    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
+    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
 
     for (var i = 0; i < lista.length; i++) {
         console.log(lista[i].coord);
@@ -75,10 +84,23 @@
     }
 
     map.on('click', function(e) {
-        autoFillNome(e.latlng.lat + ", " + e.latlng.lng);
+        lat = String(e.latlng.lat).substring(0,8);
+        lng = String(e.latlng.lng).substring(0,8);
+
+        autoFillNome(lat + ", " + lng);
         if(temp != null)
             map.removeLayer(temp);
-        temp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+
+        if(document.getElementById("1").checked)
+            temp = L.marker([lat, lng], {icon:grau1}).addTo(map);
+        else if(document.getElementById("2").checked)
+            temp = L.marker([lat, lng], {icon:grau2}).addTo(map);
+        else if(document.getElementById("3").checked)
+            temp = L.marker([lat, lng], {icon:grau3}).addTo(map);
+        else if(document.getElementById("4").checked)
+            temp = L.marker([lat, lng], {icon:grau4}).addTo(map);
+        else
+            temp = L.marker([lat, lng]).addTo(map);
     });
 
     function autoFillNome(coord) {

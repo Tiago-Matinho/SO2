@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface EspacoRepository extends CrudRepository<Espaco, Long> {
     Espaco findByNome(String nome);
+    List<Espaco> findByNomeContaining(String nome);
     List<Espaco> findAll();
-    List<Espaco> findByCoord(String coord);
-    void deleteByNome(String nome);
 }

@@ -21,6 +21,10 @@ public class EspacoService {
         return this.repository.findByNome(nome);
     }
 
+    public List<Espaco> getEspacoContaining(String nome) {
+        return this.repository.findByNomeContaining(nome);
+    }
+
     public boolean createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
