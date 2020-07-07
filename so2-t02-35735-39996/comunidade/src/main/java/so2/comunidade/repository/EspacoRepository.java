@@ -11,4 +11,5 @@ import java.util.List;
 public interface EspacoRepository extends CrudRepository<Espaco, Long> {
     Espaco findByNome(String nome);
     List<Espaco> findByNomeContaining(String nome);
+    List<Espaco> findAll();
 }
