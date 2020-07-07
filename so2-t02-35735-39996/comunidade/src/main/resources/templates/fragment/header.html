@@ -24,7 +24,12 @@
 
   <style type="text/css">
 	  *{
-		  font-family: Verdana, Geneva, sans-serif;
+		  font-family: Verdana,sans-serif;
+		  font-size: 15px;
+		  font-style: normal;
+		  font-variant: normal;
+		  font-weight: 400;
+		  color:#d2c8c6
 	  }
 
 	  a{
@@ -32,34 +37,23 @@
 		  text-decoration: none;
 	  }
 
-	  /* visited link */
 	  a:visited {
 		  color: #d2c8c6;
 		  text-decoration: none;
 	  }
-	  /* mouse over link */
+
 	  a:hover {
 		  color: #d2c8c6;
 		  text-decoration: none;
 	  }
-	  /* selected link */
+
 	  a:active {
 		  color: #d2c8c6;
-	  }
-
-	  span{
-		  color:#d2c8c6;
-	  }
-
-	  h1{
-		  color:#d2c8c6;
 	  }
 
 	  .signOut{
 		  background-color: #212121;
 		  border: none;
-		  font-family: Verdana, Geneva, sans-serif;
-		  color: #d2c8c6;
 	  }
 
   </style>
@@ -76,7 +70,7 @@
 			<!--NÃO LOGGED IN-->
 			<div sec:authorize="isAnonymous()">
 			  <a th:href="@{/login}">Login</a>
-			  <span> | </span>
+			  <span style="padding-left: 10px; padding-right: 10px"> | </span>
 			  <a th:href="@{/join}">Join</a>
 			</div>
 
@@ -84,7 +78,7 @@
 			<div sec:authorize="isAuthenticated()">
 				<span>Olá, </span>
 				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
-				<span> | </span>
+				<span style="padding-left: 10px; padding-right: 10px"> | </span>
 				<form th:action="@{/logout}" method="post" style="display: inline-block;">
 					<input type="submit" class="signOut" value="Logout">
 				</form>
@@ -94,10 +88,13 @@
 	</div>
 
 	<!--LOGO E PESQUISA-->
-	<div class="col-12" style="height: 170px ; background-color: #444444; text-align: center;">
-	  <h1 style="padding-top: 30px;">COM_UNIDADE</h1>
-	  <form th:action="@{/registo/pesquisa-nome}">
-		<input type="text" name="nome" placeholder="Pesquisar" style="width: 35%; height: 40px; padding-left: 10px">
+	<div class="col-12" style="height: 190px ; background-color: #444444; text-align: center;">
+		<div style="padding-top: 20px">
+			<span style="font-size: 46px; line-height: 1.7;">COM<span style="font-size: 46px; letter-spacing: -10px; line-height: 0;">_</span></span>
+			<span style="font-weight: bolder; font-size: 46px; line-height: 1.7;">UNIDADE</span>
+		</div>
+	  <form th:action="@{/registo/pesquisa-nome}" style="padding-top: 10px">
+		<input type="text" name="nome" placeholder="Pesquisar" style="width: 35%; height: 40px; padding-left: 10px; font-weight: lighter; color: #212121">
 	  </form>
 	</div>
 

@@ -116,14 +116,14 @@ public class RegistoDto {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         TimeZone tz = TimeZone.getTimeZone("Portugal");
         Calendar hora_acores = Calendar.getInstance(tz);
+        Date atual = hora_acores.getTime();
 
         try{
             Date dataInserida = df.parse(data + " " + hora);
-            //TODO
+            if(dataInserida.after(atual))
+                return false;
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("xeeee");
             return false;
         }
 

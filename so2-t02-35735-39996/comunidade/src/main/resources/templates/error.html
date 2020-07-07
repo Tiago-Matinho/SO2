@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div th:insert="fragment/header">
 </div>
-<div>
-    Os dados inseridos não são válidos
-    ps meter aqui butão para voltar atrás
+
+<style>
+    body, col{
+        background-color: #fdfdfd;
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
+
+<h2 style="color: darkred;text-align: center; padding-top: 8%">Parece que ocorreu uma falha!</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm" style="text-align: center;padding-top: 8%">
+            <a href="/"><img src="https://i.ibb.co/92HV5T9/erro.png" style="width: auto; height: 200px" alt="error"></a>
+            <br><span style="text-align: center; font-size: 10px; color: #444444">Voltar á página inicial</span><br>
+        </div>
+    </div>
 </div>
 
 </body>
+
 </html>
