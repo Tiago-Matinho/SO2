@@ -14,13 +14,6 @@ public class RegistoController {
     @Autowired
     private RegistoService service;
 
-    //TODO: Bloquear para admin
-    @GetMapping("findall")
-    public String findAll(Model model){
-        model.addAttribute("registos", service.getAllRegisto());
-        return "registo/findall";
-    }
-
     @RequestMapping(value = "/pesquisa-nome")
     public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Map<String, Object> model) {
         System.out.println("Nome: " + nome);
