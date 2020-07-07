@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:insert="fragment/header">
+</div>
+
+<style>
+	body, col{
+		background-color: #fdfdfd;
+		width: 100%;
+		height: 100%;
+	}
+	span{
+
+	}
+</style>
+<div class="row" style="width: 100%; margin: 0;">
+	<div class="col" style="width: 100%">
+		<h1 style="padding-top: 30px;color:#4c93e3; text-align: center" sec:authentication="name"></h1>
+
+		<h3 style="padding-top: 40px; text-align: center; color: #444444">REGISTOS</h3>
+		<div style="text-align: center">
+			<svg height="10px">
+				<line x1="0" x2="300" style="stroke:rgb(67,67,67);stroke-width:2"  />
+			</svg>
+		</div>
+		<div style="text-align: center">
+			<a href="/account/registo-novo">
+				<img src="https://i.ibb.co/bd4GBZh/addregisto.png" alt="novo registo" style="width: auto; height: 30px">
+			</a>
+			<br><span style="text-align: center; font-size: 10px; color: #444444">NOVO REGISTO</span><br>
+			<svg height="10px">
+				<line x1="0" x2="300" style="stroke:rgb(67,67,67);stroke-width:2"/>
+			</svg>
+		</div>
+
+		<div th:if="${registos.isEmpty()}" style="text-align: center">
+			<b style="text-align: center; color: #444444">Sem registos</b>
+		</div>
+		  <form th:action="@{/account/registos}" th:method="post">
+				<th:block th:each="registo : ${registos}">
+					<div style="padding-left: 45%">
+						<b th:text="${registo.nome}" style="text-align: left"></b><br><br>
+						<span th:text="${registo.coord}" style="text-align: left; color: #444444;"></span>
+						<button type="submit" th:name="id" th:value="${registo.id}"><img style="width: auto; height: 20px;" alt="apagar registo" src="https://i.ibb.co/mDv1cPB/trashcan.png"/></button><br><br>
+						<span th:text="${registo.dataCompleta()}" style="text-align: left; color: #444444;"></span>
+						<span th:if="${registo.nivel} == 1" style="padding-left: 15px;"><img src="https://i.ibb.co/ct75Gkg/person-1.png" alt="nível 1" style="width: auto; height: 20px"></span>
+						<span th:if="${registo.nivel} == 2" style="padding-left: 13px;"><img src="https://i.ibb.co/M6SQrsW/person-2.png" alt="nível 2" style="width: auto; height: 20px;"></span>
+						<span th:if="${registo.nivel} == 3" style="padding-left: 12px;"><img src="https://i.ibb.co/8mfWHQC/person-3.png" alt="nível 3" style="width: auto; height: 20px;"></span>
+						<span th:if="${registo.nivel} == 4" style="padding-left: 11px;"><img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"></span>
+						<br><br>
+					</div>
+					<div style="text-align: center">
+						<svg height="10px">
+							<line x1="0" x2="300" style="stroke:rgb(67,67,67);stroke-width:2"  />
+						</svg>
+					</div>
+					<br>
+				</th:block>
+		  </form>
+	</div>
+</div>
+</body>
+
+</html>

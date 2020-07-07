@@ -17,37 +17,20 @@ public class EspacoService {
         return this.repository.findAll();
     }
 
-    public Espaco getById(long id) {
-        return this.repository.findById(id);
-    }
-
-    public List<Espaco> getByNome(String nome) {
+    public Espaco getByNome(String nome) {
         return this.repository.findByNome(nome);
     }
 
-    public List<Espaco> getByCoord(String coord) {
-        return this.repository.findByCoord(coord);
+    public List<Espaco> getEspacoContaining(String nome) {
+        return this.repository.findByNomeContaining(nome);
     }
 
-    public String removeEspaco(long id) {
-        this.repository.deleteById(id);
-        return "Removido com sucesso";
-    }
-
-    public String updateEspaco(Espaco espaco) {
-        Espaco update = new Espaco();
-        update.setId(espaco.getId());
-        update.setNome(espaco.getNome());
-        update.setCoord(espaco.getCoord());
-        this.repository.deleteById(espaco.getId());
-        this.repository.save(update);
-        return "Alterado com sucesso: " + update.getId();
-    }
-
-    public String createEspaco(Espaco espaco) {
-        Espaco novo = new Espaco(espaco.getNome(), espaco.getCoord());
+    public boolean createEspaco(String nome, String coord) {
+        Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
-        return "Adicionado com sucesso: " + novo.getId();
-    }
+        return true;
+        //TODO: caso não consiga criar retorna false
+        //TODO: as coordenadas n sao validas e validar no form
 
+    }
 }

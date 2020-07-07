@@ -1,15 +1,118 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-	<title>Hello World!</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!--BODY-->
 <body>
-<a href="/espaco/findall">espaco!</a>
-<a href="/registo/findall">Visit W3Schools.com!</a>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{/logout}" method="post">
-	<input type="submit" value="Sign Out"/>
-</form>
+
+<!--LOAD HEADER-->
+<div th:insert="fragment/header"></div>
+
+<style>
+	html, body, #mapid {
+		height: 90%;
+		width: 100%;
+	}
+</style>
+
+<!--MAPA-->
+<div id="mapid"></div>
+<script type="text/javascript" th:inline="javascript">
+	var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
+
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+				'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(map);
+
+
+	var Waypoints = L.Icon.extend({
+		options: {
+			iconSize:     [20, 20],
+			iconAnchor:   [10, 10],
+			popupAnchor:  [0, 0]
+		}
+	});
+
+	var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
+	var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
+	var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
+	var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+
+	var lista = [[${ultimosRegistos}]];
+	var coords, x, y, temp;
+	var popupContent;
+	var atual;
+	var dict = {};
+
+	for (i = 0; i < lista.length; i++) {
+		atual = lista[i];
+		coords = atual.coord.split(',');
+		console.log(coords);
+		x = coords[0];
+		y = coords[1];
+
+		switch (atual.nivel) {
+			case 1:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
+				break;
+			case 2:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
+				break;
+			case 3:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
+				break;
+			case 4:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
+				break;
+			default:
+				break;
+		}
+	}
+
+
+	map.on('click', function(e) {
+		let lat = String(e.latlng.lat).substring(0,8);
+		let lng = String(e.latlng.lng).substring(0,8);
+
+		lat = parseFloat(lat);
+		lng = parseFloat(lng);
+
+		if(temp != null)
+			temp.closePopup();
+
+		var coords, x, y, dist;
+		var min = 10000000; //infinito
+
+		temp = null;
+
+		for(var key in dict){
+			coords = key.split(',');
+			x = parseFloat(coords[0]);
+			y = parseFloat(coords[1]);
+
+			dist = Math.sqrt(Math.pow(lat-x, 2) + Math.pow(lng-y,2));
+
+			if(dist < min){
+				min = dist;
+				temp = dict[key];
+			}
+		}
+		if(temp != null)
+			temp.openPopup();
+	});
+
+</script>
+
 </body>
 </html>

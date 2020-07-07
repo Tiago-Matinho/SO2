@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface EspacoRepository extends CrudRepository<Espaco, Long> {
+    Espaco findByNome(String nome);
+    List<Espaco> findByNomeContaining(String nome);
     List<Espaco> findAll();
-    Espaco findById(long id);
-    List<Espaco> findByNome(String nome);
-    List<Espaco> findByCoord(String coord);
-    void deleteById(long id);
 }

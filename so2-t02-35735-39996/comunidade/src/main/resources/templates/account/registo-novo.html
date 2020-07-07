@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:insert="fragment/header">
+</div>
+
+<style>
+    html, body, #mapid {
+        height: 93%;
+        width: 100%;
+    }
+
+    ::placeholder {
+        color: #040404;
+        font-weight: bold;
+        opacity: 0.75;
+    }
+
+    .buttons{
+        background-color: #dcdcdc;
+        font-family: Verdana, Geneva, sans-serif;
+        color: #212121;
+        border: none;
+        font-weight: bold;
+    }
+
+    .row, html, body {
+        height: 92.2%;
+        width: 100%;
+    }
+</style>
+
+<!--REGISTO-->
+<div class="row" style="margin: 0">
+    <div class="col-3" style="background-color: #dcdcdc; overflow-y: scroll;text-align: center;padding-top: 50px">
+
+        <h2 style="font-weight: bold; color: dodgerblue">Novo registo</h2>
+        <form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post" style="padding-top: 20px" >
+            <div>
+                <div style="padding-top: 5px">
+                    <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
+                </div>
+                <div style="padding-top: 5px">
+                    <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS"/>
+                </div>
+                <div style="padding-top: 5px">
+                    <input type="date" th:field="*{data}" th:id="data"/>
+                    <input type="time" th:field="*{hora}" th:id="hora"/>
+                </div>
+            </div>
+            <br>
+            <div class="row" style=" padding-left: 8px; padding-top: 5px">
+                <div class="col" style="text-align: left">
+                    <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
+                    <label for="1" style="color: #212121;">Vazio ou com mínima lotação</label><br>
+                    <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
+                    <label for="2" style="color: #212121;">Com pessoas, mas espaço suficiente</label><br>
+                    <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
+                    <label for="3" style="color: #212121;">Muito cheio</label><br>
+                    <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
+                    <label for="4" style="color: #212121;">Muito cheio e com fila de espera</label>
+                </div>
+            </div>
+
+
+            <div style="padding-top: 30px"><button type="submit" class="buttons">NOVO REGISTO</button></div>
+        </form>
+        <div style="padding-top: 20px"><button onclick="autoFillData()" class="buttons">HORA ATUAL</button></div>
+    </div>
+    <div class="col-9" style="width: 100%; margin: 0">
+        <div id="mapid" style="width: 100%; margin: 0"></div>
+    </div>
+</div>
+
+<!--MAPA-->
+<script type="text/javascript" th:inline="javascript">
+    var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+
+    var lista = [[${espacosExistentes}]];
+    var coords, x, y, popupContent;
+    var dict = {};
+    var temp = null;
+
+    var Waypoints = L.Icon.extend({
+        options: {
+            iconSize:     [20, 20],
+            iconAnchor:   [10, 10],
+            popupAnchor:  [0, 0]
+        }
+    });
+
+    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
+    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
+    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
+    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+
+    for (var i = 0; i < lista.length; i++) {
+        console.log(lista[i].coord);
+        dict[lista[i].coord] = lista[i].nome;
+        coords = lista[i].coord.split(',');
+        console.log(coords);
+        x = coords[0];
+        y = coords[1];
+
+        popupContent = "<b>"+lista[i].nome+"</b>";
+
+        L.marker([x, y]).bindPopup(popupContent).on('click', onClick).addTo(map);
+    }
+
+    function onClick(e) {
+        if(temp != null)
+            map.removeLayer(temp);
+        nome = dict[e.latlng.lat + ", " + e.latlng.lng];
+        autoFillExistente(nome, e.latlng.lat + ", " + e.latlng.lng);
+    }
+
+    map.on('click', function(e) {
+        lat = String(e.latlng.lat).substring(0,8);
+        lng = String(e.latlng.lng).substring(0,8);
+
+        autoFillNome(lat + ", " + lng);
+        if(temp != null)
+            map.removeLayer(temp);
+
+        if(document.getElementById("1").checked)
+            temp = L.marker([lat, lng], {icon:grau1}).addTo(map);
+        else if(document.getElementById("2").checked)
+            temp = L.marker([lat, lng], {icon:grau2}).addTo(map);
+        else if(document.getElementById("3").checked)
+            temp = L.marker([lat, lng], {icon:grau3}).addTo(map);
+        else if(document.getElementById("4").checked)
+            temp = L.marker([lat, lng], {icon:grau4}).addTo(map);
+        else
+            temp = L.marker([lat, lng]).addTo(map);
+    });
+
+    function autoFillNome(coord) {
+        document.getElementById('coord').value = coord;
+    }
+
+    function autoFillExistente(nome, coord) {
+        document.getElementById('nome').value = nome;
+        document.getElementById('coord').value = coord;
+    }
+
+    function autoFillData(){
+        let data = new Date();
+        let yyyy = data.getFullYear();
+        let MM = String(data.getMonth() + 1).padStart(2, '0');
+        let dd = String(data.getDate()).padStart(2, '0');
+        let dataStr = yyyy+"-"+MM+"-"+dd;
+        let hh = String(data.getHours()).padStart(2, '0');
+        let mm = String(data.getMinutes()).padStart(2, '0');
+        let hora = hh+":"+mm;
+        document.getElementById('data').value = dataStr;
+        document.getElementById('hora').value = hora;
+    }
+
+    function change(nivel) {
+        if(temp != null)
+            map.removeLayer(temp);
+
+        switch(nivel) {
+            case 1:
+                temp = L.marker([lat, lng], {icon:grau1}).addTo(map);
+                break;
+            case 2:
+                temp = L.marker([lat, lng], {icon:grau2}).addTo(map);
+                break;
+            case 3:
+                temp = L.marker([lat, lng], {icon:grau3}).addTo(map);
+                break;
+            case 4:
+                temp = L.marker([lat, lng], {icon:grau4}).addTo(map);
+                break;
+            default:
+                break;
+        }
+    }
+
+</script>
+
+</body>
+</html>

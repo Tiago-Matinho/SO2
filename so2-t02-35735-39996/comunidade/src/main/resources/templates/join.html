@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<style type="text/css">
+    ::placeholder {
+        color: #040404;
+        font-weight: bold;
+        opacity: 0.75;
+    }
+
+    .Join{
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        color: #ffffff;
+        overflow: hidden;
+        outline:none;
+        font-weight: bold; font-size: 25px;
+    }
+
+    .LoginJoinText{
+        color: #dcdcdc;
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+</style>
+
+
+<body style="background-color: #212121">
+<div th:insert="fragment/headerNoSearchBar"></div>
+
+<div class="row align-items-center" style="margin: 0">
+    <div class="col">
+        <form th:action="@{/join}" th:object="${Utilizador}" method="post"
+              style="text-align: center; padding-top: 100px">
+            <div>
+                <span style="font-size: 46px; line-height: 1.7; font-weight: bolder">JOIN </span>
+                <span style="font-size: 46px; line-height: 1.7;">COM<span style="font-size: 46px; letter-spacing: -10px; line-height: 0;">_</span></span>
+                <span style="font-weight: bolder; font-size: 46px; line-height: 1.7;">UNIDADE</span>
+            </div>
+            <div style="padding-top: 40px">
+                <div th:if="${param.username}"><p style="color: red">Username ou Password não válidos</p></div>
+                <input type="text" th:field="*{username}" placeholder="USERNAME" style="text-align: center; height: 40px; width: 30%; color: #212121"/>
+            </div>
+            <div style="padding-top: 20px">
+                <input type="password" th:field="*{password}" placeholder="PASSWORD" style="text-align: center; height: 40px; width: 30%; color: #212121"/>
+            </div>
+            <div style="padding-top: 20px">
+                <input class="Join" type="submit" value="OK">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
