@@ -37,7 +37,7 @@
 		</div>
 
 		<div th:if="${registos.isEmpty()}" style="text-align: center">
-			<b style="text-align: center; color: #444444">Sem registos</b>
+			<b style="text-align: center; color: #444444">SEM REGISTOS</b>
 		</div>
 		  <form th:action="@{/account/registos}" th:method="post">
 				<th:block th:each="registo : ${registos}">

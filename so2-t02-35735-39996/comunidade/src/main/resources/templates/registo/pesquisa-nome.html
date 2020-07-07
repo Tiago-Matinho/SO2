@@ -20,7 +20,7 @@
     <div class="col-3" style="background-color: #d2c8c6; overflow-y: scroll;">
         <div th:if="${registos}" style="padding-left: 30px; padding-top: 20px;">
             <div th:if="${registos.isEmpty()}">
-                <b style="color: #212121; text-align: center; padding-top: 20%">SEM REGISTOS</b>
+                <b style="color: #212121; text-align: center; padding-top: 20%">SEM REGISTOS FEITOS NA ÚLTIMA HORA</b>
             </div>
             <div th:unless="${registos.isEmpty()}">
                 <h3 style="font-weight: bold; text-align: left; padding-left: 1%;color: #498fe0">ÚLTIMOS REGISTOS:</h3><br>
@@ -77,7 +77,6 @@
 
 
     var lista = [[${registos}]];
-    console.log(lista);
     var coords, x, y, atual, temp;
     var popupContent;
     var dict = {};
@@ -98,8 +97,9 @@
     if(lista) {
         for (i = 0; i < lista.length; i++) {
             atual = lista[i];
+            console.log(atual.nome);
             coords = atual.coord.split(',');
-            console.log(coords);
+            console.log(atual.nome);
             x = coords[0];
             y = coords[1];
 

@@ -23,8 +23,6 @@ public class RegistoService {
     @Autowired
     private EspacoService espacoService;
 
-    private final TimeZone tz = TimeZone.getTimeZone("Portugal");
-    private final Calendar hora_acores = Calendar.getInstance(tz);
 
 /************************************************************************************/
 
@@ -84,7 +82,8 @@ public class RegistoService {
     }
 
     public List<RegistoDto> pesquisaNome(String nome_espaco) {
-        Calendar calendario = hora_acores;
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar calendario =  Calendar.getInstance(tz);
         calendario.add(Calendar.HOUR, -1);
 
         List<Espaco> espacos = espacoService.getEspacoContaining(nome_espaco);
@@ -112,7 +111,8 @@ public class RegistoService {
     }
 
     public NiveisDto getByespacoAndDateAfter(String nome_espaco) {
-        Calendar calendario = hora_acores;
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar calendario =  Calendar.getInstance(tz);
         calendario.add(Calendar.HOUR, -1);
 
         Espaco espaco = espacoService.getByNome(nome_espaco);
@@ -148,7 +148,8 @@ public class RegistoService {
 
     public List<RegistoDto> getRegistosUltimaHora() {
         //tempo
-        Calendar calendario = hora_acores;
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar calendario =  Calendar.getInstance(tz);
         calendario.add(Calendar.HOUR, -1);
 
         List<Espaco> espacos = espacoService.getAllEspaco();
