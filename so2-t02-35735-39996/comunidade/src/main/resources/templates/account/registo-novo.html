@@ -46,28 +46,28 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-1" style="text-align: left">
-                    <img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px;"/><br>
-                    <img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"/><br>
-                    <img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"/><br>
-                    <img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"/><br>
+                <div class="col-2" style="text-align: left; padding-left: 40px">
+                    <img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 25px;"/><div style="height: 5px"></div><br>
+                    <img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 25px;"/><div style="height: 8px"></div><br>
+                    <img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 25px;"/><div style="height: 8px"></div><br>
+                    <img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 25px;"/><br>
                 </div>
-                <div class="col-11" style="text-align: left">
+                <div class="col-10" style="text-align: left">
                     <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
-                    <label for="1" style="color: #212121;">Vazio ou com mínima lotação</label><br>
+                    <label for="1" style="color: #212121;">Vazio ou com mínima lotação</label><br><br>
                     <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
-                    <label for="2" style="color: #212121;">Com pessoas, mas espaço suficiente</label><br>
+                    <label for="2" style="color: #212121;">Com pessoas, mas espaço suficiente</label><br><br>
                     <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
-                    <label for="3" style="color: #212121;">Muito cheio</label><br>
+                    <label for="3" style="color: #212121;">Muito cheio</label><br><br>
                     <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
                     <label for="4" style="color: #212121;">Muito cheio e com fila de espera</label>
                 </div>
             </div>
 
 
-            <div style="padding-top: 5px"><button type="submit" class="buttons">Novo registo</button></div>
+            <div style="padding-top: 20px"><button type="submit" class="buttons">NOVO REGISTO</button></div>
         </form>
-        <div style="padding-top: 15px"><button onclick="autoFillData()" class="buttons">Hora atual</button></div>
+        <div style="padding-top: 15px"><button onclick="autoFillData()" class="buttons">HORA ATUAL</button></div>
     </div>
     <div class="col-9">
         <div id="mapid" style="padding-right:20px "></div>
