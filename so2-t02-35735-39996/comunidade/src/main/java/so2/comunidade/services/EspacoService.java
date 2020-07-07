@@ -25,12 +25,8 @@ public class EspacoService {
         return this.repository.findByNomeContaining(nome);
     }
 
-    public boolean createEspaco(String nome, String coord) {
+    public void createEspaco(String nome, String coord) {
         Espaco novo = new Espaco(nome, coord);
         this.repository.save(novo);
-        return true;
-        //TODO: caso não consiga criar retorna false
-        //TODO: as coordenadas n sao validas e validar no form
-
     }
 }

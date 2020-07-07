@@ -13,8 +13,6 @@ import so2.comunidade.repository.RegistoRepository;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//TODO: Organizar metodos
-
 @Service
 public class RegistoService {
 
@@ -26,6 +24,12 @@ public class RegistoService {
 
 /************************************************************************************/
 
+    /*
+    * Ao criar um novo registo verifica-se primeiro se os dados inseridos sao validos,
+    * de seguida procura-se um espaço que tenha o mesmo nome e coordenadas. Uma vez
+    * que só pode existir um lugar com um determinado nome as coordenadas do espaço
+    * inserido têm de
+    */
     public boolean createRegisto(RegistoDto registoDto) {
         //valida o registo
         if(!registoDto.valida())
@@ -146,19 +150,14 @@ public class RegistoService {
         return new NiveisDto(nome_espaco, espaco.getCoord(), grau1, grau2, grau3, grau4);
     }
 
-    public List<RegistoDto> getRegistosUltimaHora() {
-        //tempo
-        TimeZone tz = TimeZone.getTimeZone("Portugal");
-        Calendar calendario =  Calendar.getInstance(tz);
-        calendario.add(Calendar.HOUR, -1);
-
+    public List<RegistoDto> getUltimosRegistos() {
         List<Espaco> espacos = espacoService.getAllEspaco();
         List<RegistoDto> ret = new LinkedList<>();
         List<Registo> registos;
         Registo recente;
 
         for (Espaco espaco : espacos) {
-            registos = repository.getByEspacoAndDateAfter(espaco.getNome(), calendario.getTime());
+            registos = repository.getByEspaco(espaco.getNome());
 
             //caso nao tenham sido todos apagados
             if(registos.size() > 0) {

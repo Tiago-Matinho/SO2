@@ -21,7 +21,7 @@ public class MainController {
 
     @GetMapping(value="/")
     public String home(Model model) {
-        model.addAttribute("ultimosRegistos", registoService.getRegistosUltimaHora());
+        model.addAttribute("ultimosRegistos", registoService.getUltimosRegistos());
         return "home";
     }
 
