@@ -14,10 +14,13 @@
 		height: 90%;
 		width: 100%;
 	}
+	.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+	.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
 </style>
 
 <!--MAPA-->
 <div id="mapid"></div>
+
 <script type="text/javascript" th:inline="javascript">
 	var map = L.map('mapid').setView([39.557191, -7.8536599], 7);
 
@@ -32,6 +35,46 @@
 	}).addTo(map);
 
 
+	function getColor(d) {
+		switch(d) {
+			case 'Vazio ou com mínima lotação':
+				return '#08a3fd';
+			case 'Com pessoas, mas espaço suficiente':
+				return '#3db50e';
+			case 'Muito cheio':
+				return '#f1ab00';
+			case 'Muito cheio e com fila de espera':
+				return '#ef5858';
+			default:
+				return '#e1f4fa';
+		}
+}
+
+	var legend = L.control({position: 'bottomright'});
+	legend.onAdd = function (map) {
+		var div = L.DomUtil.create('div', 'info legend'),
+				grades = ['Vazio ou com mínima lotação', 'Com pessoas, mas espaço suficiente', 'Muito cheio',
+					'Muito cheio e com fila de espera', 'Clicar para saber o espaço mais próximo'],
+				labels = [],
+				from, to;
+
+		for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+
+			labels.push(
+					'<i style="background:' + getColor(from) + '"></i> ' +
+					from);
+		}
+
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
+
+	legend.addTo(map);
+
+
+
 	var Waypoints = L.Icon.extend({
 		options: {
 			iconSize:     [20, 20],
@@ -40,10 +83,10 @@
 		}
 	});
 
-	var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
-	var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
-	var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
-	var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+	var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/g6RpRLN/waypoint1.png'});
+	var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/WybYVk0/waypoint2.png'});
+	var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/NNtVWXt/waypoint3.png'});
+	var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/svXfWgb/waypoint4.png'});
 
 	var lista = [[${ultimosRegistos}]];
 	var coords, x, y, temp;
@@ -60,25 +103,34 @@
 
 		switch (atual.nivel) {
 			case 1:
-				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
+				popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+						"</b><br>Vazio ou com mínima lotação<br><span style='color: #212121'>"+
+						atual.data + " " + atual.hora + "</span></div>";
 				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
 				break;
 			case 2:
-				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
+				popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+						"</b><br>Com pessoas, mas espaço suficiente<br><span style='color: #212121'>"+
+						atual.data + " " + atual.hora + "</span></div>";
 				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
 				break;
 			case 3:
-				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
+				popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+						"</b><br>Muito cheio<br><span style='color: #212121'>"+
+						atual.data + " " + atual.hora + "</span></div>";
 				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
 				break;
 			case 4:
-				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
+				popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+						"</b><br>Muito cheio e com fila de espera<br><span style='color: #212121'>"+
+						atual.data + " " + atual.hora + "</span></div>";
 				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
 				break;
 			default:
 				break;
 		}
 	}
+
 
 
 	map.on('click', function(e) {

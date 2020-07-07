@@ -38,29 +38,55 @@
         <form th:action="@{/account/registo-novo}" th:object="${registoNovo}" method="post" style="padding-top: 20px" >
             <div>
                 <div style="padding-top: 5px">
-                    <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO"/>
+                    <input type="text" th:field="*{nome}" id="nome" placeholder="NOME DO ESPAÇO" style="font-weight: lighter; color: #212121"/>
                 </div>
                 <div style="padding-top: 5px">
-                    <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS"/>
+                    <input type="text" th:field="*{coord}" id="coord" placeholder="COORDENADAS" style="font-weight: lighter; color: #212121"/>
                 </div>
                 <div style="padding-top: 5px">
-                    <input type="date" th:field="*{data}" th:id="data"/>
-                    <input type="time" th:field="*{hora}" th:id="hora"/>
+                    <input type="date" th:field="*{data}" th:id="data" style="font-weight: lighter; color: #212121"/>
+                    <input type="time" th:field="*{hora}" th:id="hora" style="font-weight: lighter; color: #212121"/>
                 </div>
             </div>
             <br>
-            <div class="row" style=" padding-left: 8px; padding-top: 5px">
-                <div class="col" style="text-align: left">
+            <div class="row">
+                <div class="col-2" style="text-align: center">
+                    <img style="height: 25px; width: auto;" src="https://i.ibb.co/ct75Gkg/person-1.png" alt="nivel-1">
+                </div>
+                <div class="col-10" style="text-align: left">
                     <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
                     <label for="1" style="color: #212121;">Vazio ou com mínima lotação</label><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2" style="text-align: center">
+                    <img style="height: 25px; width: auto" src="https://i.ibb.co/M6SQrsW/person-2.png" alt="nivel-2">
+                </div>
+                <div class="col-10" style="text-align: left">
                     <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
                     <label for="2" style="color: #212121;">Com pessoas, mas espaço suficiente</label><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2" style="text-align: center">
+                    <img style="height: 25px; width: auto" src="https://i.ibb.co/8mfWHQC/person-3.png" alt="nivel-3">
+                </div>
+                <div class="col-10" style="text-align: left">
                     <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
                     <label for="3" style="color: #212121;">Muito cheio</label><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2" style="text-align: center">
+                    <img style="height: 25px; width: auto" src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nivel-4">
+                </div>
+                <div class="col-10" style="text-align: left">
                     <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
                     <label for="4" style="color: #212121;">Muito cheio e com fila de espera</label>
                 </div>
             </div>
+
+
 
 
             <div style="padding-top: 30px"><button type="submit" class="buttons">NOVO REGISTO</button></div>
@@ -100,10 +126,10 @@
         }
     });
 
-    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
-    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
-    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
-    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/g6RpRLN/waypoint1.png'});
+    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/WybYVk0/waypoint2.png'});
+    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/NNtVWXt/waypoint3.png'});
+    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/svXfWgb/waypoint4.png'});
 
     for (var i = 0; i < lista.length; i++) {
         console.log(lista[i].coord);
@@ -113,7 +139,7 @@
         x = coords[0];
         y = coords[1];
 
-        popupContent = "<b>"+lista[i].nome+"</b>";
+        popupContent = "<b style='color: #212121'>"+lista[i].nome+"</b>";
 
         L.marker([x, y]).bindPopup(popupContent).on('click', onClick).addTo(map);
     }

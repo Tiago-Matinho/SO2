@@ -23,19 +23,17 @@
                 <b style="color: #212121; text-align: center; padding-top: 20%">SEM REGISTOS</b>
             </div>
             <div th:unless="${registos.isEmpty()}">
-                <h3 style="font-weight: bold; text-align: center;color: #498fe0">Último registo:</h3><br>
+                <h3 style="font-weight: bold; text-align: left; padding-left: 1%;color: #498fe0">ÚLTIMOS REGISTOS:</h3><br>
             </div>
             <div th:each="registo : ${registos}">
                 <div style="padding-top: 5px">
                     <a th:href="@{/registo/nome/} + ${registo.nome}" >
-                        <b th:text="${registo.nome}" style="color: #444444"></b>
+                        <b th:text="${registo.nome}" style="color: #040404"></b>
                     </a>
                 </div>
-                <br>
                 <div style="padding-top: 5px">
                     <span th:text="${registo.coord}" style="color: #444444"></span>
                 </div>
-                <br>
                 <div style="padding-top: 5px">
                     <span th:text="${registo.dataCompleta()}" style="color: #444444"></span>
                     <img th:if="${registo.nivel} == 1" style="padding-left: 5px; height: 25px; width: auto;" src="https://i.ibb.co/ct75Gkg/person-1.png" alt="nivel-1">
@@ -92,10 +90,10 @@
         }
     });
 
-    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/XWFFTQz/waypoint1.png'});
-    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/JRMQMnM/waypoint2.png'});
-    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/dWqQs7H/waypoint3.png'});
-    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
+    var grau1 = new Waypoints({iconUrl: 'https://i.ibb.co/g6RpRLN/waypoint1.png'});
+    var grau2 = new Waypoints({iconUrl: 'https://i.ibb.co/WybYVk0/waypoint2.png'});
+    var grau3 = new Waypoints({iconUrl: 'https://i.ibb.co/NNtVWXt/waypoint3.png'});
+    var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/svXfWgb/waypoint4.png'});
 
     if(lista) {
         for (i = 0; i < lista.length; i++) {
@@ -108,19 +106,27 @@
 
             switch (atual.nivel) {
                 case 1:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.data + " " + atual.hora;
+                    popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+                        "</b><br>Vazio ou com mínima lotação<br><span style='color: #212121'>"+
+                        atual.data + " " + atual.hora + "</span></div>";
                     dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
                     break;
                 case 2:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.data + " " + atual.hora;
+                    popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+                        "</b><br>Com pessoas, mas espaço suficiente<br><span style='color: #212121'>"+
+                        atual.data + " " + atual.hora + "</span></div>";
                     dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
                     break;
                 case 3:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.data + " " + atual.hora;
+                    popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+                        "</b><br>Muito cheio<br><span style='color: #212121'>"+
+                        atual.data + " " + atual.hora + "</span></div>";
                     dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
                     break;
                 case 4:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.data + " " + atual.hora;
+                    popupContent = "<div class='popups'><b style='text-align: center; color: #212121'>"+atual.nome+
+                        "</b><br>Muito cheio e com fila de espera<br><span style='color: #212121'>"+
+                        atual.data + " " + atual.hora + "</span></div>";
                     dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
                     break;
                 default:
