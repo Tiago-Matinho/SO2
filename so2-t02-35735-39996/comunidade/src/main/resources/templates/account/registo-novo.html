@@ -132,10 +132,9 @@
     var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/svXfWgb/waypoint4.png'});
 
     for (var i = 0; i < lista.length; i++) {
-        console.log(lista[i].coord);
+        console.log(lista[i].nome);
         dict[lista[i].coord] = lista[i].nome;
         coords = lista[i].coord.split(',');
-        console.log(coords);
         x = coords[0];
         y = coords[1];
 
@@ -148,6 +147,7 @@
         if(temp != null)
             map.removeLayer(temp);
         nome = dict[e.latlng.lat + ", " + e.latlng.lng];
+        console.log(nome);
         autoFillExistente(nome, e.latlng.lat + ", " + e.latlng.lng);
     }
 

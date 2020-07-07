@@ -13,8 +13,6 @@ import so2.comunidade.repository.RegistoRepository;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//TODO: Organizar metodos
-
 @Service
 public class RegistoService {
 
@@ -23,11 +21,16 @@ public class RegistoService {
     @Autowired
     private EspacoService espacoService;
 
-    private final TimeZone tz = TimeZone.getTimeZone("Portugal");
-    private final Calendar hora_acores = Calendar.getInstance(tz);
 
 /************************************************************************************/
 
+    /*
+    * Ao criar um novo registo verifica-se primeiro se os dados inseridos sao validos,
+    * de seguida procura-se um espaço que tenha o mesmo nome e coordenadas. Uma vez
+    * que só pode existir um lugar com um determinado nome as coordenadas do espaço
+    * inserido têm de coincidir. Caso nao exista um espaco com esse nome cria um novo.
+    * Por fim adiciona o novo registo usando o username de quem estiver autenticado.
+    */
     public boolean createRegisto(RegistoDto registoDto) {
         //valida o registo
         if(!registoDto.valida())
@@ -66,6 +69,7 @@ public class RegistoService {
         }
     }
 
+    // Remove um registo pelo seu ID
     public void removeRegisto(long id) {
         Registo registo = repository.findById(id);
 
@@ -79,12 +83,16 @@ public class RegistoService {
         this.repository.deleteById(id);
     }
 
-    public List<Registo> getAllRegisto() {
-        return this.repository.findAll();
-    }
-
+    /*
+    * Procura os registos de espaços com nomes que contenham a string inserida. Serve para
+    * uma procura de espaços pelo nome pouco sofisticada.
+    *
+    * Apenas retorna os registos efectuados na ultima hora.
+    * */
     public List<RegistoDto> pesquisaNome(String nome_espaco) {
-        Calendar calendario = hora_acores;
+        // vai buscar a hora de portugal
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar calendario =  Calendar.getInstance(tz);
         calendario.add(Calendar.HOUR, -1);
 
         List<Espaco> espacos = espacoService.getEspacoContaining(nome_espaco);
@@ -95,9 +103,9 @@ public class RegistoService {
         Registo recente;
         List<RegistoDto> ret = new LinkedList<>();
 
+        // precorre os espacos com nomes parecidos
         for (Espaco espaco : espacos) {
             registos = repository.getByEspacoAndDateAfter(espaco.getNome(), calendario.getTime());
-
             //caso nao tenham sido todos apagados
             if(registos.size() > 0) {
                 Collections.sort(registos); //organiza lista por ordem crescente
@@ -106,17 +114,21 @@ public class RegistoService {
                         recente.printData(), recente.printHora(), recente.getNivel()));
             }
         }
-
-        System.out.println(ret);
         return ret;
     }
 
+    /*
+    * Procura os registos para um espaço dado e conta o numero de ocorrencias do mesmo nivel na
+    * ultima hora.
+    * */
     public NiveisDto getByespacoAndDateAfter(String nome_espaco) {
-        Calendar calendario = hora_acores;
+        // vai buscar a hora de portugal
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar calendario =  Calendar.getInstance(tz);
         calendario.add(Calendar.HOUR, -1);
 
         Espaco espaco = espacoService.getByNome(nome_espaco);
-        if(espaco == null)
+        if(espaco == null)  //caso o espaço nao exista
             return null;
 
         List<Registo> registos = repository.getByEspacoAndDateAfter(nome_espaco, calendario.getTime());
@@ -125,6 +137,7 @@ public class RegistoService {
         int grau3 = 0;
         int grau4 = 0;
 
+        // conta as ocorrencias
         for (Registo registo : registos) {
             switch(registo.getNivel()) {
                 case 1:
@@ -146,18 +159,19 @@ public class RegistoService {
         return new NiveisDto(nome_espaco, espaco.getCoord(), grau1, grau2, grau3, grau4);
     }
 
-    public List<RegistoDto> getRegistosUltimaHora() {
-        //tempo
-        Calendar calendario = hora_acores;
-        calendario.add(Calendar.HOUR, -1);
-
+    /*
+    * Retorna uma lista dos ultimos registos deitos em cada espaço. Independentemente se foram
+    * feitos na ultima hora ou nao.
+    * */
+    public List<RegistoDto> getUltimosRegistos() {
         List<Espaco> espacos = espacoService.getAllEspaco();
         List<RegistoDto> ret = new LinkedList<>();
         List<Registo> registos;
         Registo recente;
 
+        // precorre os espaços
         for (Espaco espaco : espacos) {
-            registos = repository.getByEspacoAndDateAfter(espaco.getNome(), calendario.getTime());
+            registos = repository.getByEspaco(espaco.getNome());
 
             //caso nao tenham sido todos apagados
             if(registos.size() > 0) {
@@ -171,12 +185,18 @@ public class RegistoService {
         return  ret;
     }
 
+    /*
+    * Retorna uma lista dos registos feitos pelo utilizador autenticado.
+    * */
     public List<RegistoDto> getByUtilizador() {
+        // vai buscar o username do utilizador
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<Registo> registos = repository.getByUtilizador(authentication.getName());
+        List<Registo> registos = repository.getByUtilizador(authentication.getName());  //procura pelo nome
+
         List<RegistoDto> ret = new LinkedList<>();
         Espaco espaco;
 
+        //precorre os registos e cria uma lista de RegistosDto
         for(Registo registo : registos) {
             espaco = espacoService.getByNome(registo.getEspaco());
             ret.add(new RegistoDto(registo.getId(), espaco.getNome(), espaco.getCoord(),

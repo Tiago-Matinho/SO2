@@ -16,7 +16,6 @@ public class RegistoController {
 
     @RequestMapping(value = "/pesquisa-nome")
     public String findByNomeEspaco(@RequestParam(value = "nome") String nome, Map<String, Object> model) {
-        System.out.println("Nome: " + nome);
         return findByNome(nome, model);
     }
 
