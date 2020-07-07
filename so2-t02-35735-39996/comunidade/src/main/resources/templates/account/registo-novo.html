@@ -45,38 +45,23 @@
                 <input type="time" th:field="*{hora}" th:id="hora"/>
             </div>
             <br>
-            <div>
-                <span style="text-align: left; padding-left: 10px;">
-                    <img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px;"/>
-                </span>
-                <span style="text-align: left;  padding-left: 60px;">
+            <div class="row">
+                <div class="col-1" style="text-align: left">
+                    <img src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nível 1" style="width: auto; height: 20px;"/><br>
+                    <img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;"/><br>
+                    <img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;"/><br>
+                    <img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;"/><br>
+                </div>
+                <div class="col-11" style="text-align: left">
                     <input type="radio" id="1" th:field="*{nivel}" value="1" onclick="change(1)">
                     <label for="1" style="color: #212121;">Vazio ou com mínima lotação</label><br>
-                </span>
-
-                <span style="text-align: left; padding-left: 10px;">
-                    <img src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nível 2" style="width: auto; height: 20px;">
-                </span>
-                <span style="text-align: left;  padding-left: 60px; padding-bottom: 40px;">
                     <input type="radio" id="2" th:field="*{nivel}" value="2" onclick="change(2)">
                     <label for="2" style="color: #212121;">Com pessoas, mas espaço suficiente</label><br>
-                </span>
-
-                <span style="text-align: left; padding-left: 10px;">
-                    <img src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nível 3" style="width: auto; height: 20px;">
-                </span>
-                <span style="text-align: left;  padding-left: 60px; padding-bottom: 40px;">
                     <input type="radio" id="3" th:field="*{nivel}" value="3" onclick="change(3)">
                     <label for="3" style="color: #212121;">Muito cheio</label><br>
-                </span>
-
-                <span style="text-align: left; padding-left: 10px;">
-                    <img src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nível 4" style="width: auto; height: 20px;">
-                </span>
-                <span style="text-align: left;  padding-left: 60px; padding-bottom: 40px;">
                     <input type="radio" id="4" th:field="*{nivel}" value="4" onclick="change(4)">
                     <label for="4" style="color: #212121;">Muito cheio e com fila de espera</label>
-                </span>
+                </div>
             </div>
 
 

@@ -24,7 +24,7 @@
                 <b>Sem nenhum registo para mostrar</b>
             </div>
             <div th:each="registo : ${registos}">
-                <h3 style="font-weight: bold; text-align: center;color: dodgerblue">Registos na última hora:</h3>
+                <h3 style="font-weight: bold; text-align: center;color: #498fe0">Último registo:</h3>
                 <a th:href="@{/registo/nome/} + ${registo.nome}" >
                     <b th:text="${registo.nome}" style="color: #444444"></b>
                 </a><span th:text="${registo.nivel}"></span><br>
@@ -92,19 +92,22 @@
             x = coords[0];
             y = coords[1];
 
-            popupContent = "<b>"+lista[i].nome + "</b><br>" + atual.data + " " + atual.hora;
 
             switch (atual.nivel) {
                 case 1:
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
                     L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
                     break;
                 case 2:
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
                     L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
                     break;
                 case 3:
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
                     L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
                     break;
                 case 4:
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
                     L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
                     break;
                 default:

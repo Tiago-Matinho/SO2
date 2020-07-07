@@ -57,19 +57,21 @@
 		x = coords[0];
 		y = coords[1];
 
-		popupContent = "<b>"+atual.nome+"</b><br>"+ atual.nivel + "<br>" + atual.data;
-
 		switch (atual.nivel) {
 			case 1:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
 				L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
 				break;
 			case 2:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
 				L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
 				break;
 			case 3:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
 				L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
 				break;
 			case 4:
+				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
 				L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
 				break;
 			default:
