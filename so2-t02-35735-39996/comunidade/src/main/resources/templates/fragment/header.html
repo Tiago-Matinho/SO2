@@ -82,7 +82,7 @@
 
 				<!--LOGGED IN-->
 			<div sec:authorize="isAuthenticated()">
-				<span>Hello, </span>
+				<span>Olá, </span>
 				<a th:href="@{/account/registos}" th:method="post" sec:authentication="name"></a>
 				<span> | </span>
 				<form th:action="@{/logout}" method="post" style="display: inline-block;">

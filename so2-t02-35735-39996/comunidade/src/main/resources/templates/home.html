@@ -46,9 +46,10 @@
 	var grau4 = new Waypoints({iconUrl: 'https://i.ibb.co/wp1RctR/waypoint4.png'});
 
 	var lista = [[${ultimosRegistos}]];
-	var coords, x, y;
+	var coords, x, y, temp;
 	var popupContent;
 	var atual;
+	var dict = {};
 
 	for (i = 0; i < lista.length; i++) {
 		atual = lista[i];
@@ -60,24 +61,57 @@
 		switch (atual.nivel) {
 			case 1:
 				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
-				L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
 				break;
 			case 2:
 				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
-				L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
 				break;
 			case 3:
 				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
-				L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
 				break;
 			case 4:
 				popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
-				L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
+				dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
 				break;
 			default:
 				break;
 		}
 	}
+
+
+	map.on('click', function(e) {
+		let lat = String(e.latlng.lat).substring(0,8);
+		let lng = String(e.latlng.lng).substring(0,8);
+
+		lat = parseFloat(lat);
+		lng = parseFloat(lng);
+
+		if(temp != null)
+			temp.closePopup();
+
+		var coords, x, y, dist;
+		var min = 10000000; //infinito
+
+		temp = null;
+
+		for(var key in dict){
+			coords = key.split(',');
+			x = parseFloat(coords[0]);
+			y = parseFloat(coords[1]);
+
+			dist = Math.sqrt(Math.pow(lat-x, 2) + Math.pow(lng-y,2));
+
+			if(dist < min){
+				min = dist;
+				temp = dict[key];
+			}
+		}
+		if(temp != null)
+			temp.openPopup();
+	});
+
 </script>
 
 </body>

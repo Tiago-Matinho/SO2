@@ -6,38 +6,51 @@
 
 <style>
     .row, html, body {
-        height: 93%;
+        height: 92.2%;
         width: 100%;
     }
 
     #mapid {
-        width: 103%;
-        height: 100%;
+        width: 100%;
+        height: 93%;
         padding-right: 10px;
     }
 </style>
 
-<div class="row">
+<div class="row" style="margin: 0">
     <div class="col-3" style="background-color: #d2c8c6; overflow-y: scroll;">
         <div th:if="${registos}" style="padding-left: 30px; padding-top: 20px;">
             <div th:if="${registos.isEmpty()}">
                 <b>Sem nenhum registo para mostrar</b>
             </div>
+            <div th:unless="${registos.isEmpty()}">
+                <h3 style="font-weight: bold; text-align: center;color: #498fe0">Último registo:</h3><br>
+            </div>
             <div th:each="registo : ${registos}">
-                <h3 style="font-weight: bold; text-align: center;color: #498fe0">Último registo:</h3>
-                <a th:href="@{/registo/nome/} + ${registo.nome}" >
-                    <b th:text="${registo.nome}" style="color: #444444"></b>
-                </a><span th:text="${registo.nivel}"></span><br>
-                <span th:text="${registo.coord}" style="color: #444444"></span><br>
-
-                <span th:text="${registo.dataCompleta()}" style="color: #444444"></span>
+                <div style="padding-top: 5px">
+                    <a th:href="@{/registo/nome/} + ${registo.nome}" >
+                        <b th:text="${registo.nome}" style="color: #444444"></b>
+                    </a>
+                </div>
                 <br>
-                <img th:if="${registo.nivel} == 1" style="align-content: center; height: 25px; width: auto;" src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nivel-1">
-                <img th:if="${registo.nivel} == 2" style="height: 25px; width: auto;" src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nivel-2">
-                <img th:if="${registo.nivel} == 3" style="height: 25px; width: auto;" src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nivel-3">
-                <img th:if="${registo.nivel} == 4" style="height: 25px; width: auto;" src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nivel-4">
-
-                <br><br>
+                <div style="padding-top: 5px">
+                    <span th:text="${registo.coord}" style="color: #444444"></span>
+                </div>
+                <br>
+                <div style="padding-top: 5px">
+                    <span th:text="${registo.dataCompleta()}" style="color: #444444"></span>
+                    <img th:if="${registo.nivel} == 1" style="padding-left: 5px; height: 25px; width: auto;" src="https://i.ibb.co/4T1qSXt/person-1.png" alt="nivel-1">
+                    <img th:if="${registo.nivel} == 2" style="padding-left: 5px; height: 25px; width: auto;" src="https://i.ibb.co/xGcR1Nc/person-2.png" alt="nivel-2">
+                    <img th:if="${registo.nivel} == 3" style="padding-left: 5px; height: 25px; width: auto;" src="https://i.ibb.co/SN1Hdxf/person-3.png" alt="nivel-3">
+                    <img th:if="${registo.nivel} == 4" style="padding-left: 5px; height: 25px; width: auto;" src="https://i.ibb.co/Prvgrtr/person-4.png" alt="nivel-4">
+                </div>
+                <br>
+                <div style="text-align: left">
+                    <svg height="10px">
+                        <line x1="0" x2="500" style="stroke:rgb(67,67,67);stroke-width:2"  />
+                    </svg>
+                </div>
+                <br>
             </div>
         </div>
 
@@ -46,7 +59,7 @@
             <b>Espaço não encontrado</b>
         </div>
     </div>
-    <div class="col-9" style="padding-right: 20px">
+    <div class="col-9" style="margin: 0">
         <div id="mapid"></div>
     </div>
 </div>
@@ -68,8 +81,9 @@
 
     var lista = [[${registos}]];
     console.log(lista);
-    var coords, x, y, atual;
+    var coords, x, y, atual, temp;
     var popupContent;
+    var dict = {};
 
     var Waypoints = L.Icon.extend({
         options: {
@@ -95,26 +109,59 @@
 
             switch (atual.nivel) {
                 case 1:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.hora;
-                    L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Vazio ou com mínima lotação<br>" + atual.data + " " + atual.hora;
+                    dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau1}).addTo(map).bindPopup(popupContent);
                     break;
                 case 2:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.hora;
-                    L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Com pessoas, mas espaço suficiente<br>" + atual.data + " " + atual.hora;
+                    dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau2}).addTo(map).bindPopup(popupContent);
                     break;
                 case 3:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.hora;
-                    L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio<br>" + atual.data + " " + atual.hora;
+                    dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau3}).addTo(map).bindPopup(popupContent);
                     break;
                 case 4:
-                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.hora;
-                    L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
+                    popupContent = "<b style='text-align: center'>"+atual.nome+"</b><br>Muito cheio e com fila de espera<br>" + atual.data + " " + atual.hora;
+                    dict[atual.coord] = L.marker([x, y], {title:atual.nome, icon:grau4}).addTo(map).bindPopup(popupContent);
                     break;
                 default:
                     break;
             }
         }
     }
+
+
+
+    map.on('click', function(e) {
+        let lat = String(e.latlng.lat).substring(0,8);
+        let lng = String(e.latlng.lng).substring(0,8);
+
+        lat = parseFloat(lat);
+        lng = parseFloat(lng);
+
+        if(temp != null)
+            temp.closePopup();
+
+        var coords, x, y, dist;
+        var min = 10000000; //infinito
+
+        temp = null;
+
+        for(var key in dict){
+            coords = key.split(',');
+            x = parseFloat(coords[0]);
+            y = parseFloat(coords[1]);
+
+            dist = Math.sqrt(Math.pow(lat-x, 2) + Math.pow(lng-y,2));
+
+            if(dist < min){
+                min = dist;
+                temp = dict[key];
+            }
+        }
+        if(temp != null)
+            temp.openPopup();
+    });
 
 </script>
 

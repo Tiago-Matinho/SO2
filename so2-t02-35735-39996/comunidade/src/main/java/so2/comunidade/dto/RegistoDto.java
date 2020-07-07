@@ -2,6 +2,9 @@ package so2.comunidade.dto;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class RegistoDto {
     private long id;
@@ -111,8 +114,12 @@ public class RegistoDto {
 
         // verificar data
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        TimeZone tz = TimeZone.getTimeZone("Portugal");
+        Calendar hora_acores = Calendar.getInstance(tz);
+
         try{
-            df.parse(data + " " + hora);
+            Date dataInserida = df.parse(data + " " + hora);
+            //TODO
         }
         catch (Exception e) {
             e.printStackTrace();
