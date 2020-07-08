@@ -34,6 +34,17 @@
 		zoomOffset: -1
 	}).addTo(map);
 
+	function getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		}
+	}
+
+	function showPosition(position) {
+		maisPerto(parseFloat(position.coords.latitude),parseFloat(position.coords.longitude));
+	}
+
+	getLocation();
 
 	function getColor(d) {
 		switch(d) {
@@ -132,17 +143,7 @@
 	}
 
 
-
-	map.on('click', function(e) {
-		let lat = String(e.latlng.lat).substring(0,8);
-		let lng = String(e.latlng.lng).substring(0,8);
-
-		lat = parseFloat(lat);
-		lng = parseFloat(lng);
-
-		if(temp != null)
-			temp.closePopup();
-
+	function maisPerto(lat, lng) {
 		var coords, x, y, dist;
 		var min = 10000000; //infinito
 
@@ -162,6 +163,17 @@
 		}
 		if(temp != null)
 			temp.openPopup();
+	}
+
+
+	map.on('click', function(e) {
+		let lat = String(e.latlng.lat).substring(0,8);
+		let lng = String(e.latlng.lng).substring(0,8);
+
+		lat = parseFloat(lat);
+		lng = parseFloat(lng);
+
+		maisPerto(lat, lng);
 	});
 
 </script>
