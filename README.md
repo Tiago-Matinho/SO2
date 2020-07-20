@@ -5,7 +5,7 @@ O primeiro trabalho trata-se de um **sistema de gestão de stocks e necessidades
 
 O segundo trabalho é um sistema de informação para as comunidades em que se construíu uma plataforma à qual os utilizadores acedem e podem reportar o nível de ocupação de um espaço ou verificar o mesmo. Este trabalho é feito usando ***spring*** e implementa componentes como ***spring security*** e ***spring jpa***. Para melhor visualização dos dados foi usado tambem uma bibloteca capaz de demonstrar pontos geográficos num mapa (*leafletjs*).
 
-[Homepage]:(https://github.com/Tiago-Matinho/SO2/tree/master/so2-t02-35735-39996/Diagramas/1.jpg)
+<img src="so2-t02-35735-39996/Diagramas/2.jpg" style="width: 100px; height: auto;"/>
 
 ![Login](so2-t02-35735-39996/Diagramas/2.jpg)
 
