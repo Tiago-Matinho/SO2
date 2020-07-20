@@ -5,18 +5,18 @@ O primeiro trabalho trata-se de um **sistema de gestão de stocks e necessidades
 
 O segundo trabalho é um sistema de informação para as comunidades em que se construíu uma plataforma à qual os utilizadores acedem e podem reportar o nível de ocupação de um espaço ou verificar o mesmo. Este trabalho é feito usando ***spring*** e implementa componentes como ***spring security*** e ***spring jpa***. Para melhor visualização dos dados foi usado tambem uma bibloteca capaz de demonstrar pontos geográficos num mapa (*leafletjs*).
 
-<img src="so2-t02-35735-39996/Diagramas/1.png" width="500" />
+<img src="so2-t02-35735-39996/Diagramas/1.png" width="800" />
 
-![Login](so2-t02-35735-39996/Diagramas/2.jpg)
+<img src="so2-t02-35735-39996/Diagramas/2.png" width="800" />
 
-![Join](so2-t02-35735-39996/Diagramas/3.jpg)
+<img src="so2-t02-35735-39996/Diagramas/3.png" width="800" />
 
-![Homepage loged in](so2-t02-35735-39996/Diagramas/4.jpg)
+<img src="so2-t02-35735-39996/Diagramas/4.png" width="800" />
 
-![Account](so2-t02-35735-39996/Diagramas/8.jpg)
+<img src="so2-t02-35735-39996/Diagramas/8.png" width="800" />
 
-![Registo novo](so2-t02-35735-39996/Diagramas/5.jpg)
+<img src="so2-t02-35735-39996/Diagramas/5.png" width="800" />
 
-![Pesquisa](so2-t02-35735-39996/Diagramas/6.jpg)
+<img src="so2-t02-35735-39996/Diagramas/6.png" width="800" />
 
-![Pesquisa nome](so2-t02-35735-39996/Diagramas/7.jpg)
+<img src="so2-t02-35735-39996/Diagramas/7.png" width="800" />
