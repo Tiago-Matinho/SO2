@@ -18,17 +18,17 @@ To better visualize the data [*Leafletjs*](https://leafletjs.com/), a *javascrip
 
 <img src="Fullstack Website/Diagramas/1.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/2.png" width="800" />
+<img src="Fullstack Website/Diagramas/2.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/3.png" width="800" />
+<img src="Fullstack Website/Diagramas/3.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/4.png" width="800" />
+<img src="Fullstack Website/Diagramas/4.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/8.png" width="800" />
+<img src="Fullstack Website/Diagramas/8.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/5.png" width="800" />
+<img src="Fullstack Website/Diagramas/5.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/6.png" width="800" />
+<img src="Fullstack Website/Diagramas/6.png" width="800" />
 
-<img src="Fullstack\ Website/Diagramas/7.png" width="800" />
+<img src="Fullstack Website/Diagramas/7.png" width="800" />
 
